@@ -233,7 +233,7 @@ public:
     //    int * pBlocksRetrieved
     //        the number of blocks actually retrieved (could be less at end of file or on critical failure)
     //////////////////////////////////////////////////////////////////////////////////////////////
-    virtual int GetData(char * pBuffer, int nBlocks, int * pBlocksRetrieved) = 0;
+    virtual int GetData(char * pBuffer, intptr_t nBlocks, int * pBlocksRetrieved) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Seek(...) - seeks

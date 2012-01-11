@@ -274,6 +274,7 @@
 				ARCHS = (
 					ppc,
 					i386,
+					x86_64,
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -291,6 +292,9 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_CFLAGS = "-Wall";
+				PER_ARCH_CFLAGS_i386 = "-DFPM_INTEL";
+				PER_ARCH_CFLAGS_ppc = "-DFPM_PPC";
+				PER_ARCH_CFLAGS_x86_64 = "-DFPM_64BIT";
 				PRODUCT_NAME = MAD;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -302,7 +306,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Debug;
@@ -313,7 +317,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Release;

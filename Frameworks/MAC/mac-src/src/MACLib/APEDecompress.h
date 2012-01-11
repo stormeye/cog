@@ -19,7 +19,7 @@ public:
     CAPEDecompress(int * pErrorCode, CAPEInfo * pAPEInfo, int nStartBlock = -1, int nFinishBlock = -1);
     ~CAPEDecompress();
 
-    int GetData(char * pBuffer, int nBlocks, int * pBlocksRetrieved);
+    int GetData(char * pBuffer, intptr_t nBlocks, int * pBlocksRetrieved);
     int Seek(int nBlockOffset);
 
     int GetInfo(APE_DECOMPRESS_FIELDS Field, int nParam1 = 0, int nParam2 = 0);

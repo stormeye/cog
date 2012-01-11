@@ -176,12 +176,15 @@ class shn_reader
 		void				*pmalloc(ulong size);
 		slong				**long2d(ulong n0, ulong n1);
 
-		friend void			*thread_runner(shn_reader *reader)
-							{
-								reader->Run();
-								return NULL;
-							}
+		friend void			*thread_runner(shn_reader *reader);
+
 };
+
+inline void *thread_runner(shn_reader *reader)
+{
+    reader->Run();
+    return NULL;
+}
 
 inline ulong uchar_to_ulong_le(uchar *buf)
 /* converts 4 bytes stored in little-endian format to a ulong */

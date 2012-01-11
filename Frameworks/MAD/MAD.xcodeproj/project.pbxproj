@@ -283,6 +283,7 @@
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
 				PER_ARCH_CFLAGS_i386 = "-DFPM_INTEL";
 				PER_ARCH_CFLAGS_ppc = "-DFPM_PPC";
+				PER_ARCH_CFLAGS_x86_64 = "-DFPM_64BIT";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = MAD;
 				WRAPPER_EXTENSION = framework;
@@ -296,6 +297,7 @@
 				ARCHS = (
 					ppc,
 					i386,
+					x86_64,
 				);
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -311,6 +313,7 @@
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
 				PER_ARCH_CFLAGS_i386 = "-DFPM_INTEL";
 				PER_ARCH_CFLAGS_ppc = "-DFPM_PPC";
+				PER_ARCH_CFLAGS_x86_64 = "-DFPM_64BIT";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = MAD;
 				WRAPPER_EXTENSION = framework;
@@ -323,7 +326,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Debug;
@@ -334,7 +337,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Release;

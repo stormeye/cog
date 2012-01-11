@@ -23,7 +23,7 @@ CAPEDecompress::CAPEDecompress(int * pErrorCode, CAPEInfo * pAPEInfo, int nStart
     }
 
     // get format information
-    GetInfo(APE_INFO_WAVEFORMATEX, (int) &m_wfeInput);
+    GetInfo(APE_INFO_WAVEFORMATEX, (intptr_t) &m_wfeInput);
     m_nBlockAlign = GetInfo(APE_INFO_BLOCK_ALIGN);
 
     // initialize other stuff
@@ -75,7 +75,7 @@ int CAPEDecompress::InitializeDecompressor()
     return Seek(0);
 }
 
-int CAPEDecompress::GetData(char * pBuffer, int nBlocks, int * pBlocksRetrieved)
+int CAPEDecompress::GetData(char * pBuffer, intptr_t nBlocks, int * pBlocksRetrieved)
 {
     int nRetVal = ERROR_SUCCESS;
     if (pBlocksRetrieved) *pBlocksRetrieved = 0;
@@ -452,7 +452,7 @@ int CAPEDecompress::GetInfo(APE_DECOMPRESS_FIELDS Field, int nParam1, int nParam
             }
             else
             {
-                WAVEFORMATEX wfeFormat; GetInfo(APE_INFO_WAVEFORMATEX, (int) &wfeFormat, 0);
+                WAVEFORMATEX wfeFormat; GetInfo(APE_INFO_WAVEFORMATEX, (intptr_t) &wfeFormat, 0);
                 WAVE_HEADER WAVHeader; FillWaveHeader(&WAVHeader, 
                     (m_nFinishBlock - m_nStartBlock) * GetInfo(APE_INFO_BLOCK_ALIGN), 
                     &wfeFormat,    0);

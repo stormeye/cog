@@ -4,3 +4,8 @@ syntax: glob
 *.pbxuser
 build
 */build
+.DS_Store
+.idea/*
+xcuserdata
+xcuserdata/*
+*.xcworkspace

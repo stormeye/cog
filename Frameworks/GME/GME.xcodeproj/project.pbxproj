@@ -612,6 +612,7 @@
 				ARCHS = (
 					ppc,
 					i386,
+					x86_64,
 				);
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -637,7 +638,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = ../../build;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Debug;
@@ -649,7 +650,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = ../../build;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
 				SYMROOT = ../../build;
 			};
 			name = Release;
