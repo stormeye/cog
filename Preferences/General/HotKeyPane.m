@@ -16,21 +16,9 @@
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object: [view window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object: [view window]];
 	
-	[prevHotKeyControl setKeyCode: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPreviousKeyCode"] ];
-	[prevHotKeyControl setCharacter: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPreviousCharacter"] ];
-	[prevHotKeyControl setModifierFlags: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPreviousModifiers"] ];
-	
 	[prevHotKeyControl updateStringValue];
 	
-	[nextHotKeyControl setKeyCode: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyNextKeyCode"] ];
-	[nextHotKeyControl setCharacter: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyNextCharacter"] ];
-	[nextHotKeyControl setModifierFlags: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyNextModifiers"] ];
-	
 	[nextHotKeyControl updateStringValue];
-	
-	[playHotKeyControl setKeyCode: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPlayKeyCode"] ];
-	[playHotKeyControl setCharacter: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPlayCharacter"] ];
-	[playHotKeyControl setModifierFlags: [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPlayModifiers"] ];
 	
 	[playHotKeyControl updateStringValue];
 }

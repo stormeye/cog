@@ -13,17 +13,16 @@
 
 - (NSString *) stringForObjectValue:(id)object
 {
-	NSString *result  = nil;
+	NSString *result  = @"";
 	int value;
 
-	if(nil == object || NO == [object isKindOfClass:[NSNumber class]]) {
-		return nil;
+	if(nil != object && NO != [object isKindOfClass:[NSNumber class]]) {
+		value = [object intValue];
+        
+        if (value) {
+            result = [NSString stringWithFormat:@"%i", value];
+        }
 	}
-	
-	value = [object intValue];
-	
-	if (value) 
-		result = [NSString stringWithFormat:@"%i", value];
 	
 	return result;
 }

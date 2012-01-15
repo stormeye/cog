@@ -98,7 +98,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 
 - (void)updateStringValue
 {
-	NSString *str = [NDHotKeyEvent stringForKeyCode:[self keyCode] modifierFlags:[self modifierFlags] ];
-	[self setStringValue:str];
+	NSString *str = [[NDHotKeyEvent getHotKeyForKeyCode:[self keyCode] modifierFlags:[self modifierFlags] ] stringValue];
+    [self setStringValue:str];
 }
 @end

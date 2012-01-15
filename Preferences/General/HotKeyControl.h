@@ -19,10 +19,6 @@
 - (void)startObserving;
 - (void)stopObserving;
 
-- (void)setKeyCode: (unsigned short)k;
-- (void)setCharacter: (unichar)c;
-- (void)setModifierFlags: (unsigned long)m;
-
 - (void)updateStringValue;
 
 @end
