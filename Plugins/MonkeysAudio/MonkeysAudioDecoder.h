@@ -7,19 +7,13 @@
 //
 
 #import "Plugin.h"
-
 #import <Cocoa/Cocoa.h>
-#import "MAC/All.h"
-#import "MAC/MACLib.h"
-
-#import "SourceIO.h"
+#import <libavcodec/avcodec.h>
 
 @interface MonkeysAudioDecoder : NSObject <CogDecoder>
 {
-	IAPEDecompress *decompress;
 	
 	id<CogSource> source;
-	SourceIO *sourceIO;
 	
 	int channels;
 	int bitsPerSample;

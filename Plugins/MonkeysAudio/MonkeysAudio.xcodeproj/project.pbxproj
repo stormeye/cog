@@ -7,31 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1745C2ED0B90BDD100A6768C /* MonkeysAudioDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1745C2E80B90BDD100A6768C /* MonkeysAudioDecoder.mm */; };
 		177FCFB50B90C97E0011C3B5 /* Plugin.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 177FCFB40B90C97E0011C3B5 /* Plugin.h */; };
-		17F564CC0C3BDDDB0019975C /* MAC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F562970C3BD9E10019975C /* MAC.framework */; };
-		17F564CF0C3BDDDD0019975C /* MAC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17F562970C3BD9E10019975C /* MAC.framework */; };
+		327DA20F14C8BA5600C1C9FE /* MonkeysAudioDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		8EB1E6F90B9B39AA008F9F45 /* SourceIO.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8EB1E6F80B9B39AA008F9F45 /* SourceIO.h */; };
-		8EB1E6FD0B9B39D4008F9F45 /* SourceIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8EB1E6FC0B9B39D4008F9F45 /* SourceIO.mm */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		17F562960C3BD9E10019975C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17F5628F0C3BD9E10019975C /* MAC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = MAC;
-		};
-		17F5629A0C3BDA010019975C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17F5628F0C3BD9E10019975C /* MAC.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = MAC;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		1745C30E0B90BE7500A6768C /* CopyFiles */ = {
@@ -40,9 +19,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				17F564CF0C3BDDDD0019975C /* MAC.framework in CopyFiles */,
 				177FCFB50B90C97E0011C3B5 /* Plugin.h in CopyFiles */,
-				8EB1E6F90B9B39AA008F9F45 /* SourceIO.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,14 +30,12 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1745C2E70B90BDD100A6768C /* MonkeysAudioDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MonkeysAudioDecoder.h; sourceTree = "<group>"; };
-		1745C2E80B90BDD100A6768C /* MonkeysAudioDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = MonkeysAudioDecoder.mm; sourceTree = "<group>"; };
 		177FCFB40B90C97E0011C3B5 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../Audio/Plugin.h; sourceTree = SOURCE_ROOT; };
-		17F5628F0C3BD9E10019975C /* MAC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MAC.xcodeproj; path = ../../Frameworks/MAC/MAC.xcodeproj; sourceTree = SOURCE_ROOT; };
+		17F5628F0C3BD9E10019975C /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = ../../Frameworks/MAC/libavcodec.xcodeproj; sourceTree = SOURCE_ROOT; };
+		327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonkeysAudioDecoder.m; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* MonkeysAudio_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonkeysAudio_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* MonkeysAudio.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeysAudio.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EB1E6F80B9B39AA008F9F45 /* SourceIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceIO.h; sourceTree = "<group>"; };
-		8EB1E6FC0B9B39D4008F9F45 /* SourceIO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SourceIO.mm; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17F564CC0C3BDDDB0019975C /* MAC.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,11 +83,9 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */,
 				177FCFB40B90C97E0011C3B5 /* Plugin.h */,
 				1745C2E70B90BDD100A6768C /* MonkeysAudioDecoder.h */,
-				1745C2E80B90BDD100A6768C /* MonkeysAudioDecoder.mm */,
-				8EB1E6F80B9B39AA008F9F45 /* SourceIO.h */,
-				8EB1E6FC0B9B39D4008F9F45 /* SourceIO.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -121,7 +93,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				17F5628F0C3BD9E10019975C /* MAC.xcodeproj */,
+				17F5628F0C3BD9E10019975C /* libavcodec.xcodeproj */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -135,14 +107,6 @@
 				089C1672FE841209C02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		17F562900C3BD9E10019975C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				17F562970C3BD9E10019975C /* MAC.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
@@ -176,7 +140,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				17F5629B0C3BDA010019975C /* PBXTargetDependency */,
 			);
 			name = "MonkeysAudio Plugin";
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -201,28 +164,12 @@
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* MonkeysAudio */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 17F562900C3BD9E10019975C /* Products */;
-					ProjectRef = 17F5628F0C3BD9E10019975C /* MAC.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MonkeysAudio Plugin */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		17F562970C3BD9E10019975C /* MAC.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MAC.framework;
-			remoteRef = 17F562960C3BD9E10019975C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D5B49AF048680CD000E48DA /* Resources */ = {
@@ -239,20 +186,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1745C2ED0B90BDD100A6768C /* MonkeysAudioDecoder.mm in Sources */,
-				8EB1E6FD0B9B39D4008F9F45 /* SourceIO.mm in Sources */,
+				327DA20F14C8BA5600C1C9FE /* MonkeysAudioDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		17F5629B0C3BDA010019975C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MAC;
-			targetProxy = 17F5629A0C3BDA010019975C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB913B08733D840010E9CD /* Debug */ = {
@@ -265,10 +203,18 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers";
+				"HEADER_SEARCH_PATHS[arch=i386]" = (
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/i386",
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
+				);
+				"HEADER_SEARCH_PATHS[arch=x86_64]" = (
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/x86_64",
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = MonkeysAudio;
@@ -286,9 +232,17 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers";
+				"HEADER_SEARCH_PATHS[arch=i386]" = (
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/i386",
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
+				);
+				"HEADER_SEARCH_PATHS[arch=x86_64]" = (
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/x86_64",
+					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = MonkeysAudio;
