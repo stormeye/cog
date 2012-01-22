@@ -432,6 +432,27 @@
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = General;
 		};
+		32D4102614CB58C70050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4102214CB58C60050563F /* libavutil.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D4100A14CB58C60050563F;
+			remoteInfo = libavutil;
+		};
+		32D4111414CB60ED0050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4111014CB60EC0050563F /* libavcodec.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D410F814CB60EC0050563F;
+			remoteInfo = libavcodec;
+		};
+		32D4115114CB63890050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4114D14CB63880050563F /* libavformat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D4113514CB63880050563F;
+			remoteInfo = libavformat;
+		};
 		566D321A0D538550004466A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 566D32160D538550004466A5 /* APL.xcodeproj */;
@@ -728,6 +749,10 @@
 		321AE9FA14BD660F004D3176 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDKeyboardLayout.h; path = Preferences/General/NDKeyboardLayout.h; sourceTree = SOURCE_ROOT; };
 		321AE9FB14BD660F004D3176 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDKeyboardLayout.m; path = Preferences/General/NDKeyboardLayout.m; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* Cog_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cog_Prefix.pch; sourceTree = "<group>"; };
+		32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = Extdeps/ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
+		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
+		32D4111014CB60EC0050563F /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = Extdeps/libavcodec/libavcodec.xcodeproj; sourceTree = "<group>"; };
+		32D4114D14CB63880050563F /* libavformat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavformat.xcodeproj; path = Extdeps/libavformat/libavformat.xcodeproj; sourceTree = "<group>"; };
 		5604D4590D60349B004F5C5D /* SpotlightWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpotlightWindowController.m; path = Spotlight/SpotlightWindowController.m; sourceTree = "<group>"; };
 		5604D45A0D60349B004F5C5D /* SpotlightWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotlightWindowController.h; path = Spotlight/SpotlightWindowController.h; sourceTree = "<group>"; };
 		5604D4F40D60726E004F5C5D /* SpotlightPlaylistEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotlightPlaylistEntry.h; path = Spotlight/SpotlightPlaylistEntry.h; sourceTree = "<group>"; };
@@ -1281,6 +1306,7 @@
 		29B97314FDCFA39411CA2CEA /* Cog */ = {
 			isa = PBXGroup;
 			children = (
+				32D40FC114CB522F0050563F /* Extdeps */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1330,6 +1356,48 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32D40FC114CB522F0050563F /* Extdeps */ = {
+			isa = PBXGroup;
+			children = (
+				32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */,
+				32D4102214CB58C60050563F /* libavutil.xcodeproj */,
+				32D4111014CB60EC0050563F /* libavcodec.xcodeproj */,
+				32D4114D14CB63880050563F /* libavformat.xcodeproj */,
+			);
+			name = Extdeps;
+			sourceTree = "<group>";
+		};
+		32D40FD014CB52930050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4102314CB58C60050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4102714CB58C70050563F /* libavutil.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4111114CB60EC0050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4111514CB60ED0050563F /* libavcodec.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4114E14CB63880050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4115214CB63890050563F /* libavformat.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		566D32170D538550004466A5 /* Products */ = {
@@ -1576,6 +1644,10 @@
 					ProjectRef = 17C8F7D20CBEF3E8008D969D /* Dumb.xcodeproj */;
 				},
 				{
+					ProductGroup = 32D40FD014CB52930050563F /* Products */;
+					ProjectRef = 32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */;
+				},
+				{
 					ProductGroup = 17C808720C3BD167005707C4 /* Products */;
 					ProjectRef = 17C808710C3BD167005707C4 /* FileSource.xcodeproj */;
 				},
@@ -1594,6 +1666,18 @@
 				{
 					ProductGroup = 17C808840C3BD181005707C4 /* Products */;
 					ProjectRef = 17C808830C3BD181005707C4 /* HTTPSource.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4111114CB60EC0050563F /* Products */;
+					ProjectRef = 32D4111014CB60EC0050563F /* libavcodec.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4114E14CB63880050563F /* Products */;
+					ProjectRef = 32D4114D14CB63880050563F /* libavformat.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4102314CB58C60050563F /* Products */;
+					ProjectRef = 32D4102214CB58C60050563F /* libavutil.xcodeproj */;
 				},
 				{
 					ProductGroup = 8E8D40830CBB036600135C1B /* Products */;
@@ -1772,6 +1856,27 @@
 			fileType = wrapper.cfbundle;
 			path = General.preferencePane;
 			remoteRef = 17F5622D0C3BD8FB0019975C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4102714CB58C70050563F /* libavutil.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavutil.framework;
+			remoteRef = 32D4102614CB58C70050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4111514CB60ED0050563F /* libavcodec.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavcodec.framework;
+			remoteRef = 32D4111414CB60ED0050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4115214CB63890050563F /* libavformat.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavformat.framework;
+			remoteRef = 32D4115114CB63890050563F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		566D321B0D538550004466A5 /* APL.bundle */ = {

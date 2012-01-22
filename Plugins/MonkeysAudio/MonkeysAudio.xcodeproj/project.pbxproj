@@ -9,8 +9,49 @@
 /* Begin PBXBuildFile section */
 		177FCFB50B90C97E0011C3B5 /* Plugin.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 177FCFB40B90C97E0011C3B5 /* Plugin.h */; };
 		327DA20F14C8BA5600C1C9FE /* MonkeysAudioDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */; };
+		32D4118214CB64FC0050563F /* libavcodec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117D14CB64D80050563F /* libavcodec.framework */; };
+		32D4118314CB64FC0050563F /* libavformat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117614CB64B30050563F /* libavformat.framework */; };
+		32D4118C14CB65200050563F /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4118B14CB65130050563F /* libavutil.framework */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32D4117514CB64B30050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4117114CB64B30050563F /* libavformat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D4113514CB63880050563F;
+			remoteInfo = libavformat;
+		};
+		32D4117C14CB64D80050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4117814CB64D80050563F /* libavcodec.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D410F814CB60EC0050563F;
+			remoteInfo = libavcodec;
+		};
+		32D4117E14CB64E90050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4117814CB64D80050563F /* libavcodec.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D410F714CB60EC0050563F;
+			remoteInfo = libavcodec;
+		};
+		32D4118014CB64E90050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4117114CB64B30050563F /* libavformat.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D4113414CB63880050563F;
+			remoteInfo = libavformat;
+		};
+		32D4118A14CB65130050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4118614CB65130050563F /* libavutil.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D4100A14CB58C60050563F;
+			remoteInfo = libavutil;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		1745C30E0B90BE7500A6768C /* CopyFiles */ = {
@@ -31,8 +72,10 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1745C2E70B90BDD100A6768C /* MonkeysAudioDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MonkeysAudioDecoder.h; sourceTree = "<group>"; };
 		177FCFB40B90C97E0011C3B5 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../Audio/Plugin.h; sourceTree = SOURCE_ROOT; };
-		17F5628F0C3BD9E10019975C /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = ../../Frameworks/MAC/libavcodec.xcodeproj; sourceTree = SOURCE_ROOT; };
 		327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonkeysAudioDecoder.m; sourceTree = "<group>"; };
+		32D4117114CB64B30050563F /* libavformat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavformat.xcodeproj; path = ../../Extdeps/libavformat/libavformat.xcodeproj; sourceTree = "<group>"; };
+		32D4117814CB64D80050563F /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = ../../Extdeps/libavcodec/libavcodec.xcodeproj; sourceTree = "<group>"; };
+		32D4118614CB65130050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = ../../Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* MonkeysAudio_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonkeysAudio_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* MonkeysAudio.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeysAudio.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32D4118C14CB65200050563F /* libavutil.framework in Frameworks */,
+				32D4118214CB64FC0050563F /* libavcodec.framework in Frameworks */,
+				32D4118314CB64FC0050563F /* libavformat.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,7 +139,9 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				17F5628F0C3BD9E10019975C /* libavcodec.xcodeproj */,
+				32D4118614CB65130050563F /* libavutil.xcodeproj */,
+				32D4117814CB64D80050563F /* libavcodec.xcodeproj */,
+				32D4117114CB64B30050563F /* libavformat.xcodeproj */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -125,6 +173,30 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		32D4117214CB64B30050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4117614CB64B30050563F /* libavformat.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4117914CB64D80050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4117D14CB64D80050563F /* libavcodec.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4118714CB65130050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4118B14CB65130050563F /* libavutil.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,6 +212,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				32D4117F14CB64E90050563F /* PBXTargetDependency */,
+				32D4118114CB64E90050563F /* PBXTargetDependency */,
 			);
 			name = "MonkeysAudio Plugin";
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -164,12 +238,50 @@
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* MonkeysAudio */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 32D4117914CB64D80050563F /* Products */;
+					ProjectRef = 32D4117814CB64D80050563F /* libavcodec.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4117214CB64B30050563F /* Products */;
+					ProjectRef = 32D4117114CB64B30050563F /* libavformat.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4118714CB65130050563F /* Products */;
+					ProjectRef = 32D4118614CB65130050563F /* libavutil.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MonkeysAudio Plugin */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		32D4117614CB64B30050563F /* libavformat.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavformat.framework;
+			remoteRef = 32D4117514CB64B30050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4117D14CB64D80050563F /* libavcodec.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavcodec.framework;
+			remoteRef = 32D4117C14CB64D80050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4118B14CB65130050563F /* libavutil.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavutil.framework;
+			remoteRef = 32D4118A14CB65130050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D5B49AF048680CD000E48DA /* Resources */ = {
@@ -192,6 +304,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		32D4117F14CB64E90050563F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libavcodec;
+			targetProxy = 32D4117E14CB64E90050563F /* PBXContainerItemProxy */;
+		};
+		32D4118114CB64E90050563F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libavformat;
+			targetProxy = 32D4118014CB64E90050563F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -201,20 +326,12 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Cog-atpkmhghkwmklagkmmavkozetrwi/Build/Products/Debug\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers";
-				"HEADER_SEARCH_PATHS[arch=i386]" = (
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/i386",
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
-				);
-				"HEADER_SEARCH_PATHS[arch=x86_64]" = (
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/x86_64",
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
-				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = MonkeysAudio;
@@ -230,19 +347,11 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Cog-atpkmhghkwmklagkmmavkozetrwi/Build/Products/Debug\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers";
-				"HEADER_SEARCH_PATHS[arch=i386]" = (
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/i386",
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
-				);
-				"HEADER_SEARCH_PATHS[arch=x86_64]" = (
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers/x86_64",
-					"$(BUILT_PRODUCTS_DIR)/libavcodec.framework/Headers",
-				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = MonkeysAudio;
@@ -253,7 +362,8 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = macosx;
@@ -265,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = macosx;

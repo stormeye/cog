@@ -1,0 +1,404 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		32D4100E14CB58C60050563F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4100D14CB58C60050563F /* Cocoa.framework */; };
+		32D4101814CB58C60050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4101614CB58C60050563F /* InfoPlist.strings */; };
+		32D4102A14CB59000050563F /* avconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102914CB59000050563F /* avconfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103714CB59630050563F /* attributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102B14CB59630050563F /* attributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103814CB59630050563F /* avutil.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102C14CB59630050563F /* avutil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103914CB59630050563F /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102D14CB59630050563F /* common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103A14CB59630050563F /* cpu.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102E14CB59630050563F /* cpu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103B14CB59630050563F /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102F14CB59630050563F /* dict.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103C14CB59630050563F /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103014CB59630050563F /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103D14CB59630050563F /* intfloat_readwrite.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103114CB59630050563F /* intfloat_readwrite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103E14CB59630050563F /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103214CB59630050563F /* log.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4103F14CB59630050563F /* mathematics.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103314CB59630050563F /* mathematics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4104014CB59630050563F /* pixfmt.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103414CB59630050563F /* pixfmt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4104114CB59630050563F /* rational.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103514CB59630050563F /* rational.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4104214CB59630050563F /* samplefmt.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4103614CB59630050563F /* samplefmt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4112814CB623B0050563F /* libavutil in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4112714CB623B0050563F /* libavutil */; };
+		32D4118F14CB65A80050563F /* audioconvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4118D14CB65A80050563F /* audioconvert.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4119014CB65A80050563F /* mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4118E14CB65A80050563F /* mem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32D410E514CB5B960050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D410E114CB5B8C0050563F /* ffmpeg.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D40FC914CB52930050563F;
+			remoteInfo = ffmpeg;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32D410E914CB5E520050563F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				32D4112814CB623B0050563F /* libavutil in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		32D4100A14CB58C60050563F /* libavutil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libavutil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32D4100D14CB58C60050563F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		32D4101014CB58C60050563F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		32D4101114CB58C60050563F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		32D4101214CB58C60050563F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		32D4101514CB58C60050563F /* libavutil-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "libavutil-Info.plist"; sourceTree = "<group>"; };
+		32D4101714CB58C60050563F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		32D4101914CB58C60050563F /* libavutil-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libavutil-Prefix.pch"; sourceTree = "<group>"; };
+		32D4102914CB59000050563F /* avconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avconfig.h; sourceTree = "<group>"; };
+		32D4102B14CB59630050563F /* attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = attributes.h; path = ../ffmpeg/src/libavutil/attributes.h; sourceTree = "<group>"; };
+		32D4102C14CB59630050563F /* avutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = avutil.h; path = ../ffmpeg/src/libavutil/avutil.h; sourceTree = "<group>"; };
+		32D4102D14CB59630050563F /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../ffmpeg/src/libavutil/common.h; sourceTree = "<group>"; };
+		32D4102E14CB59630050563F /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cpu.h; path = ../ffmpeg/src/libavutil/cpu.h; sourceTree = "<group>"; };
+		32D4102F14CB59630050563F /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dict.h; path = ../ffmpeg/src/libavutil/dict.h; sourceTree = "<group>"; };
+		32D4103014CB59630050563F /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = error.h; path = ../ffmpeg/src/libavutil/error.h; sourceTree = "<group>"; };
+		32D4103114CB59630050563F /* intfloat_readwrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = intfloat_readwrite.h; path = ../ffmpeg/src/libavutil/intfloat_readwrite.h; sourceTree = "<group>"; };
+		32D4103214CB59630050563F /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = log.h; path = ../ffmpeg/src/libavutil/log.h; sourceTree = "<group>"; };
+		32D4103314CB59630050563F /* mathematics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mathematics.h; path = ../ffmpeg/src/libavutil/mathematics.h; sourceTree = "<group>"; };
+		32D4103414CB59630050563F /* pixfmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pixfmt.h; path = ../ffmpeg/src/libavutil/pixfmt.h; sourceTree = "<group>"; };
+		32D4103514CB59630050563F /* rational.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rational.h; path = ../ffmpeg/src/libavutil/rational.h; sourceTree = "<group>"; };
+		32D4103614CB59630050563F /* samplefmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = samplefmt.h; path = ../ffmpeg/src/libavutil/samplefmt.h; sourceTree = "<group>"; };
+		32D410E114CB5B8C0050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = ../ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
+		32D4112714CB623B0050563F /* libavutil */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavutil; path = ../ffmpeg/libavutil; sourceTree = "<group>"; };
+		32D4118D14CB65A80050563F /* audioconvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audioconvert.h; path = ../ffmpeg/src/libavutil/audioconvert.h; sourceTree = "<group>"; };
+		32D4118E14CB65A80050563F /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mem.h; path = ../ffmpeg/src/libavutil/mem.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		32D4100614CB58C60050563F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4100E14CB58C60050563F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		32D40FFE14CB58C60050563F = {
+			isa = PBXGroup;
+			children = (
+				32D4112714CB623B0050563F /* libavutil */,
+				32D410E014CB5B540050563F /* BuildDeps */,
+				32D4102814CB58D80050563F /* Headers */,
+				32D4101414CB58C60050563F /* Supporting Files */,
+				32D4100C14CB58C60050563F /* Frameworks */,
+				32D4100B14CB58C60050563F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		32D4100B14CB58C60050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4100A14CB58C60050563F /* libavutil.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4100C14CB58C60050563F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32D4100D14CB58C60050563F /* Cocoa.framework */,
+				32D4100F14CB58C60050563F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32D4100F14CB58C60050563F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32D4101014CB58C60050563F /* AppKit.framework */,
+				32D4101114CB58C60050563F /* CoreData.framework */,
+				32D4101214CB58C60050563F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32D4101414CB58C60050563F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				32D4101514CB58C60050563F /* libavutil-Info.plist */,
+				32D4101614CB58C60050563F /* InfoPlist.strings */,
+				32D4101914CB58C60050563F /* libavutil-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = libavutil;
+			sourceTree = "<group>";
+		};
+		32D4102814CB58D80050563F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				32D4118D14CB65A80050563F /* audioconvert.h */,
+				32D4118E14CB65A80050563F /* mem.h */,
+				32D4102B14CB59630050563F /* attributes.h */,
+				32D4102C14CB59630050563F /* avutil.h */,
+				32D4102D14CB59630050563F /* common.h */,
+				32D4102E14CB59630050563F /* cpu.h */,
+				32D4102F14CB59630050563F /* dict.h */,
+				32D4103014CB59630050563F /* error.h */,
+				32D4103114CB59630050563F /* intfloat_readwrite.h */,
+				32D4103214CB59630050563F /* log.h */,
+				32D4103314CB59630050563F /* mathematics.h */,
+				32D4103414CB59630050563F /* pixfmt.h */,
+				32D4103514CB59630050563F /* rational.h */,
+				32D4103614CB59630050563F /* samplefmt.h */,
+				32D4102914CB59000050563F /* avconfig.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		32D410E014CB5B540050563F /* BuildDeps */ = {
+			isa = PBXGroup;
+			children = (
+				32D410E114CB5B8C0050563F /* ffmpeg.xcodeproj */,
+			);
+			name = BuildDeps;
+			sourceTree = "<group>";
+		};
+		32D410E214CB5B8C0050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		32D4100714CB58C60050563F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4102A14CB59000050563F /* avconfig.h in Headers */,
+				32D4103714CB59630050563F /* attributes.h in Headers */,
+				32D4103814CB59630050563F /* avutil.h in Headers */,
+				32D4103914CB59630050563F /* common.h in Headers */,
+				32D4103A14CB59630050563F /* cpu.h in Headers */,
+				32D4103B14CB59630050563F /* dict.h in Headers */,
+				32D4103C14CB59630050563F /* error.h in Headers */,
+				32D4103D14CB59630050563F /* intfloat_readwrite.h in Headers */,
+				32D4103E14CB59630050563F /* log.h in Headers */,
+				32D4103F14CB59630050563F /* mathematics.h in Headers */,
+				32D4104014CB59630050563F /* pixfmt.h in Headers */,
+				32D4104114CB59630050563F /* rational.h in Headers */,
+				32D4118F14CB65A80050563F /* audioconvert.h in Headers */,
+				32D4119014CB65A80050563F /* mem.h in Headers */,
+				32D4104214CB59630050563F /* samplefmt.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		32D4100914CB58C60050563F /* libavutil */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32D4101F14CB58C60050563F /* Build configuration list for PBXNativeTarget "libavutil" */;
+			buildPhases = (
+				32D410E914CB5E520050563F /* CopyFiles */,
+				32D411BB14CBF5B20050563F /* ShellScript */,
+				32D4100614CB58C60050563F /* Frameworks */,
+				32D4100714CB58C60050563F /* Headers */,
+				32D4100814CB58C60050563F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32D410E614CB5B960050563F /* PBXTargetDependency */,
+			);
+			name = libavutil;
+			productName = libavutil;
+			productReference = 32D4100A14CB58C60050563F /* libavutil.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		32D4100014CB58C60050563F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "dmitry.promsky@gmail.com";
+			};
+			buildConfigurationList = 32D4100314CB58C60050563F /* Build configuration list for PBXProject "libavutil" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 32D40FFE14CB58C60050563F;
+			productRefGroup = 32D4100B14CB58C60050563F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 32D410E214CB5B8C0050563F /* Products */;
+					ProjectRef = 32D410E114CB5B8C0050563F /* ffmpeg.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				32D4100914CB58C60050563F /* libavutil */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		32D4100814CB58C60050563F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4101814CB58C60050563F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32D411BB14CBF5B20050563F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FULL_PRODUCT_NAME)/$(PRODUCT_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		32D410E614CB5B960050563F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ffmpeg;
+			targetProxy = 32D410E514CB5B960050563F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		32D4101614CB58C60050563F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32D4101714CB58C60050563F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		32D4101D14CB58C60050563F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		32D4101E14CB58C60050563F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		32D4102014CB58C60050563F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libavutil/libavutil-Prefix.pch";
+				INFOPLIST_FILE = "libavutil/libavutil-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		32D4102114CB58C60050563F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libavutil/libavutil-Prefix.pch";
+				INFOPLIST_FILE = "libavutil/libavutil-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		32D4100314CB58C60050563F /* Build configuration list for PBXProject "libavutil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D4101D14CB58C60050563F /* Debug */,
+				32D4101E14CB58C60050563F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32D4101F14CB58C60050563F /* Build configuration list for PBXNativeTarget "libavutil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D4102014CB58C60050563F /* Debug */,
+				32D4102114CB58C60050563F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 32D4100014CB58C60050563F /* Project object */;
+}

@@ -1,0 +1,410 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		32D4113914CB63880050563F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4113814CB63880050563F /* Cocoa.framework */; };
+		32D4114314CB63880050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4114114CB63880050563F /* InfoPlist.strings */; };
+		32D4116514CB64020050563F /* avformat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116114CB64020050563F /* avformat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4116614CB64020050563F /* avio.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116214CB64020050563F /* avio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4116714CB64020050563F /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116314CB64020050563F /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D4116C14CB64440050563F /* libavcodec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4115814CB63A90050563F /* libavcodec.framework */; };
+		32D4116D14CB64440050563F /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4115E14CB63B10050563F /* libavutil.framework */; };
+		32D4117014CB64690050563F /* libavformat in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4116F14CB64690050563F /* libavformat */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32D4115714CB63A90050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4115314CB63A90050563F /* libavcodec.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D410F814CB60EC0050563F;
+			remoteInfo = libavcodec;
+		};
+		32D4115D14CB63B10050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4115914CB63B00050563F /* libavutil.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D4100A14CB58C60050563F;
+			remoteInfo = libavutil;
+		};
+		32D4116814CB64320050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4115914CB63B00050563F /* libavutil.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D4100914CB58C60050563F;
+			remoteInfo = libavutil;
+		};
+		32D4116A14CB64320050563F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32D4115314CB63A90050563F /* libavcodec.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32D410F714CB60EC0050563F;
+			remoteInfo = libavcodec;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32D4116E14CB64500050563F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				32D4117014CB64690050563F /* libavformat in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		32D4113514CB63880050563F /* libavformat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libavformat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32D4113814CB63880050563F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		32D4113B14CB63880050563F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		32D4113C14CB63880050563F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		32D4113D14CB63880050563F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		32D4114014CB63880050563F /* libavformat-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "libavformat-Info.plist"; sourceTree = "<group>"; };
+		32D4114214CB63880050563F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		32D4114414CB63880050563F /* libavformat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libavformat-Prefix.pch"; sourceTree = "<group>"; };
+		32D4115314CB63A90050563F /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = ../libavcodec/libavcodec.xcodeproj; sourceTree = "<group>"; };
+		32D4115914CB63B00050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = ../libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
+		32D4116114CB64020050563F /* avformat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = avformat.h; path = ../ffmpeg/src/libavformat/avformat.h; sourceTree = "<group>"; };
+		32D4116214CB64020050563F /* avio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = avio.h; path = ../ffmpeg/src/libavformat/avio.h; sourceTree = "<group>"; };
+		32D4116314CB64020050563F /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../ffmpeg/src/libavformat/version.h; sourceTree = "<group>"; };
+		32D4116F14CB64690050563F /* libavformat */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavformat; path = ../ffmpeg/libavformat; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		32D4113114CB63880050563F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4116C14CB64440050563F /* libavcodec.framework in Frameworks */,
+				32D4116D14CB64440050563F /* libavutil.framework in Frameworks */,
+				32D4113914CB63880050563F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		32D4112914CB63880050563F = {
+			isa = PBXGroup;
+			children = (
+				32D4116F14CB64690050563F /* libavformat */,
+				32D4115F14CB63C60050563F /* Headers */,
+				32D4113F14CB63880050563F /* Supporting Files */,
+				32D4113714CB63880050563F /* Frameworks */,
+				32D4113614CB63880050563F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		32D4113614CB63880050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4113514CB63880050563F /* libavformat.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4113714CB63880050563F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32D4115914CB63B00050563F /* libavutil.xcodeproj */,
+				32D4115314CB63A90050563F /* libavcodec.xcodeproj */,
+				32D4113814CB63880050563F /* Cocoa.framework */,
+				32D4113A14CB63880050563F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32D4113A14CB63880050563F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32D4113B14CB63880050563F /* AppKit.framework */,
+				32D4113C14CB63880050563F /* CoreData.framework */,
+				32D4113D14CB63880050563F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32D4113F14CB63880050563F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				32D4114014CB63880050563F /* libavformat-Info.plist */,
+				32D4114114CB63880050563F /* InfoPlist.strings */,
+				32D4114414CB63880050563F /* libavformat-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = libavformat;
+			sourceTree = "<group>";
+		};
+		32D4115414CB63A90050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4115814CB63A90050563F /* libavcodec.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4115A14CB63B00050563F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32D4115E14CB63B10050563F /* libavutil.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32D4115F14CB63C60050563F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				32D4116114CB64020050563F /* avformat.h */,
+				32D4116214CB64020050563F /* avio.h */,
+				32D4116314CB64020050563F /* version.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		32D4113214CB63880050563F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4116514CB64020050563F /* avformat.h in Headers */,
+				32D4116614CB64020050563F /* avio.h in Headers */,
+				32D4116714CB64020050563F /* version.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		32D4113414CB63880050563F /* libavformat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32D4114A14CB63880050563F /* Build configuration list for PBXNativeTarget "libavformat" */;
+			buildPhases = (
+				32D4116E14CB64500050563F /* CopyFiles */,
+				32D411BD14CBF76C0050563F /* ShellScript */,
+				32D4113114CB63880050563F /* Frameworks */,
+				32D4113214CB63880050563F /* Headers */,
+				32D4113314CB63880050563F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32D4116914CB64320050563F /* PBXTargetDependency */,
+				32D4116B14CB64320050563F /* PBXTargetDependency */,
+			);
+			name = libavformat;
+			productName = libavformat;
+			productReference = 32D4113514CB63880050563F /* libavformat.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		32D4112B14CB63880050563F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "dmitry.promsky@gmail.com";
+			};
+			buildConfigurationList = 32D4112E14CB63880050563F /* Build configuration list for PBXProject "libavformat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 32D4112914CB63880050563F;
+			productRefGroup = 32D4113614CB63880050563F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 32D4115414CB63A90050563F /* Products */;
+					ProjectRef = 32D4115314CB63A90050563F /* libavcodec.xcodeproj */;
+				},
+				{
+					ProductGroup = 32D4115A14CB63B00050563F /* Products */;
+					ProjectRef = 32D4115914CB63B00050563F /* libavutil.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				32D4113414CB63880050563F /* libavformat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		32D4115814CB63A90050563F /* libavcodec.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavcodec.framework;
+			remoteRef = 32D4115714CB63A90050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32D4115E14CB63B10050563F /* libavutil.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libavutil.framework;
+			remoteRef = 32D4115D14CB63B10050563F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		32D4113314CB63880050563F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32D4114314CB63880050563F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32D411BD14CBF76C0050563F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FULL_PRODUCT_NAME)/$(PRODUCT_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		32D4116914CB64320050563F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libavutil;
+			targetProxy = 32D4116814CB64320050563F /* PBXContainerItemProxy */;
+		};
+		32D4116B14CB64320050563F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libavcodec;
+			targetProxy = 32D4116A14CB64320050563F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		32D4114114CB63880050563F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32D4114214CB63880050563F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		32D4114814CB63880050563F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		32D4114914CB63880050563F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		32D4114B14CB63880050563F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libavformat/libavformat-Prefix.pch";
+				INFOPLIST_FILE = "libavformat/libavformat-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		32D4114C14CB63880050563F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libavformat/libavformat-Prefix.pch";
+				INFOPLIST_FILE = "libavformat/libavformat-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		32D4112E14CB63880050563F /* Build configuration list for PBXProject "libavformat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D4114814CB63880050563F /* Debug */,
+				32D4114914CB63880050563F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32D4114A14CB63880050563F /* Build configuration list for PBXNativeTarget "libavformat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D4114B14CB63880050563F /* Debug */,
+				32D4114C14CB63880050563F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 32D4112B14CB63880050563F /* Project object */;
+}
