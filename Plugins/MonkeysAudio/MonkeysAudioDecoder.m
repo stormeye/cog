@@ -29,6 +29,7 @@ static int min(int a, int b)
 // TODO: use Cog's IO instead of ffmpeg's?
 - (BOOL)open:(id<CogSource>)s
 {	
+    NSLog(@"We're OPEN!");
 	[self setSource:s];
 
     NSURL *srcUrl = [source url];
@@ -117,7 +118,8 @@ static int min(int a, int b)
         
         if(readNextPacket) 
         {
-            // consume next chunk of encoded data from input stream            
+            // consume next chunk of encoded data from input stream
+//            av_free_packet(lastReadPacket);
             if(av_read_frame(formatCtx, lastReadPacket) < 0)
             {
                 NSLog(@"End of stream");
@@ -166,15 +168,25 @@ static int min(int a, int b)
 
 - (void)close
 {
-//    av_free_packet(lastReadPacket);
-//    av_free(codecCtx);
-//    av_close_input_stream(formatCtx);
-//    av_free(formatCtx);
+    // TODO: figure out proper way to clean up (maybe just av_close_input_stream is sufficient?)
+    //       uncommenting next two lines causes crashes :(
+//    if (lastReadPacket) { av_free_packet(lastReadPacket); lastReadPacket = NULL; }
+//    if (codecCtx) { av_free(codecCtx); codecCtx = NULL;}
+    if (formatCtx) { av_close_input_stream(formatCtx); formatCtx = NULL; }
+
     [source close];
 }
 
 - (long)seek:(long)frame
 {
+    if (frame > totalFrames) { return -1; }
+    int64_t ts = frame * (formatCtx->duration) / totalFrames; 
+    avformat_seek_file(formatCtx, -1, ts - 1000, ts, ts, AVSEEK_FLAG_ANY);
+    avcodec_flush_buffers(codecCtx);
+    readNextPacket = YES; // so we immediately read next packet
+    bytesConsumedFromDecodedFrame = AVCODEC_MAX_AUDIO_FRAME_SIZE; // so we immediately begin decoding next frame
+    
+    return frame;
 }
 
 - (void)setSource:(id<CogSource>)s
