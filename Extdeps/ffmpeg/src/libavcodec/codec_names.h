@@ -27,7 +27,8 @@ case CODEC_ID_MJPEGB:
     { extern AVCodec ff_mjpegb_decoder;
       return ff_mjpegb_decoder.name; }
 case CODEC_ID_LJPEG:
-    return "ljpeg";
+    { extern AVCodec ff_ljpeg_encoder;
+      return ff_ljpeg_encoder.name; }
 case CODEC_ID_SP5X:
     { extern AVCodec ff_sp5x_decoder;
       return ff_sp5x_decoder.name; }
@@ -56,7 +57,8 @@ case CODEC_ID_WMV2:
     { extern AVCodec ff_wmv2_decoder;
       return ff_wmv2_decoder.name; }
 case CODEC_ID_H263P:
-    return "h263p";
+    { extern AVCodec ff_h263p_encoder;
+      return ff_h263p_encoder.name; }
 case CODEC_ID_H263I:
     { extern AVCodec ff_h263i_decoder;
       return ff_h263i_decoder.name; }
@@ -66,7 +68,8 @@ case CODEC_ID_SVQ1:
     { extern AVCodec ff_svq1_decoder;
       return ff_svq1_decoder.name; }
 case CODEC_ID_SVQ3:
-    return "svq3";
+    { extern AVCodec ff_svq3_decoder;
+      return ff_svq3_decoder.name; }
 case CODEC_ID_DVVIDEO:
     { extern AVCodec ff_dvvideo_decoder;
       return ff_dvvideo_decoder.name; }
@@ -77,7 +80,8 @@ case CODEC_ID_CYUV:
     { extern AVCodec ff_cyuv_decoder;
       return ff_cyuv_decoder.name; }
 case CODEC_ID_H264:
-    return "h264";
+    { extern AVCodec ff_h264_decoder;
+      return ff_h264_decoder.name; }
 case CODEC_ID_INDEO3:
     { extern AVCodec ff_indeo3_decoder;
       return ff_indeo3_decoder.name; }
@@ -709,7 +713,8 @@ case CODEC_ID_SONIC:
     { extern AVCodec ff_sonic_decoder;
       return ff_sonic_decoder.name; }
 case CODEC_ID_SONIC_LS:
-    return "sonic_ls";
+    { extern AVCodec ff_sonic_ls_encoder;
+      return ff_sonic_ls_encoder.name; }
 case CODEC_ID_FLAC:
     { extern AVCodec ff_flac_decoder;
       return ff_flac_decoder.name; }

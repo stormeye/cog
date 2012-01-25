@@ -26,6 +26,7 @@ static int min(int a, int b)
     }
 }
 
+// TODO: use Cog's IO instead of ffmpeg's?
 - (BOOL)open:(id<CogSource>)s
 {	
 	[self setSource:s];
@@ -42,30 +43,31 @@ static int min(int a, int b)
     }
     const char *cStrUrl = [urlString cStringUsingEncoding:NSUTF8StringEncoding];
     
-    avFormatCtx = NULL;
-    if(avformat_open_input(&avFormatCtx, cStrUrl, NULL, NULL) < 0)  
+    formatCtx = NULL;
+    if(avformat_open_input(&formatCtx, cStrUrl, NULL, NULL) < 0)  
     {
 		NSLog(@"ERROR OPENING FILE");
 		return NO;
 	}
     
-    if(avformat_find_stream_info(avFormatCtx, NULL) < 0)
+    if(avformat_find_stream_info(formatCtx, NULL) < 0)
     {
         NSLog(@"CAN'T FIND STREAM INFO!");
         return NO;
     }
     
     int streamId = -1;
-    for (int i=0; i<avFormatCtx->nb_streams; i++) 
+    for (int i=0; i<formatCtx->nb_streams; i++) 
     {
-        if (1 == avFormatCtx->streams[i]->codec->codec_type)
+        if (1 == formatCtx->streams[i]->codec->codec_type)
         {
             streamId = i;
             break;
         }
     }
     
-    codecCtx = avFormatCtx->streams[streamId]->codec;
+    codecCtx = formatCtx->streams[streamId]->codec;
+    codecCtx->request_sample_fmt = AV_SAMPLE_FMT_S32;
     AVCodec* codec = avcodec_find_decoder(codecCtx->codec_id);
 
     if(avcodec_open(codecCtx, codec) < 0) 
@@ -74,64 +76,100 @@ static int min(int a, int b)
         return NO;
     }
 
-	frequency = 44100;
-	bitsPerSample = 16;
-	channels = 2;
-	totalFrames = -1;
-
+    lastDecodedFrame = avcodec_alloc_frame();
+    avcodec_get_frame_defaults(lastDecodedFrame);
+    lastReadPacket = malloc(sizeof(AVPacket));
+    readNextPacket = YES;
+    bytesConsumedFromDecodedFrame = 0;
+    
+	frequency = codecCtx->sample_rate;
+	channels = codecCtx->channels;
+    switch (codecCtx->sample_fmt)
+    {
+        case AV_SAMPLE_FMT_U8: bitsPerSample = 8; break;
+        case AV_SAMPLE_FMT_S16: bitsPerSample = 16; break;
+        case AV_SAMPLE_FMT_S32: bitsPerSample = 32; break;
+        default: { NSLog(@"Unexpected sample format: %d", codecCtx->sample_fmt); return NO; }
+    }
+    totalFrames = codecCtx->sample_rate * (formatCtx->duration/1000000LL);
+//    totalFrames = 0;
+    
 	[self willChangeValueForKey:@"properties"];
 	[self didChangeValueForKey:@"properties"];
-	
-    bufferSize = 0;
-    bufferStart = 0;
     
 	return YES;
 }
 
 - (int)readAudio:(void *)buf frames:(UInt32)frames
 {
-    AVPacket avPacket;
     int frameSize = channels * (bitsPerSample / 8);
-    int bytesToWrite = frameSize * frames;
-    int bytesWritten = 0;
-    int8_t *targetBuf = (int8_t*) buf;
-    int avcBufferSize = AVCODEC_MAX_AUDIO_FRAME_SIZE;
-    while (bytesToWrite - bytesWritten > 0)
+    int gotFrame = 0;
+    int dataSize = 0;
+
+    int bytesToRead = frames * frameSize;
+    int bytesRead = 0;
+    
+    int8_t* targetBuf = (int8_t*) buf;
+    memset(buf, 0, bytesToRead);
+
+    while (bytesRead < bytesToRead) 
     {
-        if (bufferSize > 0) 
-        {
-            int toCopy = min(bytesToWrite - bytesWritten, bufferSize);
-            memmove((targetBuf + (bytesWritten)), (buffer + bufferStart), toCopy);
-            bufferStart += toCopy;
-            bufferSize -= toCopy;
-            bytesWritten += toCopy;
-        }
         
-        if (0 == bufferSize) 
+        if(readNextPacket) 
         {
-            if(av_read_packet(avFormatCtx, &avPacket) < 0)
+            // consume next chunk of encoded data from input stream            
+            if(av_read_frame(formatCtx, lastReadPacket) < 0)
             {
                 NSLog(@"End of stream");
-                return (bytesWritten / frameSize); // end of stream;
+                break; // end of stream;
             }
-        
-            if(avcodec_decode_audio3(codecCtx, (int16_t*) buffer, &avcBufferSize, &avPacket) < 0) 
-            {
-                NSLog(@"DECODE FAILED!");
-                return bytesWritten / frameSize;
-            }
-            
-            bufferStart = 0;
-            bufferSize = avcBufferSize;
+            readNextPacket = NO; // we probably won't need to consume another chunk
+                                 // until this one is fully decoded
         }
+        
+        // buffer size needed to hold decoded samples, in bytes
+        dataSize = av_samples_get_buffer_size(NULL, codecCtx->channels,
+                                              lastDecodedFrame->nb_samples,
+                                              codecCtx->sample_fmt, 1);
+
+        if (dataSize <= bytesConsumedFromDecodedFrame)  
+        {
+            // consumed all decoded samples - decode more
+            avcodec_get_frame_defaults(lastDecodedFrame);
+            int len = avcodec_decode_audio4(codecCtx, lastDecodedFrame, &gotFrame, lastReadPacket);
+            if (len < 0 || (!gotFrame)) 
+            {
+                NSLog(@"Error decoding: len = %d, gotFrame = %d", len, gotFrame);
+                break;
+            } 
+            else if (len >= lastReadPacket->size) 
+            {
+                // decoding consumed all the read packet - read another next time
+                readNextPacket = YES;
+            }
+         
+            bytesConsumedFromDecodedFrame = 0;
+            dataSize = av_samples_get_buffer_size(NULL, codecCtx->channels,
+                                                  lastDecodedFrame->nb_samples,
+                                                  codecCtx->sample_fmt, 1);
+        }
+        
+        // copy decoded samples to Cog's buffer
+        int toConsume = min((dataSize - bytesConsumedFromDecodedFrame), (bytesToRead - bytesRead));
+        memmove(targetBuf + bytesRead, (lastDecodedFrame->data[0] + bytesConsumedFromDecodedFrame), toConsume);
+        bytesConsumedFromDecodedFrame += toConsume;
+        bytesRead += toConsume;
     }
-    
-    return bytesWritten / frameSize;
+
+    return (bytesRead / frameSize);
 }
 
 - (void)close
 {
-    av_close_input_stream(avFormatCtx);
+//    av_free_packet(lastReadPacket);
+//    av_free(codecCtx);
+//    av_close_input_stream(formatCtx);
+//    av_free(formatCtx);
     [source close];
 }
 

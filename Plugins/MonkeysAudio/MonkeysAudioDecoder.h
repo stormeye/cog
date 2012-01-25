@@ -22,11 +22,12 @@
     
 @private
     id<CogSource> source;
-    AVFormatContext *avFormatCtx;
+    AVFormatContext *formatCtx;
     AVCodecContext *codecCtx;
-    int8_t buffer[AVCODEC_MAX_AUDIO_FRAME_SIZE];
-    int bufferSize;
-    int bufferStart;
+    AVFrame *lastDecodedFrame;
+    AVPacket *lastReadPacket;
+    int bytesConsumedFromDecodedFrame;
+    BOOL readNextPacket;
 }
 
 - (void)setSource:(id<CogSource>)s;
