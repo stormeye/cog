@@ -67,7 +67,7 @@ gme_err_t readCallback( void* data, void* out, long count )
 	
 	int track_num = [[[source url] fragment] intValue]; //What if theres no fragment? Assuming we get 0.
 	
-	track_info_t info;
+    gme_info_t *info;
 	error = gme_track_info( emu, &info, track_num );
 	if (error)
 	{
@@ -75,13 +75,13 @@ gme_err_t readCallback( void* data, void* out, long count )
 	}
 	
 	//As recommended
-	if (info.length > 0) {
-		NSLog(@"Using length: %li", info.length);
-		length = info.length;
+	if (info->length > 0) {
+		NSLog(@"Using length: %i", info->length);
+		length = info->length;
 	}
-	else if (info.loop_length > 0) {
-		NSLog(@"Using loop length: %li", info.loop_length);
-		length = info.intro_length + 2*info.loop_length;
+	else if (info->loop_length > 0) {
+		NSLog(@"Using loop length: %i", info->loop_length);
+		length = info->intro_length + 2*info->loop_length;
 	}
 	else {
 		length = 150000; 
@@ -101,6 +101,8 @@ gme_err_t readCallback( void* data, void* out, long count )
 	[self willChangeValueForKey:@"properties"];
 	[self didChangeValueForKey:@"properties"];
 	
+    free(info);
+    
 	return YES;
 }
 
@@ -120,7 +122,7 @@ gme_err_t readCallback( void* data, void* out, long count )
 - (int)readAudio:(void *)buf frames:(UInt32)frames
 {
 	int numSamples = frames * 2; //channels = 2
-	
+    
 	if (gme_track_ended(emu) || length < gme_tell(emu)) {
 		return 0;
 	}
@@ -156,18 +158,25 @@ gme_err_t readCallback( void* data, void* out, long count )
 }
 
 + (NSArray *)fileTypes 
-{	
-	NSMutableArray *types = [NSMutableArray array];
-	gme_type_t const* type = gme_type_list();
-	while(*type)
-	{
-		//We're digging a little deep here, but there seems to be no other choice.
-		[types addObject:[NSString stringWithCString:(*type)->extension_ encoding: NSASCIIStringEncoding]];
-		
-		type++;
-	}
-	
-	return [[types copy] autorelease];
+{
+// For GME 0.5.5 underlying gme_type_t_ seems to be considered private api so extension_ is unavailable.
+// Original game system name is available (so it's possible to map it to extension), 
+// but i'm lazy so i'll just put static list here
+ 
+// This is how determining supported file types has been done originally (for GME 0.5.2)
+//	NSMutableArray *types = [NSMutableArray array];
+//	gme_type_t const* type = gme_type_list();
+//	while(*type)
+//	{
+//		//We're digging a little deep here, but there seems to be no other choice.
+//		[types addObject:[NSString stringWithCString:(*type)->extension_ encoding: NSASCIIStringEncoding]];
+//		
+//		type++;
+//	}
+//	
+//	return [[types copy] autorelease];
+    
+    return [NSArray arrayWithObjects:@"ay",@"gbs",@"gym", @"hes", @"kss", @"nsf", @"nsfe", @"sap", @"spc", @"vgm", @"vgz", nil];
 }
 
 + (NSArray *)mimeTypes 

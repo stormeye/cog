@@ -1,6 +1,6 @@
 // Common interface to game music file emulators
 
-// Game_Music_Emu 0.5.2
+// Game_Music_Emu 0.5.5
 #ifndef MUSIC_EMU_H
 #define MUSIC_EMU_H
 
@@ -160,7 +160,7 @@ private:
 	void emu_play( long count, sample_t* out );
 	
 	Multi_Buffer* effects_buffer;
-	friend Music_Emu* gme_new_emu( gme_type_t, long );
+	friend Music_Emu* gme_new_emu( gme_type_t, int );
 	friend void gme_set_stereo_depth( Music_Emu*, double );
 };
 
@@ -197,7 +197,7 @@ inline blargg_err_t Music_Emu::start_track_( int )  { return 0; }
 inline void Music_Emu::set_voice_names( const char* const* names )
 {
 	// Intentional removal of const, so users don't have to remember obscure const in middle
-	voice_names_ = (const char**) names;
+	voice_names_ = const_cast<const char**> (names);
 }
 
 inline void Music_Emu::mute_voices_( int ) { }

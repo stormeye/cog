@@ -1,4 +1,4 @@
-// Game_Music_Emu 0.5.2. http://www.slack.net/~ant/
+// Game_Music_Emu 0.5.5. http://www.slack.net/~ant/
 
 #include "Gbs_Emu.h"
 
@@ -99,7 +99,8 @@ struct Gbs_File : Gme_Info_
 static Music_Emu* new_gbs_emu () { return BLARGG_NEW Gbs_Emu ; }
 static Music_Emu* new_gbs_file() { return BLARGG_NEW Gbs_File; }
 
-gme_type_t_ const gme_gbs_type [1] = { "Game Boy", 0, &new_gbs_emu, &new_gbs_file, "GBS", 1 };
+static gme_type_t_ const gme_gbs_type_ = { "Game Boy", 0, &new_gbs_emu, &new_gbs_file, "GBS", 1 };
+gme_type_t const gme_gbs_type = &gme_gbs_type_;
 
 // Setup
 
@@ -150,7 +151,7 @@ void Gbs_Emu::set_bank( int n )
 	{
 		// TODO: what is the correct behavior? Current Game & Watch Gallery
 		// rip requires that this have no effect or set to bank 1.
-		//dprintf( "Selected ROM bank 0\n" );
+		//debug_printf( "Selected ROM bank 0\n" );
 		return;
 		//n = 1;
 	}
@@ -264,13 +265,13 @@ blargg_err_t Gbs_Emu::run_clocks( blip_time_t& duration, int )
 			}
 			else if ( cpu::r.pc > 0xFFFF )
 			{
-				dprintf( "PC wrapped around\n" );
+				debug_printf( "PC wrapped around\n" );
 				cpu::r.pc &= 0xFFFF;
 			}
 			else
 			{
 				set_warning( "Emulation error (illegal/unsupported instruction)" );
-				dprintf( "Bad opcode $%.2x at $%.4x\n",
+				debug_printf( "Bad opcode $%.2x at $%.4x\n",
 						(int) *cpu::get_code( cpu::r.pc ), (int) cpu::r.pc );
 				cpu::r.pc = (cpu::r.pc + 1) & 0xFFFF;
 				cpu_time += 6;

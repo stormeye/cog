@@ -106,6 +106,7 @@
 		17C8F2560CBED286008D969D /* Ym2413_Emu.h in Headers */ = {isa = PBXBuildFile; fileRef = 17C8F1ED0CBED286008D969D /* Ym2413_Emu.h */; };
 		17C8F2570CBED286008D969D /* Ym2612_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17C8F1EE0CBED286008D969D /* Ym2612_Emu.cpp */; };
 		17C8F2580CBED286008D969D /* Ym2612_Emu.h in Headers */ = {isa = PBXBuildFile; fileRef = 17C8F1EF0CBED286008D969D /* Ym2612_Emu.h */; };
+		32BFD90714D40B3C006C2182 /* gme_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 32BFD90614D40B3C006C2182 /* gme_types.h */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -214,6 +215,7 @@
 		17C8F1ED0CBED286008D969D /* Ym2413_Emu.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Ym2413_Emu.h; path = gme/Ym2413_Emu.h; sourceTree = "<group>"; };
 		17C8F1EE0CBED286008D969D /* Ym2612_Emu.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = Ym2612_Emu.cpp; path = gme/Ym2612_Emu.cpp; sourceTree = "<group>"; };
 		17C8F1EF0CBED286008D969D /* Ym2612_Emu.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Ym2612_Emu.h; path = gme/Ym2612_Emu.h; sourceTree = "<group>"; };
+		32BFD90614D40B3C006C2182 /* gme_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gme_types.h; path = gme/gme_types.h; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* GME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -298,6 +300,7 @@
 		17C8F1860CBED26C008D969D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				32BFD90614D40B3C006C2182 /* gme_types.h */,
 				17C8F18B0CBED286008D969D /* Ay_Apu.cpp */,
 				17C8F18C0CBED286008D969D /* Ay_Apu.h */,
 				17C8F18D0CBED286008D969D /* Ay_Cpu.cpp */,
@@ -461,6 +464,7 @@
 				17C8F2540CBED286008D969D /* Vgm_Emu.h in Headers */,
 				17C8F2560CBED286008D969D /* Ym2413_Emu.h in Headers */,
 				17C8F2580CBED286008D969D /* Ym2612_Emu.h in Headers */,
+				32BFD90714D40B3C006C2182 /* gme_types.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
