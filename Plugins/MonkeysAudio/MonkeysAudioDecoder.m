@@ -216,12 +216,14 @@ static int min(int a, int b)
 
 + (NSArray *)fileTypes
 {
-	return [NSArray arrayWithObject:@"ape"];
+//	return [NSArray arrayWithObjects:@"ape", @"mp3", nil];
+    return [NSArray arrayWithObjects:@"ape", nil];
 }
 
 + (NSArray *)mimeTypes
 {
-	return [NSArray arrayWithObjects:@"audio/x-ape", nil];
+//	return [NSArray arrayWithObjects:@"audio/x-ape", @"audio/mpeg", @"audio/x-mp3", nil];
+    return [NSArray arrayWithObjects:@"audio/x-ape", nil];
 }
 
 @end

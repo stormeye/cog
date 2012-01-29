@@ -510,9 +510,12 @@ static int it_read_sample_header(IT_SAMPLE *sample, unsigned char *convert, long
 		sample->sus_loop_end >>= 1;
 	}
 #endif
-
+    
 	if (sample->flags & IT_SAMPLE_EXISTS) {
-		if (sample->length <= 0)
+		if (sample->length <= 0 || 0 == sample->C5_speed)
+            // i've seen at least one IT file (mnk-teot.it), which
+            // had C5_speed set to zero for one of samples, which caused
+            // resampling routine to divide by zero, so added the check here
 			sample->flags &= ~IT_SAMPLE_EXISTS;
 		else {
 			if ((unsigned int)sample->loop_end > (unsigned int)sample->length)

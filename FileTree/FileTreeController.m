@@ -14,7 +14,7 @@
 
 - (IBAction)addToPlaylist:(id)sender
 {
-	unsigned int index;
+	NSInteger index;
 	NSIndexSet *selectedIndexes = [outlineView selectedRowIndexes];
 	NSMutableArray *urls = [[NSMutableArray alloc] init];
 
