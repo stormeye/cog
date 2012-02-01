@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		177FCFB50B90C97E0011C3B5 /* Plugin.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 177FCFB40B90C97E0011C3B5 /* Plugin.h */; };
+		320C2D1D14D88FA500FF31CD /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4118B14CB65130050563F /* libavutil.framework */; };
+		320C2D1E14D88FB900FF31CD /* libavcodec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117D14CB64D80050563F /* libavcodec.framework */; };
+		320C2D1F14D88FBF00FF31CD /* libavformat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117614CB64B30050563F /* libavformat.framework */; };
 		327DA20F14C8BA5600C1C9FE /* MonkeysAudioDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 327DA20E14C8BA5600C1C9FE /* MonkeysAudioDecoder.m */; };
-		32D4118214CB64FC0050563F /* libavcodec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117D14CB64D80050563F /* libavcodec.framework */; };
-		32D4118314CB64FC0050563F /* libavformat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4117614CB64B30050563F /* libavformat.framework */; };
-		32D4118C14CB65200050563F /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4118B14CB65130050563F /* libavutil.framework */; };
+		32B2BB4214D74F91007200F9 /* libavformat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4117614CB64B30050563F /* libavformat.framework */; };
+		32B2BB4314D74F94007200F9 /* libavcodec.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4117D14CB64D80050563F /* libavcodec.framework */; };
+		32B2BB4414D74F98007200F9 /* libavutil.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4118B14CB65130050563F /* libavutil.framework */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +63,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				32B2BB4314D74F94007200F9 /* libavcodec.framework in CopyFiles */,
 				177FCFB50B90C97E0011C3B5 /* Plugin.h in CopyFiles */,
+				32B2BB4414D74F98007200F9 /* libavutil.framework in CopyFiles */,
+				32B2BB4214D74F91007200F9 /* libavformat.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,9 +93,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32D4118C14CB65200050563F /* libavutil.framework in Frameworks */,
-				32D4118214CB64FC0050563F /* libavcodec.framework in Frameworks */,
-				32D4118314CB64FC0050563F /* libavformat.framework in Frameworks */,
+				320C2D1E14D88FB900FF31CD /* libavcodec.framework in Frameworks */,
+				320C2D1F14D88FBF00FF31CD /* libavformat.framework in Frameworks */,
+				320C2D1D14D88FA500FF31CD /* libavutil.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,6 +372,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				SDKROOT = macosx;
 				SYMROOT = ../../build;
 			};
@@ -378,6 +385,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				SDKROOT = macosx;
 				SYMROOT = ../../build;
 			};

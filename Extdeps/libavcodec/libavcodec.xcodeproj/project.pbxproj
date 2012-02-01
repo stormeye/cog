@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32D410FC14CB60EC0050563F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D410FB14CB60EC0050563F /* Cocoa.framework */; };
 		32D4110614CB60EC0050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4110414CB60EC0050563F /* InfoPlist.strings */; };
 		32D4111F14CB61A70050563F /* avcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4111D14CB61A70050563F /* avcodec.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4112014CB61A70050563F /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4111E14CB61A70050563F /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32D4112414CB61E10050563F /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4111B14CB61350050563F /* libavutil.framework */; };
 		32D4112614CB62120050563F /* libavcodec in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4112514CB62120050563F /* libavcodec */; };
 /* End PBXBuildFile section */
 
@@ -59,18 +57,6 @@
 		32D4111E14CB61A70050563F /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../ffmpeg/src/libavcodec/version.h; sourceTree = "<group>"; };
 		32D4112514CB62120050563F /* libavcodec */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavcodec; path = ../ffmpeg/libavcodec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		32D410F414CB60EC0050563F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32D410FC14CB60EC0050563F /* Cocoa.framework in Frameworks */,
-				32D4112414CB61E10050563F /* libavutil.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		32D410EC14CB60EC0050563F = {
@@ -161,7 +147,6 @@
 			buildPhases = (
 				32D4112314CB61C90050563F /* CopyFiles */,
 				32D411BC14CBF7560050563F /* ShellScript */,
-				32D410F414CB60EC0050563F /* Frameworks */,
 				32D410F514CB60EC0050563F /* Headers */,
 				32D410F614CB60EC0050563F /* Resources */,
 			);
@@ -240,7 +225,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}";
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavutil.dylib\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ${PRODUCT_NAME}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -287,6 +272,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = ../../build;
 			};
 			name = Debug;
 		};
@@ -306,6 +292,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
+				SYMROOT = ../../build;
 			};
 			name = Release;
 		};
@@ -318,6 +305,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libavcodec/libavcodec-Prefix.pch";
 				INFOPLIST_FILE = "libavcodec/libavcodec-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -332,6 +320,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libavcodec/libavcodec-Prefix.pch";
 				INFOPLIST_FILE = "libavcodec/libavcodec-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -356,6 +345,7 @@
 				32D4110F14CB60EC0050563F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

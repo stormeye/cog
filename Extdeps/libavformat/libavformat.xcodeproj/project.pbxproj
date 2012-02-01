@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32D4113914CB63880050563F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4113814CB63880050563F /* Cocoa.framework */; };
 		32D4114314CB63880050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4114114CB63880050563F /* InfoPlist.strings */; };
 		32D4116514CB64020050563F /* avformat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116114CB64020050563F /* avformat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4116614CB64020050563F /* avio.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116214CB64020050563F /* avio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4116714CB64020050563F /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4116314CB64020050563F /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32D4116C14CB64440050563F /* libavcodec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4115814CB63A90050563F /* libavcodec.framework */; };
-		32D4116D14CB64440050563F /* libavutil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4115E14CB63B10050563F /* libavutil.framework */; };
 		32D4117014CB64690050563F /* libavformat in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4116F14CB64690050563F /* libavformat */; };
 /* End PBXBuildFile section */
 
@@ -77,19 +74,6 @@
 		32D4116314CB64020050563F /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../ffmpeg/src/libavformat/version.h; sourceTree = "<group>"; };
 		32D4116F14CB64690050563F /* libavformat */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavformat; path = ../ffmpeg/libavformat; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		32D4113114CB63880050563F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32D4116C14CB64440050563F /* libavcodec.framework in Frameworks */,
-				32D4116D14CB64440050563F /* libavutil.framework in Frameworks */,
-				32D4113914CB63880050563F /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		32D4112914CB63880050563F = {
@@ -191,7 +175,6 @@
 			buildPhases = (
 				32D4116E14CB64500050563F /* CopyFiles */,
 				32D411BD14CBF76C0050563F /* ShellScript */,
-				32D4113114CB63880050563F /* Frameworks */,
 				32D4113214CB63880050563F /* Headers */,
 				32D4113314CB63880050563F /* Resources */,
 			);
@@ -282,7 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}";
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavutil.dylib\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavcodec.dylib\" \"@rpath/libavcodec.framework/libavcodec\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ./${PRODUCT_NAME}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -334,6 +317,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = ../../build;
 			};
 			name = Debug;
 		};
@@ -353,6 +337,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
+				SYMROOT = ../../build;
 			};
 			name = Release;
 		};
@@ -365,6 +350,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libavformat/libavformat-Prefix.pch";
 				INFOPLIST_FILE = "libavformat/libavformat-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -379,6 +365,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libavformat/libavformat-Prefix.pch";
 				INFOPLIST_FILE = "libavformat/libavformat-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -403,6 +390,7 @@
 				32D4114C14CB63880050563F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
