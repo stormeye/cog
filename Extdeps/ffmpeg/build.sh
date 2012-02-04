@@ -48,6 +48,9 @@ then
       --disable-network \
       --disable-encoders \
       --disable-muxers \
+      --disable-demuxers \
+      --disable-parsers \
+      --disable-decoders \
       --enable-shared \
       --disable-static \
       --disable-decoder=h264,svq3 \
@@ -55,7 +58,9 @@ then
       --arch=$arch \
       --enable-cross-compile \
       --target-os=darwin \
-      --cc="$compiler"
+      --cc="$compiler" \
+      --enable-demuxer=ape \
+      --enable-decoder=ape
     make
 
     for lib in libavutil libavformat libavcodec

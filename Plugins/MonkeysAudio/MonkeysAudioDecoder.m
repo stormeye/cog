@@ -80,6 +80,7 @@ static int min(int a, int b)
     lastDecodedFrame = avcodec_alloc_frame();
     avcodec_get_frame_defaults(lastDecodedFrame);
     lastReadPacket = malloc(sizeof(AVPacket));
+    av_new_packet(lastReadPacket, 0);
     readNextPacket = YES;
     bytesConsumedFromDecodedFrame = 0;
     
@@ -93,7 +94,6 @@ static int min(int a, int b)
         default: { NSLog(@"Unexpected sample format: %d", codecCtx->sample_fmt); return NO; }
     }
     totalFrames = codecCtx->sample_rate * (formatCtx->duration/1000000LL);
-//    totalFrames = 0;
     
 	[self willChangeValueForKey:@"properties"];
 	[self didChangeValueForKey:@"properties"];
@@ -103,6 +103,8 @@ static int min(int a, int b)
 
 - (int)readAudio:(void *)buf frames:(UInt32)frames
 {
+    [source retain];
+    
     int frameSize = channels * (bitsPerSample / 8);
     int gotFrame = 0;
     int dataSize = 0;
@@ -119,7 +121,7 @@ static int min(int a, int b)
         if(readNextPacket) 
         {
             // consume next chunk of encoded data from input stream
-//            av_free_packet(lastReadPacket);
+            av_free_packet(lastReadPacket);
             if(av_read_frame(formatCtx, lastReadPacket) < 0)
             {
                 NSLog(@"End of stream");
@@ -168,13 +170,16 @@ static int min(int a, int b)
 
 - (void)close
 {
-    // TODO: figure out proper way to clean up (maybe just av_close_input_stream is sufficient?)
-    //       uncommenting next two lines causes crashes :(
-//    if (lastReadPacket) { av_free_packet(lastReadPacket); lastReadPacket = NULL; }
-//    if (codecCtx) { av_free(codecCtx); codecCtx = NULL;}
+    if (lastReadPacket) 
+    { 
+        av_free_packet(lastReadPacket);
+        free(lastReadPacket);
+        lastReadPacket = NULL; 
+    }
     if (formatCtx) { av_close_input_stream(formatCtx); formatCtx = NULL; }
 
     [source close];
+    [source release];
 }
 
 - (long)seek:(long)frame
