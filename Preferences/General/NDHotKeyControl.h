@@ -41,7 +41,7 @@
  */
 @interface NDHotKeyControl : NSTextField
 {
-@private
+@protected
 	UInt16				keyCode;
 	NSUInteger			modifierFlags;
 	BOOL				requiresModifierKeys,

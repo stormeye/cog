@@ -13,13 +13,27 @@
 
 - (void)awakeFromNib
 {
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object: [view window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object: [view window]];
 	
+    UInt16 prevKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPreviousKeyCode"];
+    NSUInteger prevModifiers = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPreviousModifiers"];
+    
+    [prevHotKeyControl setKeyCode:prevKeyCode];
+	[prevHotKeyControl setModifierFlags:prevModifiers];	
 	[prevHotKeyControl updateStringValue];
 	
+    UInt16 nextKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyNextKeyCode"];
+    NSUInteger nextModifiers = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyNextModifiers"];
+    
+    [nextHotKeyControl setKeyCode:nextKeyCode];
+	[nextHotKeyControl setModifierFlags:nextModifiers];	
 	[nextHotKeyControl updateStringValue];
-	
+    
+    UInt16 playKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPlayKeyCode"];
+    NSUInteger playModifiers = [[NSUserDefaults standardUserDefaults] integerForKey:@"hotKeyPlayModifiers"];
+    
+    [playHotKeyControl setKeyCode:playKeyCode];
+	[playHotKeyControl setModifierFlags:playModifiers];	
 	[playHotKeyControl updateStringValue];
 }
 
@@ -69,17 +83,14 @@
 - (IBAction) hotKeyChanged:(id)sender
 {
 	if (sender == playHotKeyControl) {
-		[[NSUserDefaults standardUserDefaults] setInteger:[playHotKeyControl character] forKey:@"hotKeyPlayCharacter"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[playHotKeyControl modifierFlags] forKey:@"hotKeyPlayModifiers"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[playHotKeyControl keyCode] forKey:@"hotKeyPlayKeyCode"];
 	}
 	else if (sender == prevHotKeyControl) {
-		[[NSUserDefaults standardUserDefaults] setInteger:[prevHotKeyControl character] forKey:@"hotKeyPreviousCharacter"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[prevHotKeyControl modifierFlags] forKey:@"hotKeyPreviousModifiers"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[prevHotKeyControl keyCode] forKey:@"hotKeyPreviousKeyCode"];
 	}
 	else if (sender == nextHotKeyControl) {
-		[[NSUserDefaults standardUserDefaults] setInteger:[nextHotKeyControl character] forKey:@"hotKeyNextCharacter"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[nextHotKeyControl modifierFlags] forKey:@"hotKeyNextModifiers"];
 		[[NSUserDefaults standardUserDefaults] setInteger:[nextHotKeyControl keyCode] forKey:@"hotKeyNextKeyCode"];
 	}

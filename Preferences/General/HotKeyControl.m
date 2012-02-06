@@ -7,20 +7,7 @@
 //
 
 #import "HotKeyControl.h"
-
-typedef int CGSConnection;
-typedef enum {
-    CGSGlobalHotKeyEnable = 0,
-    CGSGlobalHotKeyDisable = 1,
-} CGSGlobalHotKeyOperatingMode;
-
-extern CGSConnection _CGSDefaultConnection(void);
-
-extern CGError CGSGetGlobalHotKeyOperatingMode(
-                                               CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, 
-                                               CGSGlobalHotKeyOperatingMode mode);
+#import "NDHotKeyEvent.h"
 
 @implementation HotKeyControl
 
@@ -29,31 +16,18 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	observing = NO;
 }
 
-- (void)disableAllHotKeys
-{
-	CGSConnection conn = _CGSDefaultConnection();
-    CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-}
-
-- (void)enableAllHotKeys
-{
-    CGSConnection conn = _CGSDefaultConnection();
-    CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);	
-}
-
 - (void)startObserving
-{
-	[self disableAllHotKeys];
-	
+{	
 	observing = YES;
 	[self setStringValue:NSLocalizedStringFromTableInBundle(@"Press Key...", nil, [NSBundle bundleForClass:[self class]], @"")];
+    [self setRequiresModifierKeys:YES];
+    [self setReadyForHotKeyEvent:YES];
 }
 
 - (void)stopObserving
 {	
-	[self enableAllHotKeys];
 	observing = NO;
-
+    [self setReadyForHotKeyEvent:NO]; // will have been set so automagically, but just in case.
 	[self updateStringValue];
 }	
 
@@ -98,7 +72,20 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 
 - (void)updateStringValue
 {
-	NSString *str = [[NDHotKeyEvent getHotKeyForKeyCode:[self keyCode] modifierFlags:[self modifierFlags] ] stringValue];
+    NSUInteger mf = [self modifierFlags];
+    UInt16 kc = [self keyCode];
+    NDHotKeyEvent *event = [NDHotKeyEvent getHotKeyForKeyCode:kc modifierFlags:mf];
+	NSString *str = [event stringValue];
     [self setStringValue:str];
+}
+
+- (void)setKeyCode:(UInt16)kc
+{
+    keyCode = kc;
+}
+
+- (void)setModifierFlags:(NSUInteger)mf
+{
+    modifierFlags = mf;
 }
 @end

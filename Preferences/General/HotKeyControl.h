@@ -13,11 +13,11 @@
 	BOOL observing;
 }
 
-- (void)enableAllHotKeys;
-- (void)disableAllHotKeys;
-
 - (void)startObserving;
 - (void)stopObserving;
+
+- (void)setModifierFlags:(NSUInteger)modifierFlags;
+- (void)setKeyCode:(UInt16)keyCode;
 
 - (void)updateStringValue;
 
