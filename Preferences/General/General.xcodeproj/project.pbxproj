@@ -19,9 +19,9 @@
 		17E41DB80C130AA500AC744D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17E41DB70C130AA500AC744D /* Localizable.strings */; };
 		17E78A7E0D68BE3C005C5A59 /* file_tree.png in Resources */ = {isa = PBXBuildFile; fileRef = 17E78A7D0D68BE3C005C5A59 /* file_tree.png */; };
 		17E78B6A0D68C1E3005C5A59 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17E78B680D68C1E3005C5A59 /* Preferences.xib */; };
-		32124FF114E0747E00AA1034 /* NDHotKeyControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FEC14E0747E00AA1034 /* NDHotKeyControl.m */; };
-		32124FF214E0747E00AA1034 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FEE14E0747E00AA1034 /* NDHotKeyEvent.m */; };
-		32124FF314E0747E00AA1034 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FF014E0747E00AA1034 /* NDKeyboardLayout.m */; };
+		32124FFE14E1B0B800AA1034 /* NDHotKeyControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FF914E1B0B800AA1034 /* NDHotKeyControl.m */; };
+		32124FFF14E1B0B800AA1034 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FFB14E1B0B800AA1034 /* NDHotKeyEvent.m */; };
+		3212500014E1B0B800AA1034 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32124FFD14E1B0B800AA1034 /* NDKeyboardLayout.m */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		8E07AA880AAC8EA200A4B32F /* HotKeyPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E07AA810AAC8EA200A4B32F /* HotKeyPane.m */; };
 		8E07AA890AAC8EA200A4B32F /* GeneralPreferencePane.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E07AA830AAC8EA200A4B32F /* GeneralPreferencePane.m */; };
@@ -53,12 +53,12 @@
 		17E41DB50C130A9D00AC744D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		17E78A7D0D68BE3C005C5A59 /* file_tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_tree.png; path = Icons/file_tree.png; sourceTree = "<group>"; };
 		17E78B690D68C1E3005C5A59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
-		32124FEB14E0747E00AA1034 /* NDHotKeyControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyControl.h; sourceTree = "<group>"; };
-		32124FEC14E0747E00AA1034 /* NDHotKeyControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyControl.m; sourceTree = "<group>"; };
-		32124FED14E0747E00AA1034 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		32124FEE14E0747E00AA1034 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
-		32124FEF14E0747E00AA1034 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
-		32124FF014E0747E00AA1034 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
+		32124FF814E1B0B800AA1034 /* NDHotKeyControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDHotKeyControl.h; path = ../../ThirdParty/NDHotKeys/NDHotKeyControl.h; sourceTree = "<group>"; };
+		32124FF914E1B0B800AA1034 /* NDHotKeyControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDHotKeyControl.m; path = ../../ThirdParty/NDHotKeys/NDHotKeyControl.m; sourceTree = "<group>"; };
+		32124FFA14E1B0B800AA1034 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDHotKeyEvent.h; path = ../../ThirdParty/NDHotKeys/NDHotKeyEvent.h; sourceTree = "<group>"; };
+		32124FFB14E1B0B800AA1034 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDHotKeyEvent.m; path = ../../ThirdParty/NDHotKeys/NDHotKeyEvent.m; sourceTree = "<group>"; };
+		32124FFC14E1B0B800AA1034 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDKeyboardLayout.h; path = ../../ThirdParty/NDHotKeys/NDKeyboardLayout.h; sourceTree = "<group>"; };
+		32124FFD14E1B0B800AA1034 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDKeyboardLayout.m; path = ../../ThirdParty/NDHotKeys/NDKeyboardLayout.m; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* General_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* General.preferencePane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = General.preferencePane; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,12 +171,12 @@
 		17D503410ABDB1660022D1E8 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				32124FEB14E0747E00AA1034 /* NDHotKeyControl.h */,
-				32124FEC14E0747E00AA1034 /* NDHotKeyControl.m */,
-				32124FED14E0747E00AA1034 /* NDHotKeyEvent.h */,
-				32124FEE14E0747E00AA1034 /* NDHotKeyEvent.m */,
-				32124FEF14E0747E00AA1034 /* NDKeyboardLayout.h */,
-				32124FF014E0747E00AA1034 /* NDKeyboardLayout.m */,
+				32124FF814E1B0B800AA1034 /* NDHotKeyControl.h */,
+				32124FF914E1B0B800AA1034 /* NDHotKeyControl.m */,
+				32124FFA14E1B0B800AA1034 /* NDHotKeyEvent.h */,
+				32124FFB14E1B0B800AA1034 /* NDHotKeyEvent.m */,
+				32124FFC14E1B0B800AA1034 /* NDKeyboardLayout.h */,
+				32124FFD14E1B0B800AA1034 /* NDKeyboardLayout.m */,
 				170744AB0BFF3938002475C9 /* AppcastArrayController.h */,
 				170744AC0BFF3938002475C9 /* AppcastArrayController.m */,
 				8E6C139E0AACBAB500819171 /* HotKeyControl.h */,
@@ -304,9 +304,9 @@
 				17C6433F0B8A783F00C53518 /* OutputPane.m in Sources */,
 				170744AD0BFF3938002475C9 /* AppcastArrayController.m in Sources */,
 				99F1813F0DE01D7A00FD5FFB /* PlaylistBehaviorArrayController.m in Sources */,
-				32124FF114E0747E00AA1034 /* NDHotKeyControl.m in Sources */,
-				32124FF214E0747E00AA1034 /* NDHotKeyEvent.m in Sources */,
-				32124FF314E0747E00AA1034 /* NDKeyboardLayout.m in Sources */,
+				32124FFE14E1B0B800AA1034 /* NDHotKeyControl.m in Sources */,
+				32124FFF14E1B0B800AA1034 /* NDHotKeyEvent.m in Sources */,
+				3212500014E1B0B800AA1034 /* NDKeyboardLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
