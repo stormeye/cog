@@ -15,8 +15,8 @@
  *                                                                         *
  *   You should have received a copy of the GNU Lesser General Public      *
  *   License along with this library; if not, write to the Free Software   *
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
- *   USA                                                                   *
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA         *
+ *   02110-1301  USA                                                       *
  *                                                                         *
  *   Alternatively, this file is available under the Mozilla Public        *
  *   License Version 1.1.  You may obtain a copy of the License at         *
@@ -103,16 +103,20 @@ String Ogg::XiphComment::genre() const
 
 TagLib::uint Ogg::XiphComment::year() const
 {
-  if(d->fieldListMap["DATE"].isEmpty())
-    return 0;
-  return d->fieldListMap["DATE"].front().toInt();
+  if(!d->fieldListMap["DATE"].isEmpty())
+    return d->fieldListMap["DATE"].front().toInt();
+  if(!d->fieldListMap["YEAR"].isEmpty())
+    return d->fieldListMap["YEAR"].front().toInt();
+  return 0;
 }
 
 TagLib::uint Ogg::XiphComment::track() const
 {
-  if(d->fieldListMap["TRACKNUMBER"].isEmpty())
-    return 0;
-  return d->fieldListMap["TRACKNUMBER"].front().toInt();
+  if(!d->fieldListMap["TRACKNUMBER"].isEmpty())
+    return d->fieldListMap["TRACKNUMBER"].front().toInt();
+  if(!d->fieldListMap["TRACKNUM"].isEmpty())
+    return d->fieldListMap["TRACKNUM"].front().toInt();
+  return 0;
 }
 
 void Ogg::XiphComment::setTitle(const String &s)
@@ -142,6 +146,7 @@ void Ogg::XiphComment::setGenre(const String &s)
 
 void Ogg::XiphComment::setYear(uint i)
 {
+  removeField("YEAR");
   if(i == 0)
     removeField("DATE");
   else
@@ -150,6 +155,7 @@ void Ogg::XiphComment::setYear(uint i)
 
 void Ogg::XiphComment::setTrack(uint i)
 {
+  removeField("TRACKNUM");
   if(i == 0)
     removeField("TRACKNUMBER");
   else

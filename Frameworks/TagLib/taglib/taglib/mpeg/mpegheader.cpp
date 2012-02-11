@@ -15,8 +15,8 @@
  *                                                                         *
  *   You should have received a copy of the GNU Lesser General Public      *
  *   License along with this library; if not, write to the Free Software   *
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
- *   USA                                                                   *
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA         *
+ *   02110-1301  USA                                                       *
  *                                                                         *
  *   Alternatively, this file is available under the Mozilla Public        *
  *   License Version 1.1.  You may obtain a copy of the License at         *
@@ -164,16 +164,16 @@ MPEG::Header &MPEG::Header::operator=(const Header &h)
 void MPEG::Header::parse(const ByteVector &data)
 {
   if(data.size() < 4 || uchar(data[0]) != 0xff) {
-    debug("MPEG::Header::parse() -- First byte did not mactch MPEG synch.");
+    debug("MPEG::Header::parse() -- First byte did not match MPEG synch.");
     return;
   }
 
-  std::bitset<32> flags(data.toUInt());
+  std::bitset<32> flags(TAGLIB_CONSTRUCT_BITSET(data.toUInt()));
 
   // Check for the second byte's part of the MPEG synch
 
   if(!flags[23] || !flags[22] || !flags[21]) {
-    debug("MPEG::Header::parse() -- Second byte did not mactch MPEG synch.");
+    debug("MPEG::Header::parse() -- Second byte did not match MPEG synch.");
     return;
   }
 

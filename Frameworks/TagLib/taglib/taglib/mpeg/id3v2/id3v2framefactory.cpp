@@ -15,8 +15,8 @@
  *                                                                         *
  *   You should have received a copy of the GNU Lesser General Public      *
  *   License along with this library; if not, write to the Free Software   *
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
- *   USA                                                                   *
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA         *
+ *   02110-1301  USA                                                       *
  *                                                                         *
  *   Alternatively, this file is available under the Mozilla Public        *
  *   License Version 1.1.  You may obtain a copy of the License at         *
@@ -31,6 +31,7 @@
 
 #include "id3v2framefactory.h"
 #include "id3v2synchdata.h"
+#include "id3v1genres.h"
 
 #include "frames/attachedpictureframe.h"
 #include "frames/commentsframe.h"
@@ -41,6 +42,8 @@
 #include "frames/generalencapsulatedobjectframe.h"
 #include "frames/urllinkframe.h"
 #include "frames/unsynchronizedlyricsframe.h"
+#include "frames/popularimeterframe.h"
+#include "frames/privateframe.h"
 
 using namespace TagLib;
 using namespace ID3v2;
@@ -180,7 +183,15 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader) 
     return f;
   }
 
-  // Relative Volume Adjustment (frames 4.11)
+  // ID3v2.2 Attached Picture
+
+	if(frameID == "PIC") {
+    AttachedPictureFrame *f = new AttachedPictureFrameV22(data, header);
+    d->setTextEncoding(f);
+    return f;
+  }
+
+	// Relative Volume Adjustment (frames 4.11)
 
   if(frameID == "RVA2")
     return new RelativeVolumeFrame(data, header);
@@ -219,6 +230,16 @@ Frame *FrameFactory::createFrame(const ByteVector &origData, Header *tagHeader) 
       f->setTextEncoding(d->defaultEncoding);
     return f;
   }
+
+  // Popularimeter (frames 4.17)
+
+  if(frameID == "POPM")
+    return new PopularimeterFrame(data, header);
+
+  // Private (frames 4.27)
+
+  if(frameID == "PRIV")
+    return new PrivateFrame(data, header);
 
   return new UnknownFrame(data, header);
 }
@@ -261,7 +282,8 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
        frameID == "LNK" ||
        frameID == "RVA" ||
        frameID == "TIM" ||
-       frameID == "TSI")
+       frameID == "TSI" ||
+       frameID == "TDA")
     {
       debug("ID3v2.4 no longer supports the frame type " + String(frameID) +
             ".  It will be discarded from the tag.");
@@ -280,7 +302,6 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
     convertFrame("IPL", "TIPL", header);
     convertFrame("MCI", "MCDI", header);
     convertFrame("MLL", "MLLT", header);
-    convertFrame("PIC", "APIC", header);
     convertFrame("POP", "POPM", header);
     convertFrame("REV", "RVRB", header);
     convertFrame("SLT", "SYLT", header);
@@ -290,7 +311,6 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
     convertFrame("TCM", "TCOM", header);
     convertFrame("TCO", "TCON", header);
     convertFrame("TCR", "TCOP", header);
-    convertFrame("TDA", "TDRC", header);
     convertFrame("TDY", "TDLY", header);
     convertFrame("TEN", "TENC", header);
     convertFrame("TFT", "TFLT", header);
@@ -382,26 +402,32 @@ void FrameFactory::convertFrame(const char *from, const char *to,
 
 void FrameFactory::updateGenre(TextIdentificationFrame *frame) const
 {
-  StringList fields;
-  String s = frame->toString();
+  StringList fields = frame->fieldList();
+  StringList newfields;
 
-  while(s.startsWith("(")) {
+  for(StringList::Iterator it = fields.begin(); it != fields.end(); ++it) {
+    String s = *it;
+    int end = s.find(")");
 
-    int closing = s.find(")");
-
-    if(closing < 0)
-      break;
-
-    fields.append(s.substr(1, closing - 1));
-
-    s = s.substr(closing + 1);
+    if(s.startsWith("(") && end > 0) {
+      // "(12)Genre"
+      String text = s.substr(end + 1);
+      bool ok;
+      int number = s.substr(1, end - 1).toInt(&ok);
+      if(ok && number >= 0 && number <= 255 && !(ID3v1::genre(number) == text))
+        newfields.append(s.substr(1, end - 1));
+      if(!text.isEmpty())
+        newfields.append(text);
+    }
+    else {
+      // "Genre" or "12"
+      newfields.append(s);
+    }
   }
 
-  if(!s.isEmpty())
-    fields.append(s);
-
-  if(fields.isEmpty())
+  if(newfields.isEmpty())
     fields.append(String::null);
 
-  frame->setText(fields);
+  frame->setText(newfields);
+
 }
