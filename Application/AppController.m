@@ -2,7 +2,7 @@
 #import "PlaybackController.h"
 #import "PlaylistController.h"
 #import "PlaylistView.h"
-#import "NDHotKeyEvent.h"
+#import "NDHotKey/NDHotKeyEvent.h"
 #import "AppleRemote.h"
 #import "PlaylistLoader.h"
 #import "OpenURLPanel.h"

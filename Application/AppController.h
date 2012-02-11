@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "NDHotKeyEvent.h"
+#import "NDHotKey/NDHotKeyEvent.h"
 
 @class PlaybackController;
 @class PlaylistController;

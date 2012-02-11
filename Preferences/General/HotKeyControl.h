@@ -7,18 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NDHotKeyControl.h"
+#import "NDHotKey/NDHotKeyControl.h"
 
 @interface HotKeyControl : NDHotKeyControl {
-	BOOL observing;
 }
-
-- (void)startObserving;
-- (void)stopObserving;
-
-- (void)setModifierFlags:(NSUInteger)modifierFlags;
-- (void)setKeyCode:(UInt16)keyCode;
-
-- (void)updateStringValue;
 
 @end

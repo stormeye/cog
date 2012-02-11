@@ -16,10 +16,6 @@
 	IBOutlet HotKeyControl *nextHotKeyControl;
 }
 
-- (IBAction) grabPlayHotKey:(id)sender;
-- (IBAction) grabPrevHotKey:(id)sender;
-- (IBAction) grabNextHotKey:(id)sender;
-
 - (IBAction) hotKeyChanged:(id)sender;
 
 @end

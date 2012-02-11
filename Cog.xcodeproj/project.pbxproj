@@ -139,9 +139,8 @@
 		17F562390C3BD91B0019975C /* General.preferencePane in Resources */ = {isa = PBXBuildFile; fileRef = 17F5622E0C3BD8FB0019975C /* General.preferencePane */; };
 		17F6C8070F603701000D9DA9 /* PlaybackEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F6C8060F603701000D9DA9 /* PlaybackEventController.m */; };
 		17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FAEBAB0F662985007C8707 /* ToolTipTextField.m */; };
-		32F1613B14E1B18100D6AB2F /* NDHotKeyControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F1613614E1B18100D6AB2F /* NDHotKeyControl.m */; };
-		32F1613C14E1B18100D6AB2F /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F1613814E1B18100D6AB2F /* NDHotKeyEvent.m */; };
-		32F1613D14E1B18100D6AB2F /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F1613A14E1B18100D6AB2F /* NDKeyboardLayout.m */; };
+		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
+		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		5604D45B0D60349B004F5C5D /* SpotlightWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5604D4590D60349B004F5C5D /* SpotlightWindowController.m */; };
 		5604D4F60D60726E004F5C5D /* SpotlightPlaylistEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5604D4F50D60726E004F5C5D /* SpotlightPlaylistEntry.m */; };
 		56462EAF0D6341F6000AB68C /* SpotlightTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 56462EAE0D6341F6000AB68C /* SpotlightTransformers.m */; };
@@ -453,6 +452,20 @@
 			remoteGlobalIDString = 32D4113514CB63880050563F;
 			remoteInfo = libavformat;
 		};
+		32F1617214E6BB3C00D6AB2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32F1616E14E6BB3B00D6AB2F /* NDHotKey.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32F1615614E6BB3B00D6AB2F;
+			remoteInfo = NDHotKey;
+		};
+		32F1618714E6BD0D00D6AB2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32F1616E14E6BB3B00D6AB2F /* NDHotKey.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32F1615514E6BB3B00D6AB2F;
+			remoteInfo = NDHotKey;
+		};
 		566D321A0D538550004466A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 566D32160D538550004466A5 /* APL.xcodeproj */;
@@ -540,6 +553,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */,
 				17B6FA7F0D48225300C3BEF1 /* Sparkle.framework in CopyFiles */,
 				17F561400C3BD4F30019975C /* CogAudio.framework in CopyFiles */,
 				170680840B950164006BA573 /* Growl.framework in CopyFiles */,
@@ -747,12 +761,7 @@
 		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
 		32D4111014CB60EC0050563F /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = Extdeps/libavcodec/libavcodec.xcodeproj; sourceTree = "<group>"; };
 		32D4114D14CB63880050563F /* libavformat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavformat.xcodeproj; path = Extdeps/libavformat/libavformat.xcodeproj; sourceTree = "<group>"; };
-		32F1613514E1B18100D6AB2F /* NDHotKeyControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyControl.h; sourceTree = "<group>"; };
-		32F1613614E1B18100D6AB2F /* NDHotKeyControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyControl.m; sourceTree = "<group>"; };
-		32F1613714E1B18100D6AB2F /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		32F1613814E1B18100D6AB2F /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
-		32F1613914E1B18100D6AB2F /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
-		32F1613A14E1B18100D6AB2F /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
+		32F1616E14E6BB3B00D6AB2F /* NDHotKey.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NDHotKey.xcodeproj; path = Frameworks/NDHotKey/NDHotKey.xcodeproj; sourceTree = "<group>"; };
 		5604D4590D60349B004F5C5D /* SpotlightWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpotlightWindowController.m; path = Spotlight/SpotlightWindowController.m; sourceTree = "<group>"; };
 		5604D45A0D60349B004F5C5D /* SpotlightWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotlightWindowController.h; path = Spotlight/SpotlightWindowController.h; sourceTree = "<group>"; };
 		5604D4F40D60726E004F5C5D /* SpotlightPlaylistEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotlightPlaylistEntry.h; path = Spotlight/SpotlightPlaylistEntry.h; sourceTree = "<group>"; };
@@ -806,6 +815,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */,
 				17BF2B280CDD7802007E1295 /* Sparkle.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				8E6889240AAA403C00AD3950 /* Carbon.framework in Frameworks */,
@@ -859,6 +869,7 @@
 				170680620B950158006BA573 /* Growl.framework */,
 				8E6889230AAA403C00AD3950 /* Carbon.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				32F1616E14E6BB3B00D6AB2F /* NDHotKey.xcodeproj */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -922,7 +933,6 @@
 				177EBF7D0B8BC2A70000BC8C /* AppleRemote */,
 				177EBF850B8BC2A70000BC8C /* ImageTextCell */,
 				179790DD0C087AB7001D6996 /* OpenURLPanel */,
-				177EBF8B0B8BC2A70000BC8C /* NDHotKeys */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -943,19 +953,6 @@
 				177EBF870B8BC2A70000BC8C /* ImageTextCell.m */,
 			);
 			path = ImageTextCell;
-			sourceTree = "<group>";
-		};
-		177EBF8B0B8BC2A70000BC8C /* NDHotKeys */ = {
-			isa = PBXGroup;
-			children = (
-				32F1613514E1B18100D6AB2F /* NDHotKeyControl.h */,
-				32F1613614E1B18100D6AB2F /* NDHotKeyControl.m */,
-				32F1613714E1B18100D6AB2F /* NDHotKeyEvent.h */,
-				32F1613814E1B18100D6AB2F /* NDHotKeyEvent.m */,
-				32F1613914E1B18100D6AB2F /* NDKeyboardLayout.h */,
-				32F1613A14E1B18100D6AB2F /* NDKeyboardLayout.m */,
-			);
-			path = NDHotKeys;
 			sourceTree = "<group>";
 		};
 		177EC0110B8BC2CF0000BC8C /* Utils */ = {
@@ -1400,6 +1397,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		32F1616F14E6BB3B00D6AB2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		566D32170D538550004466A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1566,6 +1571,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				32F1618814E6BD0D00D6AB2F /* PBXTargetDependency */,
 				17C8097E0C3BD1F5005707C4 /* PBXTargetDependency */,
 				17C809800C3BD1F5005707C4 /* PBXTargetDependency */,
 				17C809820C3BD1F5005707C4 /* PBXTargetDependency */,
@@ -1694,6 +1700,10 @@
 				{
 					ProductGroup = 17C8089F0C3BD1AB005707C4 /* Products */;
 					ProjectRef = 17C8089E0C3BD1AB005707C4 /* Musepack.xcodeproj */;
+				},
+				{
+					ProductGroup = 32F1616F14E6BB3B00D6AB2F /* Products */;
+					ProjectRef = 32F1616E14E6BB3B00D6AB2F /* NDHotKey.xcodeproj */;
 				},
 				{
 					ProductGroup = 8E8D41C30CBB0DA000135C1B /* Products */;
@@ -1879,6 +1889,13 @@
 			remoteRef = 32D4115114CB63890050563F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = NDHotKey.framework;
+			remoteRef = 32F1617214E6BB3C00D6AB2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		566D321B0D538550004466A5 /* APL.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -2054,9 +2071,6 @@
 				1778D3CA0F645BF00037E7A0 /* MissingAlbumArtTransformer.m in Sources */,
 				17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */,
 				F6F96719102C709000D2C9B4 /* NSString+FinderCompare.m in Sources */,
-				32F1613B14E1B18100D6AB2F /* NDHotKeyControl.m in Sources */,
-				32F1613C14E1B18100D6AB2F /* NDHotKeyEvent.m in Sources */,
-				32F1613D14E1B18100D6AB2F /* NDKeyboardLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2157,6 +2171,11 @@
 			isa = PBXTargetDependency;
 			name = General;
 			targetProxy = 17F5623A0C3BD9280019975C /* PBXContainerItemProxy */;
+		};
+		32F1618814E6BD0D00D6AB2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NDHotKey;
+			targetProxy = 32F1618714E6BD0D00D6AB2F /* PBXContainerItemProxy */;
 		};
 		8E8D40930CBB03AF00135C1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2322,6 +2341,8 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -2333,6 +2354,8 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
