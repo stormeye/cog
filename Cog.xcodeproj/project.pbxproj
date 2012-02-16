@@ -85,7 +85,6 @@
 		17A8F6860D6A7FCA0095DA13 /* repeat_none.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F6830D6A7FCA0095DA13 /* repeat_none.png */; };
 		17A8F6870D6A7FCA0095DA13 /* repeat_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F6840D6A7FCA0095DA13 /* repeat_one.png */; };
 		17A8F71A0D6A89730095DA13 /* repeat_album.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F7190D6A89730095DA13 /* repeat_album.png */; };
-		17B6FA7F0D48225300C3BEF1 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17BF2B270CDD77EB007E1295 /* Sparkle.framework */; };
 		17B7CF5C0F5A05EE00A47027 /* pauseBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF590F5A05EE00A47027 /* pauseBadge.png */; };
 		17B7CF5D0F5A05EE00A47027 /* playBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF5A0F5A05EE00A47027 /* playBadge.png */; };
 		17B7CF5E0F5A05EE00A47027 /* stopBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF5B0F5A05EE00A47027 /* stopBadge.png */; };
@@ -95,7 +94,6 @@
 		17BB5CFA0B8A86350009ACB1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BB5CF70B8A86350009ACB1 /* CoreAudio.framework */; };
 		17BB5CFB0B8A86350009ACB1 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BB5CF80B8A86350009ACB1 /* CoreAudioKit.framework */; };
 		17BB5EA60B8A87850009ACB1 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BB5EA50B8A87850009ACB1 /* IOKit.framework */; };
-		17BF2B280CDD7802007E1295 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BF2B270CDD77EB007E1295 /* Sparkle.framework */; };
 		17C809910C3BD201005707C4 /* WavPack.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17C808C80C3BD1DD005707C4 /* WavPack.bundle */; };
 		17C809920C3BD206005707C4 /* Vorbis.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17C808BF0C3BD1D2005707C4 /* Vorbis.bundle */; };
 		17C809930C3BD21D005707C4 /* TagLib.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17C808B60C3BD1C5005707C4 /* TagLib.bundle */; };
@@ -139,6 +137,8 @@
 		17F562390C3BD91B0019975C /* General.preferencePane in Resources */ = {isa = PBXBuildFile; fileRef = 17F5622E0C3BD8FB0019975C /* General.preferencePane */; };
 		17F6C8070F603701000D9DA9 /* PlaybackEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F6C8060F603701000D9DA9 /* PlaybackEventController.m */; };
 		17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FAEBAB0F662985007C8707 /* ToolTipTextField.m */; };
+		3236263214ED759300BB8837 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
+		3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		5604D45B0D60349B004F5C5D /* SpotlightWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5604D4590D60349B004F5C5D /* SpotlightWindowController.m */; };
@@ -192,20 +192,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = "AudioOverload Plugin";
-		};
-		17BF2B260CDD77EB007E1295 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17BF2B1F0CDD77EB007E1295 /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = Sparkle;
-		};
-		17BF2B390CDD7827007E1295 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17BF2B1F0CDD77EB007E1295 /* Sparkle.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = Sparkle;
 		};
 		17C808780C3BD167005707C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -554,7 +540,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */,
-				17B6FA7F0D48225300C3BEF1 /* Sparkle.framework in CopyFiles */,
+				3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */,
 				17F561400C3BD4F30019975C /* CogAudio.framework in CopyFiles */,
 				170680840B950164006BA573 /* Growl.framework in CopyFiles */,
 			);
@@ -693,7 +679,6 @@
 		17BB5CF70B8A86350009ACB1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		17BB5CF80B8A86350009ACB1 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = /System/Library/Frameworks/CoreAudioKit.framework; sourceTree = "<absolute>"; };
 		17BB5EA50B8A87850009ACB1 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		17BF2B1F0CDD77EB007E1295 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = Frameworks/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		17C808660C3BD0F8005707C4 /* CoreAudio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoreAudio.xcodeproj; path = Plugins/CoreAudio/CoreAudio.xcodeproj; sourceTree = SOURCE_ROOT; };
 		17C808710C3BD167005707C4 /* FileSource.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FileSource.xcodeproj; path = Plugins/FileSource/FileSource.xcodeproj; sourceTree = "<group>"; };
 		17C8087A0C3BD173005707C4 /* Flac.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Flac.xcodeproj; path = Plugins/Flac/Flac.xcodeproj; sourceTree = "<group>"; };
@@ -756,6 +741,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3236263114ED759300BB8837 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Cog_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cog_Prefix.pch; sourceTree = "<group>"; };
 		32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = Extdeps/ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
 		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
@@ -816,7 +802,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */,
-				17BF2B280CDD7802007E1295 /* Sparkle.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				8E6889240AAA403C00AD3950 /* Carbon.framework in Frameworks */,
 				17BB5CED0B8A86010009ACB1 /* AudioToolbox.framework in Frameworks */,
@@ -825,6 +810,7 @@
 				17BB5CFB0B8A86350009ACB1 /* CoreAudioKit.framework in Frameworks */,
 				17BB5EA60B8A87850009ACB1 /* IOKit.framework in Frameworks */,
 				170680630B950158006BA573 /* Growl.framework in Frameworks */,
+				3236263214ED759300BB8837 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,7 +850,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				17BF2B1F0CDD77EB007E1295 /* Sparkle.xcodeproj */,
+				3236263114ED759300BB8837 /* Sparkle.framework */,
 				17F5612A0C3BD4DC0019975C /* CogAudio.xcodeproj */,
 				170680620B950158006BA573 /* Growl.framework */,
 				8E6889230AAA403C00AD3950 /* Carbon.framework */,
@@ -1059,14 +1045,6 @@
 			isa = PBXGroup;
 			children = (
 				17B7CF7C0F5A09FD00A47027 /* AudioOverload.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		17BF2B200CDD77EB007E1295 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				17BF2B270CDD77EB007E1295 /* Sparkle.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1590,7 +1568,6 @@
 				17F3BB8B0CBC566200864489 /* PBXTargetDependency */,
 				17C8F44C0CBEDD37008D969D /* PBXTargetDependency */,
 				17C8F7DA0CBEF3F9008D969D /* PBXTargetDependency */,
-				17BF2B3A0CDD7827007E1295 /* PBXTargetDependency */,
 				17643CBC0D5BD44900F0A9FE /* PBXTargetDependency */,
 				17B7CF960F5A0A3700A47027 /* PBXTargetDependency */,
 			);
@@ -1714,10 +1691,6 @@
 					ProjectRef = 17C808A70C3BD1BA005707C4 /* Shorten.xcodeproj */;
 				},
 				{
-					ProductGroup = 17BF2B200CDD77EB007E1295 /* Products */;
-					ProjectRef = 17BF2B1F0CDD77EB007E1295 /* Sparkle.xcodeproj */;
-				},
-				{
 					ProductGroup = 17C808B10C3BD1C5005707C4 /* Products */;
 					ProjectRef = 17C808B00C3BD1C5005707C4 /* TagLib.xcodeproj */;
 				},
@@ -1747,13 +1720,6 @@
 			fileType = wrapper.cfbundle;
 			path = AudioOverload.bundle;
 			remoteRef = 17B7CF7B0F5A09FD00A47027 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		17BF2B270CDD77EB007E1295 /* Sparkle.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Sparkle.framework;
-			remoteRef = 17BF2B260CDD77EB007E1295 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		17C808790C3BD167005707C4 /* FileSource.bundle */ = {
@@ -2087,11 +2053,6 @@
 			name = "AudioOverload Plugin";
 			targetProxy = 17B7CF950F5A0A3700A47027 /* PBXContainerItemProxy */;
 		};
-		17BF2B3A0CDD7827007E1295 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Sparkle;
-			targetProxy = 17BF2B390CDD7827007E1295 /* PBXContainerItemProxy */;
-		};
 		17C8097E0C3BD1F5005707C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Musepack;
@@ -2280,6 +2241,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					ThirdParty/Frameworks/,
 					"\"$(SRCROOT)/build/Release\"",
+					"\"$(SRCROOT)/ThirdParty/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2311,6 +2273,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					ThirdParty/Frameworks/,
 					"\"$(SRCROOT)/build/Release\"",
+					"\"$(SRCROOT)/ThirdParty/Frameworks\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
