@@ -45,9 +45,12 @@ static int min(int a, int b)
     const char *cStrUrl = [urlString cStringUsingEncoding:NSUTF8StringEncoding];
     
     formatCtx = NULL;
-    if(avformat_open_input(&formatCtx, cStrUrl, NULL, NULL) < 0)  
+    int errcode = 0;
+    if((errcode = avformat_open_input(&formatCtx, cStrUrl, NULL, NULL)) < 0)  
     {
-		NSLog(@"ERROR OPENING FILE");
+        char errDescr[4096];
+        av_strerror(errcode, errDescr, 4096);
+		NSLog(@"ERROR OPENING FILE, errcode = %d, error = %s", errcode, errDescr);
 		return NO;
 	}
     
@@ -222,13 +225,13 @@ static int min(int a, int b)
 + (NSArray *)fileTypes
 {
 //	return [NSArray arrayWithObjects:@"ape", @"mp3", nil];
-    return [NSArray arrayWithObjects:@"ape", nil];
+    return [NSArray arrayWithObjects:@"ape", @"wma", nil];
 }
 
 + (NSArray *)mimeTypes
 {
 //	return [NSArray arrayWithObjects:@"audio/x-ape", @"audio/mpeg", @"audio/x-mp3", nil];
-    return [NSArray arrayWithObjects:@"audio/x-ape", nil];
+    return [NSArray arrayWithObjects:@"audio/x-ape", @"application/wma", @"application/x-wma", @"audio/x-wma", nil];
 }
 
 @end

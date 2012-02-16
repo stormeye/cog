@@ -1,253 +1,362 @@
 case CODEC_ID_NONE:
     return "none";
 case CODEC_ID_MPEG1VIDEO:
-    return "mpeg1video";
+    { extern AVCodec ff_mpeg1video_decoder;
+      return ff_mpeg1video_decoder.name; }
 case CODEC_ID_MPEG2VIDEO:
-    return "mpeg2video";
+    { extern AVCodec ff_mpeg2video_decoder;
+      return ff_mpeg2video_decoder.name; }
 case CODEC_ID_MPEG2VIDEO_XVMC:
     return "mpeg2video_xvmc";
 case CODEC_ID_H261:
-    return "h261";
+    { extern AVCodec ff_h261_decoder;
+      return ff_h261_decoder.name; }
 case CODEC_ID_H263:
-    return "h263";
+    { extern AVCodec ff_h263_decoder;
+      return ff_h263_decoder.name; }
 case CODEC_ID_RV10:
-    return "rv10";
+    { extern AVCodec ff_rv10_decoder;
+      return ff_rv10_decoder.name; }
 case CODEC_ID_RV20:
-    return "rv20";
+    { extern AVCodec ff_rv20_decoder;
+      return ff_rv20_decoder.name; }
 case CODEC_ID_MJPEG:
-    return "mjpeg";
+    { extern AVCodec ff_mjpeg_decoder;
+      return ff_mjpeg_decoder.name; }
 case CODEC_ID_MJPEGB:
-    return "mjpegb";
+    { extern AVCodec ff_mjpegb_decoder;
+      return ff_mjpegb_decoder.name; }
 case CODEC_ID_LJPEG:
     return "ljpeg";
 case CODEC_ID_SP5X:
-    return "sp5x";
+    { extern AVCodec ff_sp5x_decoder;
+      return ff_sp5x_decoder.name; }
 case CODEC_ID_JPEGLS:
-    return "jpegls";
+    { extern AVCodec ff_jpegls_decoder;
+      return ff_jpegls_decoder.name; }
 case CODEC_ID_MPEG4:
-    return "mpeg4";
+    { extern AVCodec ff_mpeg4_decoder;
+      return ff_mpeg4_decoder.name; }
 case CODEC_ID_RAWVIDEO:
-    return "rawvideo";
+    { extern AVCodec ff_rawvideo_decoder;
+      return ff_rawvideo_decoder.name; }
 case CODEC_ID_MSMPEG4V1:
-    return "msmpeg4v1";
+    { extern AVCodec ff_msmpeg4v1_decoder;
+      return ff_msmpeg4v1_decoder.name; }
 case CODEC_ID_MSMPEG4V2:
-    return "msmpeg4v2";
+    { extern AVCodec ff_msmpeg4v2_decoder;
+      return ff_msmpeg4v2_decoder.name; }
 case CODEC_ID_MSMPEG4V3:
-    return "msmpeg4v3";
+    { extern AVCodec ff_msmpeg4v3_decoder;
+      return ff_msmpeg4v3_decoder.name; }
 case CODEC_ID_WMV1:
-    return "wmv1";
+    { extern AVCodec ff_wmv1_decoder;
+      return ff_wmv1_decoder.name; }
 case CODEC_ID_WMV2:
-    return "wmv2";
+    { extern AVCodec ff_wmv2_decoder;
+      return ff_wmv2_decoder.name; }
 case CODEC_ID_H263P:
     return "h263p";
 case CODEC_ID_H263I:
-    return "h263i";
+    { extern AVCodec ff_h263i_decoder;
+      return ff_h263i_decoder.name; }
 case CODEC_ID_FLV1:
     return "flv1";
 case CODEC_ID_SVQ1:
-    return "svq1";
+    { extern AVCodec ff_svq1_decoder;
+      return ff_svq1_decoder.name; }
 case CODEC_ID_SVQ3:
     return "svq3";
 case CODEC_ID_DVVIDEO:
-    return "dvvideo";
+    { extern AVCodec ff_dvvideo_decoder;
+      return ff_dvvideo_decoder.name; }
 case CODEC_ID_HUFFYUV:
-    return "huffyuv";
+    { extern AVCodec ff_huffyuv_decoder;
+      return ff_huffyuv_decoder.name; }
 case CODEC_ID_CYUV:
-    return "cyuv";
+    { extern AVCodec ff_cyuv_decoder;
+      return ff_cyuv_decoder.name; }
 case CODEC_ID_H264:
     return "h264";
 case CODEC_ID_INDEO3:
-    return "indeo3";
+    { extern AVCodec ff_indeo3_decoder;
+      return ff_indeo3_decoder.name; }
 case CODEC_ID_VP3:
-    return "vp3";
+    { extern AVCodec ff_vp3_decoder;
+      return ff_vp3_decoder.name; }
 case CODEC_ID_THEORA:
-    return "theora";
+    { extern AVCodec ff_theora_decoder;
+      return ff_theora_decoder.name; }
 case CODEC_ID_ASV1:
-    return "asv1";
+    { extern AVCodec ff_asv1_decoder;
+      return ff_asv1_decoder.name; }
 case CODEC_ID_ASV2:
-    return "asv2";
+    { extern AVCodec ff_asv2_decoder;
+      return ff_asv2_decoder.name; }
 case CODEC_ID_FFV1:
-    return "ffv1";
+    { extern AVCodec ff_ffv1_decoder;
+      return ff_ffv1_decoder.name; }
 case CODEC_ID_4XM:
     return "4xm";
 case CODEC_ID_VCR1:
-    return "vcr1";
+    { extern AVCodec ff_vcr1_decoder;
+      return ff_vcr1_decoder.name; }
 case CODEC_ID_CLJR:
-    return "cljr";
+    { extern AVCodec ff_cljr_decoder;
+      return ff_cljr_decoder.name; }
 case CODEC_ID_MDEC:
-    return "mdec";
+    { extern AVCodec ff_mdec_decoder;
+      return ff_mdec_decoder.name; }
 case CODEC_ID_ROQ:
-    return "roq";
+    { extern AVCodec ff_roq_decoder;
+      return ff_roq_decoder.name; }
 case CODEC_ID_INTERPLAY_VIDEO:
-    return "interplay_video";
+    { extern AVCodec ff_interplay_video_decoder;
+      return ff_interplay_video_decoder.name; }
 case CODEC_ID_XAN_WC3:
-    return "xan_wc3";
+    { extern AVCodec ff_xan_wc3_decoder;
+      return ff_xan_wc3_decoder.name; }
 case CODEC_ID_XAN_WC4:
-    return "xan_wc4";
+    { extern AVCodec ff_xan_wc4_decoder;
+      return ff_xan_wc4_decoder.name; }
 case CODEC_ID_RPZA:
-    return "rpza";
+    { extern AVCodec ff_rpza_decoder;
+      return ff_rpza_decoder.name; }
 case CODEC_ID_CINEPAK:
-    return "cinepak";
+    { extern AVCodec ff_cinepak_decoder;
+      return ff_cinepak_decoder.name; }
 case CODEC_ID_WS_VQA:
     return "ws_vqa";
 case CODEC_ID_MSRLE:
-    return "msrle";
+    { extern AVCodec ff_msrle_decoder;
+      return ff_msrle_decoder.name; }
 case CODEC_ID_MSVIDEO1:
-    return "msvideo1";
+    { extern AVCodec ff_msvideo1_decoder;
+      return ff_msvideo1_decoder.name; }
 case CODEC_ID_IDCIN:
-    return "idcin";
+    { extern AVCodec ff_idcin_decoder;
+      return ff_idcin_decoder.name; }
 case CODEC_ID_8BPS:
     return "8bps";
 case CODEC_ID_SMC:
-    return "smc";
+    { extern AVCodec ff_smc_decoder;
+      return ff_smc_decoder.name; }
 case CODEC_ID_FLIC:
-    return "flic";
+    { extern AVCodec ff_flic_decoder;
+      return ff_flic_decoder.name; }
 case CODEC_ID_TRUEMOTION1:
-    return "truemotion1";
+    { extern AVCodec ff_truemotion1_decoder;
+      return ff_truemotion1_decoder.name; }
 case CODEC_ID_VMDVIDEO:
-    return "vmdvideo";
+    { extern AVCodec ff_vmdvideo_decoder;
+      return ff_vmdvideo_decoder.name; }
 case CODEC_ID_MSZH:
-    return "mszh";
+    { extern AVCodec ff_mszh_decoder;
+      return ff_mszh_decoder.name; }
 case CODEC_ID_ZLIB:
-    return "zlib";
+    { extern AVCodec ff_zlib_decoder;
+      return ff_zlib_decoder.name; }
 case CODEC_ID_QTRLE:
-    return "qtrle";
+    { extern AVCodec ff_qtrle_decoder;
+      return ff_qtrle_decoder.name; }
 case CODEC_ID_SNOW:
-    return "snow";
+    { extern AVCodec ff_snow_decoder;
+      return ff_snow_decoder.name; }
 case CODEC_ID_TSCC:
-    return "tscc";
+    { extern AVCodec ff_tscc_decoder;
+      return ff_tscc_decoder.name; }
 case CODEC_ID_ULTI:
-    return "ulti";
+    { extern AVCodec ff_ulti_decoder;
+      return ff_ulti_decoder.name; }
 case CODEC_ID_QDRAW:
-    return "qdraw";
+    { extern AVCodec ff_qdraw_decoder;
+      return ff_qdraw_decoder.name; }
 case CODEC_ID_VIXL:
     return "vixl";
 case CODEC_ID_QPEG:
-    return "qpeg";
+    { extern AVCodec ff_qpeg_decoder;
+      return ff_qpeg_decoder.name; }
 case CODEC_ID_PNG:
-    return "png";
+    { extern AVCodec ff_png_decoder;
+      return ff_png_decoder.name; }
 case CODEC_ID_PPM:
-    return "ppm";
+    { extern AVCodec ff_ppm_decoder;
+      return ff_ppm_decoder.name; }
 case CODEC_ID_PBM:
-    return "pbm";
+    { extern AVCodec ff_pbm_decoder;
+      return ff_pbm_decoder.name; }
 case CODEC_ID_PGM:
-    return "pgm";
+    { extern AVCodec ff_pgm_decoder;
+      return ff_pgm_decoder.name; }
 case CODEC_ID_PGMYUV:
-    return "pgmyuv";
+    { extern AVCodec ff_pgmyuv_decoder;
+      return ff_pgmyuv_decoder.name; }
 case CODEC_ID_PAM:
-    return "pam";
+    { extern AVCodec ff_pam_decoder;
+      return ff_pam_decoder.name; }
 case CODEC_ID_FFVHUFF:
-    return "ffvhuff";
+    { extern AVCodec ff_ffvhuff_decoder;
+      return ff_ffvhuff_decoder.name; }
 case CODEC_ID_RV30:
-    return "rv30";
+    { extern AVCodec ff_rv30_decoder;
+      return ff_rv30_decoder.name; }
 case CODEC_ID_RV40:
-    return "rv40";
+    { extern AVCodec ff_rv40_decoder;
+      return ff_rv40_decoder.name; }
 case CODEC_ID_VC1:
-    return "vc1";
+    { extern AVCodec ff_vc1_decoder;
+      return ff_vc1_decoder.name; }
 case CODEC_ID_WMV3:
-    return "wmv3";
+    { extern AVCodec ff_wmv3_decoder;
+      return ff_wmv3_decoder.name; }
 case CODEC_ID_LOCO:
-    return "loco";
+    { extern AVCodec ff_loco_decoder;
+      return ff_loco_decoder.name; }
 case CODEC_ID_WNV1:
-    return "wnv1";
+    { extern AVCodec ff_wnv1_decoder;
+      return ff_wnv1_decoder.name; }
 case CODEC_ID_AASC:
-    return "aasc";
+    { extern AVCodec ff_aasc_decoder;
+      return ff_aasc_decoder.name; }
 case CODEC_ID_INDEO2:
-    return "indeo2";
+    { extern AVCodec ff_indeo2_decoder;
+      return ff_indeo2_decoder.name; }
 case CODEC_ID_FRAPS:
-    return "fraps";
+    { extern AVCodec ff_fraps_decoder;
+      return ff_fraps_decoder.name; }
 case CODEC_ID_TRUEMOTION2:
-    return "truemotion2";
+    { extern AVCodec ff_truemotion2_decoder;
+      return ff_truemotion2_decoder.name; }
 case CODEC_ID_BMP:
-    return "bmp";
+    { extern AVCodec ff_bmp_decoder;
+      return ff_bmp_decoder.name; }
 case CODEC_ID_CSCD:
-    return "cscd";
+    { extern AVCodec ff_cscd_decoder;
+      return ff_cscd_decoder.name; }
 case CODEC_ID_MMVIDEO:
-    return "mmvideo";
+    { extern AVCodec ff_mmvideo_decoder;
+      return ff_mmvideo_decoder.name; }
 case CODEC_ID_ZMBV:
-    return "zmbv";
+    { extern AVCodec ff_zmbv_decoder;
+      return ff_zmbv_decoder.name; }
 case CODEC_ID_AVS:
-    return "avs";
+    { extern AVCodec ff_avs_decoder;
+      return ff_avs_decoder.name; }
 case CODEC_ID_SMACKVIDEO:
     return "smackvideo";
 case CODEC_ID_NUV:
-    return "nuv";
+    { extern AVCodec ff_nuv_decoder;
+      return ff_nuv_decoder.name; }
 case CODEC_ID_KMVC:
-    return "kmvc";
+    { extern AVCodec ff_kmvc_decoder;
+      return ff_kmvc_decoder.name; }
 case CODEC_ID_FLASHSV:
-    return "flashsv";
+    { extern AVCodec ff_flashsv_decoder;
+      return ff_flashsv_decoder.name; }
 case CODEC_ID_CAVS:
-    return "cavs";
+    { extern AVCodec ff_cavs_decoder;
+      return ff_cavs_decoder.name; }
 case CODEC_ID_JPEG2000:
-    return "jpeg2000";
+    { extern AVCodec ff_jpeg2000_decoder;
+      return ff_jpeg2000_decoder.name; }
 case CODEC_ID_VMNC:
-    return "vmnc";
+    { extern AVCodec ff_vmnc_decoder;
+      return ff_vmnc_decoder.name; }
 case CODEC_ID_VP5:
-    return "vp5";
+    { extern AVCodec ff_vp5_decoder;
+      return ff_vp5_decoder.name; }
 case CODEC_ID_VP6:
-    return "vp6";
+    { extern AVCodec ff_vp6_decoder;
+      return ff_vp6_decoder.name; }
 case CODEC_ID_VP6F:
-    return "vp6f";
+    { extern AVCodec ff_vp6f_decoder;
+      return ff_vp6f_decoder.name; }
 case CODEC_ID_TARGA:
-    return "targa";
+    { extern AVCodec ff_targa_decoder;
+      return ff_targa_decoder.name; }
 case CODEC_ID_DSICINVIDEO:
-    return "dsicinvideo";
+    { extern AVCodec ff_dsicinvideo_decoder;
+      return ff_dsicinvideo_decoder.name; }
 case CODEC_ID_TIERTEXSEQVIDEO:
-    return "tiertexseqvideo";
+    { extern AVCodec ff_tiertexseqvideo_decoder;
+      return ff_tiertexseqvideo_decoder.name; }
 case CODEC_ID_TIFF:
-    return "tiff";
+    { extern AVCodec ff_tiff_decoder;
+      return ff_tiff_decoder.name; }
 case CODEC_ID_GIF:
-    return "gif";
+    { extern AVCodec ff_gif_decoder;
+      return ff_gif_decoder.name; }
 case CODEC_ID_FFH264:
     return "ffh264";
 case CODEC_ID_DXA:
-    return "dxa";
+    { extern AVCodec ff_dxa_decoder;
+      return ff_dxa_decoder.name; }
 case CODEC_ID_DNXHD:
-    return "dnxhd";
+    { extern AVCodec ff_dnxhd_decoder;
+      return ff_dnxhd_decoder.name; }
 case CODEC_ID_THP:
-    return "thp";
+    { extern AVCodec ff_thp_decoder;
+      return ff_thp_decoder.name; }
 case CODEC_ID_SGI:
-    return "sgi";
+    { extern AVCodec ff_sgi_decoder;
+      return ff_sgi_decoder.name; }
 case CODEC_ID_C93:
-    return "c93";
+    { extern AVCodec ff_c93_decoder;
+      return ff_c93_decoder.name; }
 case CODEC_ID_BETHSOFTVID:
-    return "bethsoftvid";
+    { extern AVCodec ff_bethsoftvid_decoder;
+      return ff_bethsoftvid_decoder.name; }
 case CODEC_ID_PTX:
-    return "ptx";
+    { extern AVCodec ff_ptx_decoder;
+      return ff_ptx_decoder.name; }
 case CODEC_ID_TXD:
-    return "txd";
+    { extern AVCodec ff_txd_decoder;
+      return ff_txd_decoder.name; }
 case CODEC_ID_VP6A:
-    return "vp6a";
+    { extern AVCodec ff_vp6a_decoder;
+      return ff_vp6a_decoder.name; }
 case CODEC_ID_AMV:
-    return "amv";
+    { extern AVCodec ff_amv_decoder;
+      return ff_amv_decoder.name; }
 case CODEC_ID_VB:
-    return "vb";
+    { extern AVCodec ff_vb_decoder;
+      return ff_vb_decoder.name; }
 case CODEC_ID_PCX:
-    return "pcx";
+    { extern AVCodec ff_pcx_decoder;
+      return ff_pcx_decoder.name; }
 case CODEC_ID_SUNRAST:
-    return "sunrast";
+    { extern AVCodec ff_sunrast_decoder;
+      return ff_sunrast_decoder.name; }
 case CODEC_ID_INDEO4:
-    return "indeo4";
+    { extern AVCodec ff_indeo4_decoder;
+      return ff_indeo4_decoder.name; }
 case CODEC_ID_INDEO5:
-    return "indeo5";
+    { extern AVCodec ff_indeo5_decoder;
+      return ff_indeo5_decoder.name; }
 case CODEC_ID_MIMIC:
-    return "mimic";
+    { extern AVCodec ff_mimic_decoder;
+      return ff_mimic_decoder.name; }
 case CODEC_ID_RL2:
-    return "rl2";
+    { extern AVCodec ff_rl2_decoder;
+      return ff_rl2_decoder.name; }
 case CODEC_ID_8SVX_EXP:
     return "8svx_exp";
 case CODEC_ID_8SVX_FIB:
     return "8svx_fib";
 case CODEC_ID_ESCAPE124:
-    return "escape124";
+    { extern AVCodec ff_escape124_decoder;
+      return ff_escape124_decoder.name; }
 case CODEC_ID_DIRAC:
-    return "dirac";
+    { extern AVCodec ff_dirac_decoder;
+      return ff_dirac_decoder.name; }
 case CODEC_ID_BFI:
-    return "bfi";
+    { extern AVCodec ff_bfi_decoder;
+      return ff_bfi_decoder.name; }
 case CODEC_ID_CMV:
     return "cmv";
 case CODEC_ID_MOTIONPIXELS:
-    return "motionpixels";
+    { extern AVCodec ff_motionpixels_decoder;
+      return ff_motionpixels_decoder.name; }
 case CODEC_ID_TGV:
     return "tgv";
 case CODEC_ID_TGQ:
@@ -255,65 +364,91 @@ case CODEC_ID_TGQ:
 case CODEC_ID_TQI:
     return "tqi";
 case CODEC_ID_AURA:
-    return "aura";
+    { extern AVCodec ff_aura_decoder;
+      return ff_aura_decoder.name; }
 case CODEC_ID_AURA2:
-    return "aura2";
+    { extern AVCodec ff_aura2_decoder;
+      return ff_aura2_decoder.name; }
 case CODEC_ID_V210X:
-    return "v210x";
+    { extern AVCodec ff_v210x_decoder;
+      return ff_v210x_decoder.name; }
 case CODEC_ID_TMV:
-    return "tmv";
+    { extern AVCodec ff_tmv_decoder;
+      return ff_tmv_decoder.name; }
 case CODEC_ID_V210:
-    return "v210";
+    { extern AVCodec ff_v210_decoder;
+      return ff_v210_decoder.name; }
 case CODEC_ID_DPX:
-    return "dpx";
+    { extern AVCodec ff_dpx_decoder;
+      return ff_dpx_decoder.name; }
 case CODEC_ID_MAD:
     return "mad";
 case CODEC_ID_FRWU:
-    return "frwu";
+    { extern AVCodec ff_frwu_decoder;
+      return ff_frwu_decoder.name; }
 case CODEC_ID_FLASHSV2:
-    return "flashsv2";
+    { extern AVCodec ff_flashsv2_decoder;
+      return ff_flashsv2_decoder.name; }
 case CODEC_ID_CDGRAPHICS:
-    return "cdgraphics";
+    { extern AVCodec ff_cdgraphics_decoder;
+      return ff_cdgraphics_decoder.name; }
 case CODEC_ID_R210:
-    return "r210";
+    { extern AVCodec ff_r210_decoder;
+      return ff_r210_decoder.name; }
 case CODEC_ID_ANM:
-    return "anm";
+    { extern AVCodec ff_anm_decoder;
+      return ff_anm_decoder.name; }
 case CODEC_ID_BINKVIDEO:
     return "binkvideo";
 case CODEC_ID_IFF_ILBM:
-    return "iff_ilbm";
+    { extern AVCodec ff_iff_ilbm_decoder;
+      return ff_iff_ilbm_decoder.name; }
 case CODEC_ID_IFF_BYTERUN1:
-    return "iff_byterun1";
+    { extern AVCodec ff_iff_byterun1_decoder;
+      return ff_iff_byterun1_decoder.name; }
 case CODEC_ID_KGV1:
-    return "kgv1";
+    { extern AVCodec ff_kgv1_decoder;
+      return ff_kgv1_decoder.name; }
 case CODEC_ID_YOP:
-    return "yop";
+    { extern AVCodec ff_yop_decoder;
+      return ff_yop_decoder.name; }
 case CODEC_ID_VP8:
-    return "vp8";
+    { extern AVCodec ff_vp8_decoder;
+      return ff_vp8_decoder.name; }
 case CODEC_ID_PICTOR:
-    return "pictor";
+    { extern AVCodec ff_pictor_decoder;
+      return ff_pictor_decoder.name; }
 case CODEC_ID_ANSI:
-    return "ansi";
+    { extern AVCodec ff_ansi_decoder;
+      return ff_ansi_decoder.name; }
 case CODEC_ID_A64_MULTI:
     return "a64_multi";
 case CODEC_ID_A64_MULTI5:
     return "a64_multi5";
 case CODEC_ID_R10K:
-    return "r10k";
+    { extern AVCodec ff_r10k_decoder;
+      return ff_r10k_decoder.name; }
 case CODEC_ID_MXPEG:
-    return "mxpeg";
+    { extern AVCodec ff_mxpeg_decoder;
+      return ff_mxpeg_decoder.name; }
 case CODEC_ID_LAGARITH:
-    return "lagarith";
+    { extern AVCodec ff_lagarith_decoder;
+      return ff_lagarith_decoder.name; }
 case CODEC_ID_PRORES:
-    return "prores";
+    { extern AVCodec ff_prores_decoder;
+      return ff_prores_decoder.name; }
 case CODEC_ID_JV:
-    return "jv";
+    { extern AVCodec ff_jv_decoder;
+      return ff_jv_decoder.name; }
 case CODEC_ID_DFA:
-    return "dfa";
+    { extern AVCodec ff_dfa_decoder;
+      return ff_dfa_decoder.name; }
 case CODEC_ID_WMV3IMAGE:
-    return "wmv3image";
+    { extern AVCodec ff_wmv3image_decoder;
+      return ff_wmv3image_decoder.name; }
 case CODEC_ID_VC1IMAGE:
-    return "vc1image";
+    { extern AVCodec ff_vc1image_decoder;
+      return ff_vc1image_decoder.name; }
 case CODEC_ID_G723_1_DEPRECATED:
     return "g723_1_deprecated";
 case CODEC_ID_G729_DEPRECATED:
@@ -321,268 +456,382 @@ case CODEC_ID_G729_DEPRECATED:
 case CODEC_ID_UTVIDEO_DEPRECATED:
     return "utvideo_deprecated";
 case CODEC_ID_BMV_VIDEO:
-    return "bmv_video";
+    { extern AVCodec ff_bmv_video_decoder;
+      return ff_bmv_video_decoder.name; }
 case CODEC_ID_VBLE:
-    return "vble";
+    { extern AVCodec ff_vble_decoder;
+      return ff_vble_decoder.name; }
 case CODEC_ID_DXTORY:
-    return "dxtory";
+    { extern AVCodec ff_dxtory_decoder;
+      return ff_dxtory_decoder.name; }
 case CODEC_ID_V410:
-    return "v410";
+    { extern AVCodec ff_v410_decoder;
+      return ff_v410_decoder.name; }
 case CODEC_ID_Y41P:
-    return "y41p";
+    { extern AVCodec ff_y41p_decoder;
+      return ff_y41p_decoder.name; }
 case CODEC_ID_UTVIDEO:
-    return "utvideo";
+    { extern AVCodec ff_utvideo_decoder;
+      return ff_utvideo_decoder.name; }
 case CODEC_ID_ESCAPE130:
-    return "escape130";
+    { extern AVCodec ff_escape130_decoder;
+      return ff_escape130_decoder.name; }
 case CODEC_ID_G2M:
     return "g2m";
 case CODEC_ID_PCM_S16LE:
-    return "pcm_s16le";
+    { extern AVCodec ff_pcm_s16le_decoder;
+      return ff_pcm_s16le_decoder.name; }
 case CODEC_ID_PCM_S16BE:
-    return "pcm_s16be";
+    { extern AVCodec ff_pcm_s16be_decoder;
+      return ff_pcm_s16be_decoder.name; }
 case CODEC_ID_PCM_U16LE:
-    return "pcm_u16le";
+    { extern AVCodec ff_pcm_u16le_decoder;
+      return ff_pcm_u16le_decoder.name; }
 case CODEC_ID_PCM_U16BE:
-    return "pcm_u16be";
+    { extern AVCodec ff_pcm_u16be_decoder;
+      return ff_pcm_u16be_decoder.name; }
 case CODEC_ID_PCM_S8:
-    return "pcm_s8";
+    { extern AVCodec ff_pcm_s8_decoder;
+      return ff_pcm_s8_decoder.name; }
 case CODEC_ID_PCM_U8:
-    return "pcm_u8";
+    { extern AVCodec ff_pcm_u8_decoder;
+      return ff_pcm_u8_decoder.name; }
 case CODEC_ID_PCM_MULAW:
-    return "pcm_mulaw";
+    { extern AVCodec ff_pcm_mulaw_decoder;
+      return ff_pcm_mulaw_decoder.name; }
 case CODEC_ID_PCM_ALAW:
-    return "pcm_alaw";
+    { extern AVCodec ff_pcm_alaw_decoder;
+      return ff_pcm_alaw_decoder.name; }
 case CODEC_ID_PCM_S32LE:
-    return "pcm_s32le";
+    { extern AVCodec ff_pcm_s32le_decoder;
+      return ff_pcm_s32le_decoder.name; }
 case CODEC_ID_PCM_S32BE:
-    return "pcm_s32be";
+    { extern AVCodec ff_pcm_s32be_decoder;
+      return ff_pcm_s32be_decoder.name; }
 case CODEC_ID_PCM_U32LE:
-    return "pcm_u32le";
+    { extern AVCodec ff_pcm_u32le_decoder;
+      return ff_pcm_u32le_decoder.name; }
 case CODEC_ID_PCM_U32BE:
-    return "pcm_u32be";
+    { extern AVCodec ff_pcm_u32be_decoder;
+      return ff_pcm_u32be_decoder.name; }
 case CODEC_ID_PCM_S24LE:
-    return "pcm_s24le";
+    { extern AVCodec ff_pcm_s24le_decoder;
+      return ff_pcm_s24le_decoder.name; }
 case CODEC_ID_PCM_S24BE:
-    return "pcm_s24be";
+    { extern AVCodec ff_pcm_s24be_decoder;
+      return ff_pcm_s24be_decoder.name; }
 case CODEC_ID_PCM_U24LE:
-    return "pcm_u24le";
+    { extern AVCodec ff_pcm_u24le_decoder;
+      return ff_pcm_u24le_decoder.name; }
 case CODEC_ID_PCM_U24BE:
-    return "pcm_u24be";
+    { extern AVCodec ff_pcm_u24be_decoder;
+      return ff_pcm_u24be_decoder.name; }
 case CODEC_ID_PCM_S24DAUD:
-    return "pcm_s24daud";
+    { extern AVCodec ff_pcm_s24daud_decoder;
+      return ff_pcm_s24daud_decoder.name; }
 case CODEC_ID_PCM_ZORK:
-    return "pcm_zork";
+    { extern AVCodec ff_pcm_zork_decoder;
+      return ff_pcm_zork_decoder.name; }
 case CODEC_ID_PCM_S16LE_PLANAR:
-    return "pcm_s16le_planar";
+    { extern AVCodec ff_pcm_s16le_planar_decoder;
+      return ff_pcm_s16le_planar_decoder.name; }
 case CODEC_ID_PCM_DVD:
-    return "pcm_dvd";
+    { extern AVCodec ff_pcm_dvd_decoder;
+      return ff_pcm_dvd_decoder.name; }
 case CODEC_ID_PCM_F32BE:
-    return "pcm_f32be";
+    { extern AVCodec ff_pcm_f32be_decoder;
+      return ff_pcm_f32be_decoder.name; }
 case CODEC_ID_PCM_F32LE:
-    return "pcm_f32le";
+    { extern AVCodec ff_pcm_f32le_decoder;
+      return ff_pcm_f32le_decoder.name; }
 case CODEC_ID_PCM_F64BE:
-    return "pcm_f64be";
+    { extern AVCodec ff_pcm_f64be_decoder;
+      return ff_pcm_f64be_decoder.name; }
 case CODEC_ID_PCM_F64LE:
-    return "pcm_f64le";
+    { extern AVCodec ff_pcm_f64le_decoder;
+      return ff_pcm_f64le_decoder.name; }
 case CODEC_ID_PCM_BLURAY:
-    return "pcm_bluray";
+    { extern AVCodec ff_pcm_bluray_decoder;
+      return ff_pcm_bluray_decoder.name; }
 case CODEC_ID_PCM_LXF:
-    return "pcm_lxf";
+    { extern AVCodec ff_pcm_lxf_decoder;
+      return ff_pcm_lxf_decoder.name; }
 case CODEC_ID_S302M:
-    return "s302m";
+    { extern AVCodec ff_s302m_decoder;
+      return ff_s302m_decoder.name; }
 case CODEC_ID_PCM_S8_PLANAR:
-    return "pcm_s8_planar";
+    { extern AVCodec ff_pcm_s8_planar_decoder;
+      return ff_pcm_s8_planar_decoder.name; }
 case CODEC_ID_ADPCM_IMA_QT:
-    return "adpcm_ima_qt";
+    { extern AVCodec ff_adpcm_ima_qt_decoder;
+      return ff_adpcm_ima_qt_decoder.name; }
 case CODEC_ID_ADPCM_IMA_WAV:
-    return "adpcm_ima_wav";
+    { extern AVCodec ff_adpcm_ima_wav_decoder;
+      return ff_adpcm_ima_wav_decoder.name; }
 case CODEC_ID_ADPCM_IMA_DK3:
-    return "adpcm_ima_dk3";
+    { extern AVCodec ff_adpcm_ima_dk3_decoder;
+      return ff_adpcm_ima_dk3_decoder.name; }
 case CODEC_ID_ADPCM_IMA_DK4:
-    return "adpcm_ima_dk4";
+    { extern AVCodec ff_adpcm_ima_dk4_decoder;
+      return ff_adpcm_ima_dk4_decoder.name; }
 case CODEC_ID_ADPCM_IMA_WS:
-    return "adpcm_ima_ws";
+    { extern AVCodec ff_adpcm_ima_ws_decoder;
+      return ff_adpcm_ima_ws_decoder.name; }
 case CODEC_ID_ADPCM_IMA_SMJPEG:
-    return "adpcm_ima_smjpeg";
+    { extern AVCodec ff_adpcm_ima_smjpeg_decoder;
+      return ff_adpcm_ima_smjpeg_decoder.name; }
 case CODEC_ID_ADPCM_MS:
-    return "adpcm_ms";
+    { extern AVCodec ff_adpcm_ms_decoder;
+      return ff_adpcm_ms_decoder.name; }
 case CODEC_ID_ADPCM_4XM:
-    return "adpcm_4xm";
+    { extern AVCodec ff_adpcm_4xm_decoder;
+      return ff_adpcm_4xm_decoder.name; }
 case CODEC_ID_ADPCM_XA:
-    return "adpcm_xa";
+    { extern AVCodec ff_adpcm_xa_decoder;
+      return ff_adpcm_xa_decoder.name; }
 case CODEC_ID_ADPCM_ADX:
-    return "adpcm_adx";
+    { extern AVCodec ff_adpcm_adx_decoder;
+      return ff_adpcm_adx_decoder.name; }
 case CODEC_ID_ADPCM_EA:
-    return "adpcm_ea";
+    { extern AVCodec ff_adpcm_ea_decoder;
+      return ff_adpcm_ea_decoder.name; }
 case CODEC_ID_ADPCM_G726:
-    return "adpcm_g726";
+    { extern AVCodec ff_adpcm_g726_decoder;
+      return ff_adpcm_g726_decoder.name; }
 case CODEC_ID_ADPCM_CT:
-    return "adpcm_ct";
+    { extern AVCodec ff_adpcm_ct_decoder;
+      return ff_adpcm_ct_decoder.name; }
 case CODEC_ID_ADPCM_SWF:
-    return "adpcm_swf";
+    { extern AVCodec ff_adpcm_swf_decoder;
+      return ff_adpcm_swf_decoder.name; }
 case CODEC_ID_ADPCM_YAMAHA:
-    return "adpcm_yamaha";
+    { extern AVCodec ff_adpcm_yamaha_decoder;
+      return ff_adpcm_yamaha_decoder.name; }
 case CODEC_ID_ADPCM_SBPRO_4:
-    return "adpcm_sbpro_4";
+    { extern AVCodec ff_adpcm_sbpro_4_decoder;
+      return ff_adpcm_sbpro_4_decoder.name; }
 case CODEC_ID_ADPCM_SBPRO_3:
-    return "adpcm_sbpro_3";
+    { extern AVCodec ff_adpcm_sbpro_3_decoder;
+      return ff_adpcm_sbpro_3_decoder.name; }
 case CODEC_ID_ADPCM_SBPRO_2:
-    return "adpcm_sbpro_2";
+    { extern AVCodec ff_adpcm_sbpro_2_decoder;
+      return ff_adpcm_sbpro_2_decoder.name; }
 case CODEC_ID_ADPCM_THP:
-    return "adpcm_thp";
+    { extern AVCodec ff_adpcm_thp_decoder;
+      return ff_adpcm_thp_decoder.name; }
 case CODEC_ID_ADPCM_IMA_AMV:
-    return "adpcm_ima_amv";
+    { extern AVCodec ff_adpcm_ima_amv_decoder;
+      return ff_adpcm_ima_amv_decoder.name; }
 case CODEC_ID_ADPCM_EA_R1:
-    return "adpcm_ea_r1";
+    { extern AVCodec ff_adpcm_ea_r1_decoder;
+      return ff_adpcm_ea_r1_decoder.name; }
 case CODEC_ID_ADPCM_EA_R3:
-    return "adpcm_ea_r3";
+    { extern AVCodec ff_adpcm_ea_r3_decoder;
+      return ff_adpcm_ea_r3_decoder.name; }
 case CODEC_ID_ADPCM_EA_R2:
-    return "adpcm_ea_r2";
+    { extern AVCodec ff_adpcm_ea_r2_decoder;
+      return ff_adpcm_ea_r2_decoder.name; }
 case CODEC_ID_ADPCM_IMA_EA_SEAD:
-    return "adpcm_ima_ea_sead";
+    { extern AVCodec ff_adpcm_ima_ea_sead_decoder;
+      return ff_adpcm_ima_ea_sead_decoder.name; }
 case CODEC_ID_ADPCM_IMA_EA_EACS:
-    return "adpcm_ima_ea_eacs";
+    { extern AVCodec ff_adpcm_ima_ea_eacs_decoder;
+      return ff_adpcm_ima_ea_eacs_decoder.name; }
 case CODEC_ID_ADPCM_EA_XAS:
-    return "adpcm_ea_xas";
+    { extern AVCodec ff_adpcm_ea_xas_decoder;
+      return ff_adpcm_ea_xas_decoder.name; }
 case CODEC_ID_ADPCM_EA_MAXIS_XA:
-    return "adpcm_ea_maxis_xa";
+    { extern AVCodec ff_adpcm_ea_maxis_xa_decoder;
+      return ff_adpcm_ea_maxis_xa_decoder.name; }
 case CODEC_ID_ADPCM_IMA_ISS:
-    return "adpcm_ima_iss";
+    { extern AVCodec ff_adpcm_ima_iss_decoder;
+      return ff_adpcm_ima_iss_decoder.name; }
 case CODEC_ID_ADPCM_G722:
-    return "adpcm_g722";
+    { extern AVCodec ff_adpcm_g722_decoder;
+      return ff_adpcm_g722_decoder.name; }
 case CODEC_ID_AMR_NB:
     return "amr_nb";
 case CODEC_ID_AMR_WB:
     return "amr_wb";
 case CODEC_ID_RA_144:
-    return "ra_144";
+    { extern AVCodec ff_ra_144_decoder;
+      return ff_ra_144_decoder.name; }
 case CODEC_ID_RA_288:
-    return "ra_288";
+    { extern AVCodec ff_ra_288_decoder;
+      return ff_ra_288_decoder.name; }
 case CODEC_ID_ROQ_DPCM:
-    return "roq_dpcm";
+    { extern AVCodec ff_roq_dpcm_decoder;
+      return ff_roq_dpcm_decoder.name; }
 case CODEC_ID_INTERPLAY_DPCM:
-    return "interplay_dpcm";
+    { extern AVCodec ff_interplay_dpcm_decoder;
+      return ff_interplay_dpcm_decoder.name; }
 case CODEC_ID_XAN_DPCM:
-    return "xan_dpcm";
+    { extern AVCodec ff_xan_dpcm_decoder;
+      return ff_xan_dpcm_decoder.name; }
 case CODEC_ID_SOL_DPCM:
-    return "sol_dpcm";
+    { extern AVCodec ff_sol_dpcm_decoder;
+      return ff_sol_dpcm_decoder.name; }
 case CODEC_ID_MP2:
-    return "mp2";
+    { extern AVCodec ff_mp2_decoder;
+      return ff_mp2_decoder.name; }
 case CODEC_ID_MP3:
-    return "mp3";
+    { extern AVCodec ff_mp3_decoder;
+      return ff_mp3_decoder.name; }
 case CODEC_ID_AAC:
-    return "aac";
+    { extern AVCodec ff_aac_decoder;
+      return ff_aac_decoder.name; }
 case CODEC_ID_AC3:
-    return "ac3";
+    { extern AVCodec ff_ac3_decoder;
+      return ff_ac3_decoder.name; }
 case CODEC_ID_DTS:
     return "dts";
 case CODEC_ID_VORBIS:
-    return "vorbis";
+    { extern AVCodec ff_vorbis_decoder;
+      return ff_vorbis_decoder.name; }
 case CODEC_ID_DVAUDIO:
     return "dvaudio";
 case CODEC_ID_WMAV1:
-    return "wmav1";
+    { extern AVCodec ff_wmav1_decoder;
+      return ff_wmav1_decoder.name; }
 case CODEC_ID_WMAV2:
-    return "wmav2";
+    { extern AVCodec ff_wmav2_decoder;
+      return ff_wmav2_decoder.name; }
 case CODEC_ID_MACE3:
-    return "mace3";
+    { extern AVCodec ff_mace3_decoder;
+      return ff_mace3_decoder.name; }
 case CODEC_ID_MACE6:
-    return "mace6";
+    { extern AVCodec ff_mace6_decoder;
+      return ff_mace6_decoder.name; }
 case CODEC_ID_VMDAUDIO:
-    return "vmdaudio";
+    { extern AVCodec ff_vmdaudio_decoder;
+      return ff_vmdaudio_decoder.name; }
 case CODEC_ID_SONIC:
-    return "sonic";
+    { extern AVCodec ff_sonic_decoder;
+      return ff_sonic_decoder.name; }
 case CODEC_ID_SONIC_LS:
     return "sonic_ls";
 case CODEC_ID_FLAC:
-    return "flac";
+    { extern AVCodec ff_flac_decoder;
+      return ff_flac_decoder.name; }
 case CODEC_ID_MP3ADU:
-    return "mp3adu";
+    { extern AVCodec ff_mp3adu_decoder;
+      return ff_mp3adu_decoder.name; }
 case CODEC_ID_MP3ON4:
-    return "mp3on4";
+    { extern AVCodec ff_mp3on4_decoder;
+      return ff_mp3on4_decoder.name; }
 case CODEC_ID_SHORTEN:
-    return "shorten";
+    { extern AVCodec ff_shorten_decoder;
+      return ff_shorten_decoder.name; }
 case CODEC_ID_ALAC:
-    return "alac";
+    { extern AVCodec ff_alac_decoder;
+      return ff_alac_decoder.name; }
 case CODEC_ID_WESTWOOD_SND1:
     return "westwood_snd1";
 case CODEC_ID_GSM:
-    return "gsm";
+    { extern AVCodec ff_gsm_decoder;
+      return ff_gsm_decoder.name; }
 case CODEC_ID_QDM2:
-    return "qdm2";
+    { extern AVCodec ff_qdm2_decoder;
+      return ff_qdm2_decoder.name; }
 case CODEC_ID_COOK:
-    return "cook";
+    { extern AVCodec ff_cook_decoder;
+      return ff_cook_decoder.name; }
 case CODEC_ID_TRUESPEECH:
-    return "truespeech";
+    { extern AVCodec ff_truespeech_decoder;
+      return ff_truespeech_decoder.name; }
 case CODEC_ID_TTA:
-    return "tta";
+    { extern AVCodec ff_tta_decoder;
+      return ff_tta_decoder.name; }
 case CODEC_ID_SMACKAUDIO:
     return "smackaudio";
 case CODEC_ID_QCELP:
-    return "qcelp";
+    { extern AVCodec ff_qcelp_decoder;
+      return ff_qcelp_decoder.name; }
 case CODEC_ID_WAVPACK:
-    return "wavpack";
+    { extern AVCodec ff_wavpack_decoder;
+      return ff_wavpack_decoder.name; }
 case CODEC_ID_DSICINAUDIO:
-    return "dsicinaudio";
+    { extern AVCodec ff_dsicinaudio_decoder;
+      return ff_dsicinaudio_decoder.name; }
 case CODEC_ID_IMC:
-    return "imc";
+    { extern AVCodec ff_imc_decoder;
+      return ff_imc_decoder.name; }
 case CODEC_ID_MUSEPACK7:
     return "musepack7";
 case CODEC_ID_MLP:
-    return "mlp";
+    { extern AVCodec ff_mlp_decoder;
+      return ff_mlp_decoder.name; }
 case CODEC_ID_GSM_MS:
-    return "gsm_ms";
+    { extern AVCodec ff_gsm_ms_decoder;
+      return ff_gsm_ms_decoder.name; }
 case CODEC_ID_ATRAC3:
-    return "atrac3";
+    { extern AVCodec ff_atrac3_decoder;
+      return ff_atrac3_decoder.name; }
 case CODEC_ID_VOXWARE:
     return "voxware";
 case CODEC_ID_APE:
     { extern AVCodec ff_ape_decoder;
       return ff_ape_decoder.name; }
 case CODEC_ID_NELLYMOSER:
-    return "nellymoser";
+    { extern AVCodec ff_nellymoser_decoder;
+      return ff_nellymoser_decoder.name; }
 case CODEC_ID_MUSEPACK8:
     return "musepack8";
 case CODEC_ID_SPEEX:
     return "speex";
 case CODEC_ID_WMAVOICE:
-    return "wmavoice";
+    { extern AVCodec ff_wmavoice_decoder;
+      return ff_wmavoice_decoder.name; }
 case CODEC_ID_WMAPRO:
-    return "wmapro";
+    { extern AVCodec ff_wmapro_decoder;
+      return ff_wmapro_decoder.name; }
 case CODEC_ID_WMALOSSLESS:
-    return "wmalossless";
+    { extern AVCodec ff_wmalossless_decoder;
+      return ff_wmalossless_decoder.name; }
 case CODEC_ID_ATRAC3P:
     return "atrac3p";
 case CODEC_ID_EAC3:
-    return "eac3";
+    { extern AVCodec ff_eac3_decoder;
+      return ff_eac3_decoder.name; }
 case CODEC_ID_SIPR:
-    return "sipr";
+    { extern AVCodec ff_sipr_decoder;
+      return ff_sipr_decoder.name; }
 case CODEC_ID_MP1:
-    return "mp1";
+    { extern AVCodec ff_mp1_decoder;
+      return ff_mp1_decoder.name; }
 case CODEC_ID_TWINVQ:
-    return "twinvq";
+    { extern AVCodec ff_twinvq_decoder;
+      return ff_twinvq_decoder.name; }
 case CODEC_ID_TRUEHD:
-    return "truehd";
+    { extern AVCodec ff_truehd_decoder;
+      return ff_truehd_decoder.name; }
 case CODEC_ID_MP4ALS:
     return "mp4als";
 case CODEC_ID_ATRAC1:
-    return "atrac1";
+    { extern AVCodec ff_atrac1_decoder;
+      return ff_atrac1_decoder.name; }
 case CODEC_ID_BINKAUDIO_RDFT:
-    return "binkaudio_rdft";
+    { extern AVCodec ff_binkaudio_rdft_decoder;
+      return ff_binkaudio_rdft_decoder.name; }
 case CODEC_ID_BINKAUDIO_DCT:
-    return "binkaudio_dct";
+    { extern AVCodec ff_binkaudio_dct_decoder;
+      return ff_binkaudio_dct_decoder.name; }
 case CODEC_ID_AAC_LATM:
-    return "aac_latm";
+    { extern AVCodec ff_aac_latm_decoder;
+      return ff_aac_latm_decoder.name; }
 case CODEC_ID_QDMC:
     return "qdmc";
 case CODEC_ID_CELT:
     return "celt";
 case CODEC_ID_BMV_AUDIO:
-    return "bmv_audio";
+    { extern AVCodec ff_bmv_audio_decoder;
+      return ff_bmv_audio_decoder.name; }
 case CODEC_ID_G729:
-    return "g729";
+    { extern AVCodec ff_g729_decoder;
+      return ff_g729_decoder.name; }
 case CODEC_ID_G723_1:
-    return "g723_1";
+    { extern AVCodec ff_g723_1_decoder;
+      return ff_g723_1_decoder.name; }
 case CODEC_ID_8SVX_RAW:
     return "8svx_raw";
 case CODEC_ID_DVD_SUBTITLE:
@@ -592,7 +841,8 @@ case CODEC_ID_DVB_SUBTITLE:
 case CODEC_ID_TEXT:
     return "text";
 case CODEC_ID_XSUB:
-    return "xsub";
+    { extern AVCodec ff_xsub_decoder;
+      return ff_xsub_decoder.name; }
 case CODEC_ID_SSA:
     return "ssa";
 case CODEC_ID_MOV_TEXT:
@@ -602,17 +852,21 @@ case CODEC_ID_HDMV_PGS_SUBTITLE:
 case CODEC_ID_DVB_TELETEXT:
     return "dvb_teletext";
 case CODEC_ID_SRT:
-    return "srt";
+    { extern AVCodec ff_srt_decoder;
+      return ff_srt_decoder.name; }
 case CODEC_ID_MICRODVD:
     return "microdvd";
 case CODEC_ID_TTF:
     return "ttf";
 case CODEC_ID_BINTEXT:
-    return "bintext";
+    { extern AVCodec ff_bintext_decoder;
+      return ff_bintext_decoder.name; }
 case CODEC_ID_XBIN:
-    return "xbin";
+    { extern AVCodec ff_xbin_decoder;
+      return ff_xbin_decoder.name; }
 case CODEC_ID_IDF:
-    return "idf";
+    { extern AVCodec ff_idf_decoder;
+      return ff_idf_decoder.name; }
 case CODEC_ID_PROBE:
     return "probe";
 case CODEC_ID_MPEG2TS:

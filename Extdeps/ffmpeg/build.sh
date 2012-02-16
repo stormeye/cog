@@ -48,9 +48,6 @@ then
       --disable-network \
       --disable-encoders \
       --disable-muxers \
-      --disable-demuxers \
-      --disable-parsers \
-      --disable-decoders \
       --enable-shared \
       --disable-static \
       --disable-decoder=h264,svq3 \
@@ -60,7 +57,13 @@ then
       --target-os=darwin \
       --cc="$compiler" \
       --enable-demuxer=ape \
-      --enable-decoder=ape
+      --enable-demuxer=xwma \
+      --enable-decoder=ape \
+      --enable-decoder=wmalossless \
+      --enable-decoder=wmapro \
+      --enable-decoder=wmav1 \
+      --enable-decoder=wmav2 \
+      --enable-decoder=wmavoice 
     make
 
     for lib in libavutil libavformat libavcodec
