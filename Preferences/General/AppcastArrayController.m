@@ -17,15 +17,15 @@
 
 	[self addObject:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-			NSLocalizedStringFromTableInBundle(@"Stable", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://cogx.org/appcast/stable.xml", @"url",nil]];
+			NSLocalizedStringFromTableInBundle(@"Stable", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://mamburu.net/cog/stable.xml", @"url",nil]];
+			
+//	[self addObject:
+//		[NSDictionary dictionaryWithObjectsAndKeys:
+//			NSLocalizedStringFromTableInBundle(@"Unstable", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://cogx.org/appcast/unstable.xml", @"url",nil]];
 			
 	[self addObject:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-			NSLocalizedStringFromTableInBundle(@"Unstable", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://cogx.org/appcast/unstable.xml", @"url",nil]];
-			
-	[self addObject:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			NSLocalizedStringFromTableInBundle(@"Nightly", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://cogx.org/appcast/nightly.xml", @"url",nil]];
+			NSLocalizedStringFromTableInBundle(@"Nightly", nil, [NSBundle bundleForClass:[self class]], @"") , @"name", @"http://mamburu.net/cog/nightly.xml", @"url",nil]];
 }
 
 
