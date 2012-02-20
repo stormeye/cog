@@ -46,24 +46,25 @@ then
       --disable-postproc \
       --disable-avfilter \
       --disable-network \
-      --disable-encoders \
-      --disable-muxers \
       --enable-shared \
-      --disable-static \
-      --disable-decoder=h264,svq3 \
-      --disable-parser=h264 \
       --arch=$arch \
       --enable-cross-compile \
       --target-os=darwin \
       --cc="$compiler" \
+      --disable-everything \
+      --enable-protocol=file \
       --enable-demuxer=ape \
       --enable-demuxer=xwma \
+      --enable-demuxer=asf \
       --enable-decoder=ape \
       --enable-decoder=wmalossless \
       --enable-decoder=wmapro \
       --enable-decoder=wmav1 \
       --enable-decoder=wmav2 \
-      --enable-decoder=wmavoice 
+      --enable-decoder=wmavoice \
+      --enable-parser=aac \
+      --enable-parser=aac_latm \
+      --enable-parser=ac3
     make
 
     for lib in libavutil libavformat libavcodec
