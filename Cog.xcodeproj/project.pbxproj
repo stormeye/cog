@@ -139,6 +139,9 @@
 		17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FAEBAB0F662985007C8707 /* ToolTipTextField.m */; };
 		3236263214ED759300BB8837 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
 		3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
+		3237711614F847DF001D4CC0 /* NowPlayingBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711514F847DF001D4CC0 /* NowPlayingBarView.m */; };
+		3237711A14F84801001D4CC0 /* NowPlayingBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711814F84801001D4CC0 /* NowPlayingBarController.m */; };
+		3237711B14F84801001D4CC0 /* NowPlayingBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3237711914F84801001D4CC0 /* NowPlayingBarController.xib */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		32DB427214ED797400BECF92 /* cog_public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 32DB427114ED797400BECF92 /* cog_public.pem */; };
 		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
@@ -736,6 +739,11 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3236263114ED759300BB8837 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		3237711414F847DF001D4CC0 /* NowPlayingBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NowPlayingBarView.h; path = Window/NowPlayingBarView.h; sourceTree = "<group>"; };
+		3237711514F847DF001D4CC0 /* NowPlayingBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingBarView.m; path = Window/NowPlayingBarView.m; sourceTree = "<group>"; };
+		3237711714F84801001D4CC0 /* NowPlayingBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NowPlayingBarController.h; path = Window/NowPlayingBarController.h; sourceTree = "<group>"; };
+		3237711814F84801001D4CC0 /* NowPlayingBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingBarController.m; path = Window/NowPlayingBarController.m; sourceTree = "<group>"; };
+		3237711914F84801001D4CC0 /* NowPlayingBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NowPlayingBarController.xib; path = Window/NowPlayingBarController.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Cog_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cog_Prefix.pch; sourceTree = "<group>"; };
 		32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = Extdeps/ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
 		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
@@ -1224,6 +1232,10 @@
 				17E0D5E60F520F02005B6FED /* PositionSlider.m */,
 				17E0D5E70F520F02005B6FED /* TimeField.h */,
 				17E0D5E80F520F02005B6FED /* TimeField.m */,
+				3237711414F847DF001D4CC0 /* NowPlayingBarView.h */,
+				3237711514F847DF001D4CC0 /* NowPlayingBarView.m */,
+				3237711714F84801001D4CC0 /* NowPlayingBarController.h */,
+				3237711814F84801001D4CC0 /* NowPlayingBarController.m */,
 			);
 			name = Window;
 			sourceTree = "<group>";
@@ -1297,6 +1309,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3237711914F84801001D4CC0 /* NowPlayingBarController.xib */,
 				32DB427114ED797400BECF92 /* cog_public.pem */,
 				8E07AD280AAC9BE600A4B32F /* Preference Panes */,
 				8E75758E09F31D800080F1EE /* Icons */,
@@ -1927,6 +1940,7 @@
 				1778D3B00F645A190037E7A0 /* missingArt.png in Resources */,
 				1745CBA50F661DBB00E513F7 /* shuffle_albums.png in Resources */,
 				32DB427214ED797400BECF92 /* cog_public.pem in Resources */,
+				3237711B14F84801001D4CC0 /* NowPlayingBarController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2013,6 +2027,8 @@
 				1778D3CA0F645BF00037E7A0 /* MissingAlbumArtTransformer.m in Sources */,
 				17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */,
 				F6F96719102C709000D2C9B4 /* NSString+FinderCompare.m in Sources */,
+				3237711614F847DF001D4CC0 /* NowPlayingBarView.m in Sources */,
+				3237711A14F84801001D4CC0 /* NowPlayingBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
