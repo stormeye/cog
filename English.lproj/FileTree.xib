@@ -77,6 +77,7 @@
 										<string key="NSFrameSize">{306, 377}</string>
 										<reference key="NSSuperview" ref="326711301"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="753134641"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
 											<nil key="NSNextResponder"/>
@@ -190,6 +191,7 @@
 								<string key="NSFrame">{{261, 0}, {15, 363}}</string>
 								<reference key="NSSuperview" ref="801512230"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="31271638"/>
 								<reference key="NSTarget" ref="801512230"/>
 								<string key="NSAction">_doScroller:</string>
 								<double key="NSPercent">0.99736150000000001</double>
@@ -200,6 +202,7 @@
 								<string key="NSFrame">{{0, 363}, {261, 15}}</string>
 								<reference key="NSSuperview" ref="801512230"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="801512230"/>
 								<string key="NSAction">_doScroller:</string>
@@ -230,6 +233,7 @@
 						<string key="NSFrame">{{0, 377}, {307, 22}}</string>
 						<reference key="NSSuperview" ref="904413865"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="801512230"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPathCell" key="NSCell" id="31263141">
 							<int key="NSCellFlags">337772033</int>
@@ -251,6 +255,7 @@
 				<string key="NSFrameSize">{307, 399}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="299841028"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomObject" id="787785768">

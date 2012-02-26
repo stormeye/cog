@@ -258,6 +258,14 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFullscreen) name:NSWindowDidEnterFullScreenNotification object:mainWindow];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitFullscreen) name:NSWindowDidExitFullScreenNotification object:mainWindow];
     
+    // We need file tree view to restore its state here
+    // so attempt to access file tree view controller's root view
+    // to force it to read nib and create file tree view for us
+    //
+    // TODO: there probably is a more elegant way to do all this
+    //       but i'm too stupid/tired to figure it out now
+    [fileTreeViewController view];
+    
     FileTreeOutlineView* outlineView = [fileTreeViewController outlineView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nodeExpanded:) name:NSOutlineViewItemDidExpandNotification object:outlineView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nodeCollapsed:) name:NSOutlineViewItemDidCollapseNotification object:outlineView];
@@ -276,6 +284,13 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     NSLog(@"Nodes to expand: %@", [expandedNodes description]);
     
     NSLog(@"Num of rows: %ld", [outlineView numberOfRows]);
+    
+    if (!outlineView) 
+    {
+        NSLog(@"outlineView is NULL!");
+    }
+    
+    [outlineView reloadData];
     
     for (NSInteger i=0; i<[outlineView numberOfRows]; i++)
     {
