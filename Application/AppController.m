@@ -9,6 +9,7 @@
 #import "SpotlightWindowController.h"
 #import "StringToURLTransformer.h"
 #import "FontSizetoLineHeightTransformer.h"
+#import "PathNode.h"
 
 @implementation AppController
 
@@ -38,13 +39,14 @@
 		
         queue = [[NSOperationQueue alloc]init];
 	}
-	
+    
 	return self; 
 }
 
 - (void)dealloc
 {
     [queue release];
+    [expandedNodes release];
     [super dealloc];
 }
 
@@ -55,7 +57,7 @@
 		[remote startListening: self];
 	}
 }
-- (void)applicationDidResignActive:(NSNotification *)motification
+- (void)applicationDidResignActive:(NSNotification *)mortification
 {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"remoteEnabled"] && [[NSUserDefaults standardUserDefaults] boolForKey:@"remoteOnlyOnActive"]) {
 		[remote stopListening: self];
@@ -255,6 +257,52 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFullscreen) name:NSWindowDidEnterFullScreenNotification object:mainWindow];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitFullscreen) name:NSWindowDidExitFullScreenNotification object:mainWindow];
+    
+    FileTreeOutlineView* outlineView = [fileTreeViewController outlineView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nodeExpanded:) name:NSOutlineViewItemDidExpandNotification object:outlineView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nodeCollapsed:) name:NSOutlineViewItemDidCollapseNotification object:outlineView];
+    
+    NSArray *expandedNodesArray = [[NSUserDefaults standardUserDefaults] valueForKey:@"fileTreeViewExpandedNodes"];
+    
+    if (expandedNodesArray)
+    {
+        expandedNodes = [[NSMutableSet alloc] initWithArray:expandedNodesArray];
+    }
+    else
+    {
+        expandedNodes = [[NSMutableSet alloc] init];
+    }
+    
+    NSLog(@"Nodes to expand: %@", [expandedNodes description]);
+    
+    NSLog(@"Num of rows: %ld", [outlineView numberOfRows]);
+    
+    for (NSInteger i=0; i<[outlineView numberOfRows]; i++)
+    {
+        PathNode *pn = [outlineView itemAtRow:i];
+        NSString *str = [[pn URL] absoluteString];
+        
+        if ([expandedNodes containsObject:str])
+        {
+            [outlineView expandItem:pn];
+        }
+    }
+}
+
+- (void)nodeExpanded:(NSNotification*)notification
+{
+    PathNode* node = [[notification userInfo] objectForKey:@"NSObject"];
+    NSString* url = [[node URL] absoluteString];
+
+    [expandedNodes addObject:url];
+}
+
+- (void)nodeCollapsed:(NSNotification*)notification
+{
+    PathNode* node = [[notification userInfo] objectForKey:@"NSObject"];
+    NSString* url = [[node URL] absoluteString];
+
+    [expandedNodes removeObject:url];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
@@ -274,7 +322,10 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 	NSString *fileName = @"Default.m3u";
 	
 	[playlistLoader saveM3u:[folder stringByAppendingPathComponent: fileName]];
-	
+    
+    NSLog(@"Saving expanded nodes: %@", [expandedNodes description]);
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[expandedNodes allObjects] forKey:@"fileTreeViewExpandedNodes"];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag

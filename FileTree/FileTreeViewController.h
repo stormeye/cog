@@ -8,12 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SideViewController.h"
+#import "FileTreeOutlineView.h"
 
 @class PlaylistLoader;
 @class PlaybackController;
 @interface FileTreeViewController : SideViewController {
 	IBOutlet PlaylistLoader *playlistLoader;
 	IBOutlet PlaybackController *playbackController;
+    IBOutlet FileTreeOutlineView *fileTreeOutlineView;
 }
+
+- (FileTreeOutlineView*)outlineView;
 
 @end
