@@ -99,5 +99,4 @@ OSStatus handleHotKey(EventHandlerCallRef nextHandler,EventRef theEvent,void *us
 - (void)windowDidEnterFullScreen:(NSNotification *)notification;
 - (void)windowDidExitFullScreen:(NSNotification *)notification;
 
-@property BOOL lionFullscreenAvailable;
 @end

@@ -714,7 +714,6 @@
 							<string key="NSFrame">{{17, 5}, {649, 15}}</string>
 							<reference key="NSSuperview" ref="955312553"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="14436359">
 								<int key="NSCellFlags">67239488</int>
@@ -748,7 +747,7 @@
 													<string key="NSFrameSize">{691, 355}</string>
 													<reference key="NSSuperview" ref="561123847"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="689304715"/>
+													<reference key="NSNextKeyView" ref="864291680"/>
 													<bool key="NSEnabled">YES</bool>
 													<object class="NSTableHeaderView" key="NSHeaderView" id="367534576">
 														<reference key="NSNextResponder" ref="729711146"/>
@@ -1326,7 +1325,7 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 									<string key="NSFrameSize">{691, 372}</string>
 									<reference key="NSSuperview" ref="640589646"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="864291680"/>
+									<reference key="NSNextKeyView" ref="561123847"/>
 									<int key="NSsFlags">133648</int>
 									<reference key="NSVScroller" ref="689304715"/>
 									<reference key="NSHScroller" ref="864291680"/>

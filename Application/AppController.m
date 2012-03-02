@@ -573,9 +573,4 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 	
 } 
 
-- (BOOL) lionFullscreenAvailable
-{
-    return [mainWindow respondsToSelector:@selector(toggleFullScreen:)];
-}
-
 @end
