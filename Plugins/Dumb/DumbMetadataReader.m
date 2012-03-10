@@ -11,6 +11,8 @@
 
 #import <Dumb/dumb.h>
 
+#import "Logging.h"
+
 @implementation DumbMetadataReader
 
 + (NSArray *)fileTypes
@@ -46,7 +48,7 @@
 
 	if (!duh)
 	{
-		NSLog(@"Failed to create duh");
+		DLog(@"Failed to create duh");
 		return nil;
 	}
 

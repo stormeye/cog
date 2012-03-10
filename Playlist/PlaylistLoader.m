@@ -19,6 +19,8 @@
 #import "CogAudio/AudioPropertiesReader.h"
 #import "CogAudio/AudioMetadataReader.h"
 
+#import "Logging.h"
+
 @implementation PlaylistLoader
 
 - (id)init
@@ -105,7 +107,7 @@
 {
 	NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filename createFile:YES];
 	if (!fileHandle) {
-		NSLog(@"Error saving m3u!");
+		ALog(@"Error saving m3u!");
 		return NO;
 	}
 	[fileHandle truncateFileAtOffset:0];
@@ -213,7 +215,7 @@
 		}
 	}
 	
-	NSLog(@"Expanded urls: %@", expandedURLs);
+	DLog(@"Expanded urls: %@", expandedURLs);
 
 	NSArray *sortedURLs;
 	if (sort == YES)
@@ -241,9 +243,9 @@
 		}
 	}
 
-	NSLog(@"File urls: %@", fileURLs);
+	DLog(@"File urls: %@", fileURLs);
 
-	NSLog(@"Contained urls: %@", containedURLs);
+	DLog(@"Contained urls: %@", containedURLs);
 
 	for (url in fileURLs)
 	{
@@ -262,7 +264,7 @@
 		}
 	}
 	
-	NSLog(@"Valid urls: %@", validURLs);
+	DLog(@"Valid urls: %@", validURLs);
 
 	for (url in containedURLs)
 	{

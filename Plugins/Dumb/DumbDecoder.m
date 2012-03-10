@@ -8,6 +8,8 @@
 
 #import "DumbDecoder.h"
 
+#import "Logging.h"
+
 @implementation DumbDecoder
 
 int skipCallback(void *f, long n)
@@ -46,7 +48,7 @@ long readCallback(char *ptr, long n, void *f)
 void closeCallback(void *f)
 {
 //	DumbDecoder *decoder = (DumbDecoder *)f;
-	NSLog(@"CLOSE"); //I DO NOTHING
+	DLog(@"CLOSE"); //I DO NOTHING
 }
 
 - (BOOL)open:(id<CogSource>)s
@@ -64,7 +66,7 @@ void closeCallback(void *f)
 	df = dumbfile_open_ex(self, &dfs);
 	if (!df)
 	{
-		NSLog(@"EX Failed");
+		DLog(@"EX Failed");
 		return NO;
 	}
 
@@ -78,12 +80,12 @@ void closeCallback(void *f)
 	else if ([ext isEqualToString:@"mod"])
 		duh = dumb_read_mod(df);
 	else {
-		NSLog(@"DUH IS NUL!!!");
+		DLog(@"DUH IS NUL!!!");
 		duh = NULL;
 	}
 	if (!duh)
 	{
-		NSLog(@"Failed to create duh");
+		DLog(@"Failed to create duh");
 		return NO;
 	}
 	
@@ -93,7 +95,7 @@ void closeCallback(void *f)
 	dsr = duh_start_sigrenderer(duh, 0, 2 /* stereo */, 0 /* start from the beginning */);
 	if (!dsr) 
 	{
-		NSLog(@"Failed to create dsr");
+		DLog(@"Failed to create dsr");
 		return NO;
 	}
 	

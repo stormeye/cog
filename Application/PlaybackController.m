@@ -7,6 +7,8 @@
 #import "PlaylistController.h"
 #import "PlaylistEntry.h"
 
+#import "Logging.h"
+
 @implementation PlaybackController
 
 #define DEFAULT_SEEK 5
@@ -122,7 +124,7 @@ NSString *CogPlaybackDidStopNotficiation = @"CogPlaybackDidStopNotficiation";
 	if (playbackStatus != kCogStatusStopped)
 		[self stop:self];
 
-	NSLog(@"PLAYLIST CONTROLLER: %@", [playlistController class]);
+	DLog(@"PLAYLIST CONTROLLER: %@", [playlistController class]);
 	[playlistController setCurrentEntry:pe];
 	
 	[self setPosition:0.0];
@@ -216,7 +218,7 @@ NSString *CogPlaybackDidStopNotficiation = @"CogPlaybackDidStopNotficiation";
 */
 - (IBAction)changeVolume:(id)sender
 {
-	NSLog(@"VOLUME: %lf, %lf", [sender doubleValue], linearToLogarithmic([sender doubleValue]));
+	DLog(@"VOLUME: %lf, %lf", [sender doubleValue], linearToLogarithmic([sender doubleValue]));
 
 	[audioPlayer setVolume:linearToLogarithmic([sender doubleValue])];
 
@@ -232,7 +234,7 @@ NSString *CogPlaybackDidStopNotficiation = @"CogPlaybackDidStopNotficiation";
 	double originalVolume = [[audioTimer userInfo] doubleValue];
 	double down = originalVolume/10;
 	
-	NSLog(@"VOLUME IS %lf", volume);
+	DLog(@"VOLUME IS %lf", volume);
 	
 	if (volume > 0.0001) //YAY! Roundoff error!
 	{
@@ -256,7 +258,7 @@ NSString *CogPlaybackDidStopNotficiation = @"CogPlaybackDidStopNotficiation";
 	double originalVolume = [[audioTimer userInfo] doubleValue];
 	double up = originalVolume/10;
 	
-	NSLog(@"VOLUME IS %lf", volume);
+	DLog(@"VOLUME IS %lf", volume);
 	
 	if (volume < originalVolume) 
 	{
@@ -478,12 +480,12 @@ NSString *CogPlaybackDidStopNotficiation = @"CogPlaybackDidStopNotficiation";
 	}
 	
 	if (status == kCogStatusStopped) {
-		NSLog(@"DONE!");
+		DLog(@"DONE!");
 		[playlistController setCurrentEntry:nil];
 		[self setSeekable:NO]; // the player stopped, disable the slider
 	}
 	else {
-		NSLog(@"PLAYING!");
+		DLog(@"PLAYING!");
 		[self setSeekable:YES];
 	}
 	

@@ -15,6 +15,8 @@
 #import "NSNumber+CogSort.h"
 #import "SpotlightTransformers.h"
 
+#import "Logging.h"
+
 // Minimum length of a search string (searching for very small strings gets ugly)
 #define MINIMUM_SEARCH_STRING_LENGTH 3
 
@@ -108,7 +110,7 @@ static NSPredicate * musicOnlyPredicate = nil;
 {
     NSPredicate *searchPredicate;
     // Process the search string into a compound predicate. If Nil is returned do nothing
-    if(searchPredicate = [self processSearchString])
+    if((searchPredicate = [self processSearchString]))
     {
         // spotlightPredicate, which is what will finally be used for the spotlight search
         // is the union of the (potentially) compound searchPredicate and the static 
@@ -129,7 +131,7 @@ static NSPredicate * musicOnlyPredicate = nil;
             // Set scope to contents of pathControl
             self.query.searchScopes = [NSArray arrayWithObjects:pathControl.URL, nil];
             [self.query startQuery];
-            NSLog(@"Started query: %@", [self.query.predicate description]);
+            DLog(@"Started query: %@", [self.query.predicate description]);
         }
     }
 }

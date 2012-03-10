@@ -8,6 +8,7 @@
 
 #import "PlsContainer.h"
 
+#import "Logging.h"
 
 @implementation PlsContainer
 
@@ -76,22 +77,22 @@
 	NSError *error;
 	NSString *contents = [NSString stringWithContentsOfFile:filename usedEncoding:&encoding error:&error];
     if (error) {
-		NSLog(@"Trying UTF8");
+		DLog(@"Trying UTF8");
         error = nil;
         contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&error];
     }
     if (error) {
-		NSLog(@"Trying windows CP1251");
+		DLog(@"Trying windows CP1251");
         error = nil;
         contents = [NSString stringWithContentsOfFile:filename encoding:NSWindowsCP1251StringEncoding error:&error];
 	}
     if (error) {
-		NSLog(@"Trying latin1");
+		DLog(@"Trying latin1");
         error = nil;
         contents = [NSString stringWithContentsOfFile:filename encoding:NSISOLatin1StringEncoding error:&error];
 	}
 	if (error || !contents) {
-		NSLog(@"Could not open file...%@ %@ %@", filename, contents, error);
+		ALog(@"Could not open file...%@ %@ %@", filename, contents, error);
 		return nil;
 	}
 	
@@ -99,7 +100,7 @@
 	NSEnumerator *e = [[contents componentsSeparatedByString:@"\n"] objectEnumerator];
 	NSMutableArray *entries = [NSMutableArray array];
 	
-    while (entry = [[e nextObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]])
+    while ((entry = [[e nextObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]))
 	{
 		NSScanner *scanner = [[NSScanner alloc] initWithString:entry];
 		NSString *lhs = nil;

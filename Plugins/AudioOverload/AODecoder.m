@@ -12,6 +12,8 @@
 #import <AudioOverload/eng_protos.h>
 #import "GlobalLock.h"
 
+#import "Logging.h"
+
 // WARNING: THIS IS IN NO WAY THREAD SAFE. WE SHOULD PROBABLY TAKE A GLOBAL LOCK AROUND THIS PLUGIN. This may cause all kinds of nastyness, but we'll see.
 static GlobalLock *globalLock;
 
@@ -52,15 +54,15 @@ int ao_get_lib(char *fn, uint8 **buf, uint64 *length)
 	id audioSourceClass = NSClassFromString(@"AudioSource");
 	id<CogSource> source = [audioSourceClass audioSourceForURL:url];
 
-	NSLog(@"Loading auxiliary file %s, at %@", fn, url);
+	DLog(@"Loading auxiliary file %s, at %@", fn, url);
 	
 	if (![source open:url]) {
-		NSLog(@"Error: Could not open file: %@", url);
+		ALog(@"Error: Could not open file: %@", url);
 		return AO_FAIL;
 	}
 	
 	if (![source seekable]) {
-		NSLog(@"Error source not seekable or not a file url");
+		ALog(@"Error source not seekable or not a file url");
 		return AO_FAIL;
 	}
 	
@@ -71,7 +73,7 @@ int ao_get_lib(char *fn, uint8 **buf, uint64 *length)
 	uint8_t *filebuf = malloc(size);
 	if (!filebuf) {
 		[source close];
-		NSLog(@"ERROR: could not allocate %d bytes of memory\n", size);
+		ALog(@"ERROR: could not allocate %d bytes of memory\n", size);
 		return AO_FAIL;
 	}
 	
@@ -85,7 +87,7 @@ int ao_get_lib(char *fn, uint8 **buf, uint64 *length)
 	*buf = filebuf;
 	*length = (uint64)size;
 	
-	NSLog(@"Aux file successfully loaded!");
+	DLog(@"Aux file successfully loaded!");
 	return AO_SUCCESS;
 }
 
@@ -213,11 +215,11 @@ int ao_get_lib(char *fn, uint8 **buf, uint64 *length)
 	
 	// now did we identify it above or just fall through?
 	if (types[type].sig != 0xffffffff) {
-		NSLog(@"File identified as %s\n", types[type].name);
+		DLog(@"File identified as %s\n", types[type].name);
 	}
 	else
 	{
-		NSLog(@"ERROR: File is unknown, signature bytes are %02x %02x %02x %02x\n", fileBuffer[0], fileBuffer[1], fileBuffer[2], fileBuffer[3]);
+		ALog(@"ERROR: File is unknown, signature bytes are %02x %02x %02x %02x\n", fileBuffer[0], fileBuffer[1], fileBuffer[2], fileBuffer[3]);
 
 		return NO;
 	}
@@ -225,7 +227,7 @@ int ao_get_lib(char *fn, uint8 **buf, uint64 *length)
 	
 	if ((*types[type].start)(fileBuffer, size) != AO_SUCCESS)
 	{
-		NSLog(@"ERROR: Engine rejected file!\n");
+		ALog(@"ERROR: Engine rejected file!\n");
 		
 		return NO;
 	}

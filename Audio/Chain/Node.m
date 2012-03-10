@@ -8,6 +8,8 @@
 
 #import "Node.h"
 
+#import "Logging.h"
+
 @implementation Node
 
 - (id)initWithController:(id)c previous:(id)p

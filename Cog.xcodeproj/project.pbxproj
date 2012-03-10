@@ -738,6 +738,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		322D6205150B574F0036C341 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		3236263114ED759300BB8837 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		3237711414F847DF001D4CC0 /* NowPlayingBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NowPlayingBarView.h; path = Window/NowPlayingBarView.h; sourceTree = "<group>"; };
 		3237711514F847DF001D4CC0 /* NowPlayingBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingBarView.m; path = Window/NowPlayingBarView.m; sourceTree = "<group>"; };
@@ -946,6 +947,7 @@
 		177EC0110B8BC2CF0000BC8C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				322D6205150B574F0036C341 /* Logging.h */,
 				177EC01A0B8BC2CF0000BC8C /* TrackingCell.h */,
 				177EC01B0B8BC2CF0000BC8C /* TrackingCell.m */,
 				177EC01C0B8BC2CF0000BC8C /* TrackingSlider.h */,
@@ -2248,6 +2250,7 @@
 				OTHER_CFLAGS = (
 					"-D__MACOSX__",
 					"-DHAVE_CONFIG_H",
+					"-DDEBUG",
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",

@@ -8,6 +8,8 @@
 
 #import "MonkeysAudioDecoder.h"
 
+#import "Logging.h"
+
 static int min(int a, int b) 
 {
     if (a < b) { return a; } else { return b; }
@@ -29,7 +31,7 @@ static int min(int a, int b)
 // TODO: use Cog's IO instead of ffmpeg's?
 - (BOOL)open:(id<CogSource>)s
 {	
-    NSLog(@"We're OPEN!");
+    DLog(@"We're OPEN!");
 	[self setSource:s];
 
     NSURL *srcUrl = [source url];
@@ -50,13 +52,13 @@ static int min(int a, int b)
     {
         char errDescr[4096];
         av_strerror(errcode, errDescr, 4096);
-		NSLog(@"ERROR OPENING FILE, errcode = %d, error = %s", errcode, errDescr);
+		ALog(@"ERROR OPENING FILE, errcode = %d, error = %s", errcode, errDescr);
 		return NO;
 	}
     
     if(avformat_find_stream_info(formatCtx, NULL) < 0)
     {
-        NSLog(@"CAN'T FIND STREAM INFO!");
+        DLog(@"CAN'T FIND STREAM INFO!");
         return NO;
     }
     
@@ -76,7 +78,7 @@ static int min(int a, int b)
 
     if(avcodec_open(codecCtx, codec) < 0) 
     {
-        NSLog(@"CAN'T FIND PROPER CODEC");
+        DLog(@"CAN'T FIND PROPER CODEC");
         return NO;
     }
 
@@ -94,7 +96,7 @@ static int min(int a, int b)
         case AV_SAMPLE_FMT_U8: bitsPerSample = 8; break;
         case AV_SAMPLE_FMT_S16: bitsPerSample = 16; break;
         case AV_SAMPLE_FMT_S32: bitsPerSample = 32; break;
-        default: { NSLog(@"Unexpected sample format: %d", codecCtx->sample_fmt); return NO; }
+        default: { ALog(@"Unexpected sample format: %d", codecCtx->sample_fmt); return NO; }
     }
     totalFrames = codecCtx->sample_rate * (formatCtx->duration/1000000LL);
     
@@ -127,7 +129,7 @@ static int min(int a, int b)
             av_free_packet(lastReadPacket);
             if(av_read_frame(formatCtx, lastReadPacket) < 0)
             {
-                NSLog(@"End of stream");
+                DLog(@"End of stream");
                 break; // end of stream;
             }
             readNextPacket = NO; // we probably won't need to consume another chunk
@@ -146,7 +148,7 @@ static int min(int a, int b)
             int len = avcodec_decode_audio4(codecCtx, lastDecodedFrame, &gotFrame, lastReadPacket);
             if (len < 0 || (!gotFrame)) 
             {
-                NSLog(@"Error decoding: len = %d, gotFrame = %d", len, gotFrame);
+                DLog(@"Error decoding: len = %d, gotFrame = %d", len, gotFrame);
                 break;
             } 
             else if (len >= lastReadPacket->size) 

@@ -53,6 +53,7 @@
 		17C93D330B8FDA66008627D6 /* VorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VorbisDecoder.h; sourceTree = "<group>"; };
 		17C93D340B8FDA66008627D6 /* VorbisDecoder.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = VorbisDecoder.m; sourceTree = "<group>"; };
 		17F562EF0C3BDAAC0019975C /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = ../../Frameworks/Vorbis/Vorbis.xcodeproj; sourceTree = SOURCE_ROOT; };
+		322D6217150B5A5E0036C341 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logging.h; path = ../../Utils/Logging.h; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* Vorbis_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vorbis_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Vorbis.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vorbis.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				322D6217150B5A5E0036C341 /* Logging.h */,
 				177FCF9D0B90C9530011C3B5 /* Plugin.h */,
 				17C93D330B8FDA66008627D6 /* VorbisDecoder.h */,
 				17C93D340B8FDA66008627D6 /* VorbisDecoder.m */,
@@ -308,6 +310,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DDEBUG";
 				SDKROOT = macosx;
 				SYMROOT = ../../build;
 			};

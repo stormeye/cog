@@ -53,6 +53,7 @@
 		1745C42C0B90C1DC00A6768C /* ShortenDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = ShortenDecoder.mm; sourceTree = "<group>"; };
 		177FCFAC0B90C96B0011C3B5 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../Audio/Plugin.h; sourceTree = SOURCE_ROOT; };
 		17F563DD0C3BDBF10019975C /* Shorten.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Shorten.xcodeproj; path = ../../Frameworks/Shorten/Shorten.xcodeproj; sourceTree = SOURCE_ROOT; };
+		322D621C150B5A720036C341 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logging.h; path = ../../Utils/Logging.h; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* Shorten_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shorten_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Shorten.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Shorten.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				322D621C150B5A720036C341 /* Logging.h */,
 				177FCFAC0B90C96B0011C3B5 /* Plugin.h */,
 				1745C42B0B90C1DC00A6768C /* ShortenDecoder.h */,
 				1745C42C0B90C1DC00A6768C /* ShortenDecoder.mm */,
@@ -294,6 +296,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DDEBUG";
 				SDKROOT = macosx;
 				SYMROOT = ../../build;
 			};

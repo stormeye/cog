@@ -13,6 +13,7 @@
 #import "Helper.h"
 #import "PluginController.h"
 
+#import "Logging.h"
 
 @implementation AudioPlayer
 
@@ -254,7 +255,7 @@
 				[newChain setUserInfo:nextStreamUserInfo];
 
 				[self addChainToQueue:newChain];
-				NSLog(@"TRACK SET!!! %@", newChain);
+				DLog(@"TRACK SET!!! %@", newChain);
 				//Keep on-playin
 				[newChain release];
 				
@@ -305,7 +306,7 @@
 		bufferChain = [chainQueue objectAtIndex:0];
 		[bufferChain retain];
 		
-		NSLog(@"New!!! %@ %@", bufferChain, [[bufferChain inputNode] decoder]);
+		DLog(@"New!!! %@ %@", bufferChain, [[bufferChain inputNode] decoder]);
 		
 		[chainQueue removeObjectAtIndex:0];
 	}

@@ -8,6 +8,8 @@
 
 #import "ConverterNode.h"
 
+#import "Logging.h"
+
 void PrintStreamDesc (AudioStreamBasicDescription *inDesc)
 {
 	if (!inDesc) {
@@ -17,12 +19,12 @@ void PrintStreamDesc (AudioStreamBasicDescription *inDesc)
 	printf ("- - - - - - - - - - - - - - - - - - - -\n");
 	printf ("  Sample Rate:%f\n", inDesc->mSampleRate);
 	printf ("  Format ID:%s\n", (char*)&inDesc->mFormatID);
-	printf ("  Format Flags:%lX\n", inDesc->mFormatFlags);
-	printf ("  Bytes per Packet:%ld\n", inDesc->mBytesPerPacket);
-	printf ("  Frames per Packet:%ld\n", inDesc->mFramesPerPacket);
-	printf ("  Bytes per Frame:%ld\n", inDesc->mBytesPerFrame);
-	printf ("  Channels per Frame:%ld\n", inDesc->mChannelsPerFrame);
-	printf ("  Bits per Channel:%ld\n", inDesc->mBitsPerChannel);
+	printf ("  Format Flags:%X\n", inDesc->mFormatFlags);
+	printf ("  Bytes per Packet:%u\n", inDesc->mBytesPerPacket);
+	printf ("  Frames per Packet:%u\n", inDesc->mFramesPerPacket);
+	printf ("  Bytes per Frame:%u\n", inDesc->mBytesPerFrame);
+	printf ("  Channels per Frame:%u\n", inDesc->mChannelsPerFrame);
+	printf ("  Bits per Channel:%u\n", inDesc->mBitsPerChannel);
 	printf ("- - - - - - - - - - - - - - - - - - - -\n");
 }
 
@@ -94,11 +96,11 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 	int amountRead = ioData.mBuffers[0].mDataByteSize;
 	if (err == kAudioConverterErr_InvalidInputSize) //It returns insz at EOS at times...so run it again to make sure all data is converted
 	{
-		NSLog(@"INSIZE: %i", amountRead);
+		DLog(@"INSIZE: %i", amountRead);
 		amountRead += [self convert:dest + amountRead amount:amount - amountRead];
 	}
 	else if (err != noErr && err != 100) {
-		NSLog(@"Error: %i", err);
+		DLog(@"Error: %i", err);
 	}
 	
 	return amountRead;
@@ -115,7 +117,7 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 	stat = AudioConverterNew ( &inputFormat, &outputFormat, &converter);
 	if (stat != noErr)
 	{
-		NSLog(@"Error creating converter %i", stat);
+		ALog(@"Error creating converter %i", stat);
 	}	
 	
 	if (inputFormat.mChannelsPerFrame == 1)
@@ -125,7 +127,7 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 		stat = AudioConverterSetProperty(converter,kAudioConverterChannelMap,sizeof(channelMap),channelMap);
 		if (stat != noErr)
 		{
-			NSLog(@"Error mapping channels %i", stat);
+			ALog(@"Error mapping channels %i", stat);
 		}	
 	}
 	
@@ -137,7 +139,7 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 
 - (void)dealloc
 {
-	NSLog(@"Decoder dealloc");
+	DLog(@"Decoder dealloc");
 	[self cleanUp];
 	[super dealloc];
 }
@@ -145,13 +147,13 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 
 - (void)setOutputFormat:(AudioStreamBasicDescription)format
 {
-	NSLog(@"SETTING OUTPUT FORMAT!");
+	DLog(@"SETTING OUTPUT FORMAT!");
 	outputFormat = format;
 }
 
 - (void)inputFormatDidChange:(AudioStreamBasicDescription)format
 {
-	NSLog(@"FORMAT CHANGED");
+	DLog(@"FORMAT CHANGED");
 	[self cleanUp];
 	[self setupWithInputFormat:format outputFormat:outputFormat];
 }

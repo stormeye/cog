@@ -1,7 +1,7 @@
 
 // as simple as it can be - just write a readable tag, no options etc.
 
-
+#import "Logging.h"
 #import "ApeTag.h"
 
 #define CURRENT_APE_TAG_VERSION                 2000
@@ -210,7 +210,7 @@ The footer at the end of APE tagged files (can also optionally be at the front o
 	NSData* check = [f readDataOfLength:[header length]];
 	[f seekToFileOffset:([f offsetInFile]-[check length])];
 	if (check && [[[NSString alloc] initWithData:check encoding:NSASCIIStringEncoding] isEqualToString:header]) {
-		NSLog(@"Reading of prefix header not implemented");
+		ALog(@"Reading of prefix header not implemented");
 		return false;
 	}
 	

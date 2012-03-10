@@ -11,6 +11,8 @@
 
 #import "Plugin.h"
 
+#import "Logging.h"
+
 @implementation CueSheet
 
 + (id)cueSheetWithFile:(NSString *)filename
@@ -80,7 +82,7 @@
         contents = [NSString stringWithContentsOfFile:filename encoding:NSISOLatin1StringEncoding error:&error];
 	}
 	if (error || !contents) {
-		NSLog(@"Could not open file...%@ %@ %@", filename, contents, error);
+		ALog(@"Could not open file...%@ %@ %@", filename, contents, error);
 		return;
 	}
 	
@@ -225,7 +227,7 @@
 				if ([scanner scanString:@"\"" intoString:nil]) {
 					//NSLog(@"QUOTED");
 					if (![scanner scanUpToString:@"\"" intoString:&genre]) {
-						NSLog(@"FAILED TO SCAN");
+						DLog(@"FAILED TO SCAN");
 						continue;
 					}
 				}

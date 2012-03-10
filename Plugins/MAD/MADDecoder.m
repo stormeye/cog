@@ -8,6 +8,8 @@
 
 #import "MADDecoder.h"
 
+#import "Logging.h"
+
 @implementation MADDecoder
 
 #define LAME_HEADER_SIZE	((8 * 5) + 4 + 4 + 8 + 32 + 16 + 16 + 4 + 4 + 8 + 12 + 12 + 8 + 8 + 2 + 3 + 11 + 32 + 32 + 32)
@@ -244,7 +246,7 @@
 					/*uint8_t misc =*/ mad_bit_read(&stream.anc_ptr, 8);
 					
 					uint8_t mp3Gain = mad_bit_read(&stream.anc_ptr, 8);
-					NSLog(@"Gain: %i", mp3Gain);
+					DLog(@"Gain: %i", mp3Gain);
 					
 					/*uint8_t unused =*/mad_bit_read(&stream.anc_ptr, 2);
 					/*uint8_t surroundInfo =*/ mad_bit_read(&stream.anc_ptr, 3);
@@ -284,7 +286,7 @@
 	[_source seek:0 whence:SEEK_SET];
 	inputEOF = NO;
 	
-	NSLog(@"Mad properties: %@", [self properties]);
+	DLog(@"Mad properties: %@", [self properties]);
 	
 	return YES;	
 }
@@ -312,7 +314,7 @@
 		int r;
 		do {
 			r = [self decodeMPEGFrame];
-			NSLog(@"Decoding first frame: %i", r);
+			DLog(@"Decoding first frame: %i", r);
 		} while (r == 0);
 		
 		return (r == -1 ? NO : YES);
@@ -476,7 +478,7 @@ audio_linear_round(unsigned int bits,
 	_framesDecoded += _synth.pcm.length;
 	
 	if (_outputFrames > 0) {
-		NSLog(@"LOSING FRAMES!");
+		DLog(@"LOSING FRAMES!");
 	}
 	_outputFrames = (sampleCount - startingSample);
 	
@@ -575,12 +577,12 @@ audio_linear_round(unsigned int bits,
 				mad_stream_skip(&_stream, id3_length);
 			}
 
-			NSLog(@"recoverable error");
+			DLog(@"recoverable error");
 			return 0;
 		}
 		else if (MAD_ERROR_BUFLEN == _stream.error && inputEOF)
 		{
-			NSLog(@"EOF");
+			DLog(@"EOF");
 			return -1;
 		}
 		else if (MAD_ERROR_BUFLEN == _stream.error)

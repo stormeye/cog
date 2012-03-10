@@ -1,4 +1,4 @@
-//Plugins! HOORAY!
+//Plugins! HOORAY! 
 
 @protocol CogSource <NSObject>
 + (NSArray *)schemes; //http, file, etc
