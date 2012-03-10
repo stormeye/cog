@@ -94,7 +94,7 @@ static OSStatus Sound_Renderer(void *inRefCon,  AudioUnitRenderActionFlags *ioAc
 		}
 	}
 
-	printf("DEVICE: %i\n", deviceID);
+	DLog(@"DEVICE: %i\n", deviceID);
 	
 	err = AudioUnitSetProperty(outputUnit,
 							  kAudioOutputUnitProperty_CurrentDevice, 

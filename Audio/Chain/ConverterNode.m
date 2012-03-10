@@ -16,16 +16,16 @@ void PrintStreamDesc (AudioStreamBasicDescription *inDesc)
 		printf ("Can't print a NULL desc!\n");
 		return;
 	}
-	printf ("- - - - - - - - - - - - - - - - - - - -\n");
-	printf ("  Sample Rate:%f\n", inDesc->mSampleRate);
-	printf ("  Format ID:%s\n", (char*)&inDesc->mFormatID);
-	printf ("  Format Flags:%X\n", inDesc->mFormatFlags);
-	printf ("  Bytes per Packet:%u\n", inDesc->mBytesPerPacket);
-	printf ("  Frames per Packet:%u\n", inDesc->mFramesPerPacket);
-	printf ("  Bytes per Frame:%u\n", inDesc->mBytesPerFrame);
-	printf ("  Channels per Frame:%u\n", inDesc->mChannelsPerFrame);
-	printf ("  Bits per Channel:%u\n", inDesc->mBitsPerChannel);
-	printf ("- - - - - - - - - - - - - - - - - - - -\n");
+	DLog(@"- - - - - - - - - - - - - - - - - - - -\n");
+	DLog(@"  Sample Rate:%f\n", inDesc->mSampleRate);
+	DLog(@"  Format ID:%s\n", (char*)&inDesc->mFormatID);
+	DLog(@"  Format Flags:%X\n", inDesc->mFormatFlags);
+	DLog(@"  Bytes per Packet:%u\n", inDesc->mBytesPerPacket);
+	DLog(@"  Frames per Packet:%u\n", inDesc->mFramesPerPacket);
+	DLog(@"  Bytes per Frame:%u\n", inDesc->mBytesPerFrame);
+	DLog(@"  Channels per Frame:%u\n", inDesc->mChannelsPerFrame);
+	DLog(@"  Bits per Channel:%u\n", inDesc->mBitsPerChannel);
+	DLog(@"- - - - - - - - - - - - - - - - - - - -\n");
 }
 
 @implementation ConverterNode
