@@ -469,7 +469,8 @@ case CODEC_ID_SOL_DPCM:
 case CODEC_ID_MP2:
     return "mp2";
 case CODEC_ID_MP3:
-    return "mp3";
+    { extern AVCodec ff_mp3_decoder;
+      return ff_mp3_decoder.name; }
 case CODEC_ID_AAC:
     return "aac";
 case CODEC_ID_AC3:
@@ -499,9 +500,11 @@ case CODEC_ID_SONIC_LS:
 case CODEC_ID_FLAC:
     return "flac";
 case CODEC_ID_MP3ADU:
-    return "mp3adu";
+    { extern AVCodec ff_mp3adu_decoder;
+      return ff_mp3adu_decoder.name; }
 case CODEC_ID_MP3ON4:
-    return "mp3on4";
+    { extern AVCodec ff_mp3on4_decoder;
+      return ff_mp3on4_decoder.name; }
 case CODEC_ID_SHORTEN:
     return "shorten";
 case CODEC_ID_ALAC:

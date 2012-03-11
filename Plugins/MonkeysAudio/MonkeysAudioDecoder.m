@@ -99,6 +99,7 @@ static int min(int a, int b)
         default: { ALog(@"Unexpected sample format: %d", codecCtx->sample_fmt); return NO; }
     }
     totalFrames = codecCtx->sample_rate * (formatCtx->duration/1000000LL);
+    bitrate = (codecCtx->bit_rate) / 1000;
     
 	[self willChangeValueForKey:@"properties"];
 	[self didChangeValueForKey:@"properties"];
@@ -216,6 +217,7 @@ static int min(int a, int b)
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithInt:channels],@"channels",
 		[NSNumber numberWithInt:bitsPerSample],@"bitsPerSample",
+        [NSNumber numberWithInt:bitrate],@"bitrate",
 		[NSNumber numberWithFloat:frequency],@"sampleRate",
 		[NSNumber numberWithDouble:totalFrames],@"totalFrames",
 		[NSNumber numberWithBool:[source seekable]], @"seekable",
@@ -226,8 +228,7 @@ static int min(int a, int b)
 
 + (NSArray *)fileTypes
 {
-//	return [NSArray arrayWithObjects:@"ape", @"mp3", nil];
-    return [NSArray arrayWithObjects:@"ape", @"wma", nil];
+    return [NSArray arrayWithObjects:@"ape", @"wma", @"mp3", nil];
 }
 
 + (NSArray *)mimeTypes

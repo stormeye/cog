@@ -54,9 +54,16 @@ then
       --disable-everything \
       --enable-protocol=file \
       --enable-demuxer=ape \
-      --enable-demuxer=xwma \
       --enable-demuxer=asf \
+      --enable-demuxer=mp3 \
+      --enable-demuxer=xwma \
       --enable-decoder=ape \
+      --enable-decoder=mp3 \
+      --enable-decoder=mp3adu \
+      --enable-decoder=mp3adufloat \
+      --enable-decoder=mp3float \
+      --enable-decoder=mp3on4 \
+      --enable-decoder=mp3on4float \
       --enable-decoder=wmalossless \
       --enable-decoder=wmapro \
       --enable-decoder=wmav1 \
@@ -64,7 +71,8 @@ then
       --enable-decoder=wmavoice \
       --enable-parser=aac \
       --enable-parser=aac_latm \
-      --enable-parser=ac3
+      --enable-parser=ac3 \
+      --enable-parser=mpegaudio
     make
 
     for lib in libavutil libavformat libavcodec

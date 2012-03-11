@@ -19,6 +19,7 @@
 	int bitsPerSample;
 	float frequency;
 	long totalFrames;
+    int bitrate;
     
 @private
     id<CogSource> source;
