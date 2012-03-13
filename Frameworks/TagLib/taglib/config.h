@@ -7,5 +7,5 @@
 #define   HAVE_ZLIB 1
 
 /* #undef NO_ITUNES_HACKS */
-/* #undef WITH_ASF */
-/* #undef WITH_MP4 */
+#define WITH_ASF 1
+#define WITH_MP4 1
