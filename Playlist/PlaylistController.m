@@ -695,7 +695,7 @@
 - (IBAction)showEntryInFinder:(id)sender
 {
 	NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-	if ([self selectionIndex] < 0)
+	if (NSNotFound == [self selectionIndex])
 		return;
 	
 	NSURL *url = [[[self selectedObjects] objectAtIndex:0] URL];
@@ -873,6 +873,5 @@
 		[playbackController playEntry: [urls objectAtIndex:0]];
 	}
 }
-
 
 @end

@@ -137,6 +137,7 @@
 		17F562390C3BD91B0019975C /* General.preferencePane in Resources */ = {isa = PBXBuildFile; fileRef = 17F5622E0C3BD8FB0019975C /* General.preferencePane */; };
 		17F6C8070F603701000D9DA9 /* PlaybackEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F6C8060F603701000D9DA9 /* PlaybackEventController.m */; };
 		17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FAEBAB0F662985007C8707 /* ToolTipTextField.m */; };
+		322D637415112A620036C341 /* randomize.png in Resources */ = {isa = PBXBuildFile; fileRef = 322D637315112A610036C341 /* randomize.png */; };
 		3236263214ED759300BB8837 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
 		3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
 		3237711614F847DF001D4CC0 /* NowPlayingBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711514F847DF001D4CC0 /* NowPlayingBarView.m */; };
@@ -739,6 +740,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		322D6205150B574F0036C341 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		322D637315112A610036C341 /* randomize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = randomize.png; path = Images/randomize.png; sourceTree = "<group>"; };
 		3236263114ED759300BB8837 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		3237711414F847DF001D4CC0 /* NowPlayingBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NowPlayingBarView.h; path = Window/NowPlayingBarView.h; sourceTree = "<group>"; };
 		3237711514F847DF001D4CC0 /* NowPlayingBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingBarView.m; path = Window/NowPlayingBarView.m; sourceTree = "<group>"; };
@@ -971,6 +973,7 @@
 		177EC02D0B8BC2E60000BC8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				322D637315112A610036C341 /* randomize.png */,
 				1778D3AF0F645A190037E7A0 /* missingArt.png */,
 				17B7CF590F5A05EE00A47027 /* pauseBadge.png */,
 				17B7CF5A0F5A05EE00A47027 /* playBadge.png */,
@@ -1943,6 +1946,7 @@
 				1745CBA50F661DBB00E513F7 /* shuffle_albums.png in Resources */,
 				32DB427214ED797400BECF92 /* cog_public.pem in Resources */,
 				3237711B14F84801001D4CC0 /* NowPlayingBarController.xib in Resources */,
+				322D637415112A620036C341 /* randomize.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
