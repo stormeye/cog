@@ -32,7 +32,10 @@ then
     compiler="clang"
     if [ "i386" == "$arch" ]
     then
-      compiler="clang -m32"
+      compiler="clang -arch i386"
+    elif [ "x86_64" == "$arch" ]
+    then
+      compiler="clang -arch x86_64"
     fi
     sh ./configure \
       --disable-doc \
