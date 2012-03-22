@@ -83,8 +83,8 @@
 		32D4117114CB64B30050563F /* libavformat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavformat.xcodeproj; path = ../../Extdeps/libavformat/libavformat.xcodeproj; sourceTree = "<group>"; };
 		32D4117814CB64D80050563F /* libavcodec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavcodec.xcodeproj; path = ../../Extdeps/libavcodec/libavcodec.xcodeproj; sourceTree = "<group>"; };
 		32D4118614CB65130050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = ../../Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
-		32DBCF630370AF2F00C91783 /* MonkeysAudio_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonkeysAudio_Prefix.pch; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* MonkeysAudio.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeysAudio.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		32DBCF630370AF2F00C91783 /* FFmpegPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFmpegPlugin_Prefix.pch; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* FFmpegPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FFmpegPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -168,7 +168,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* MonkeysAudio.bundle */,
+				8D5B49B6048680CD000E48DA /* FFmpegPlugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,7 +176,7 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32DBCF630370AF2F00C91783 /* MonkeysAudio_Prefix.pch */,
+				32DBCF630370AF2F00C91783 /* FFmpegPlugin_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -208,9 +208,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* MonkeysAudio Plugin */ = {
+		8D5B49AC048680CD000E48DA /* FFmpegPlugin Plugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "MonkeysAudio Plugin" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "FFmpegPlugin Plugin" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -223,10 +223,10 @@
 				32D4117F14CB64E90050563F /* PBXTargetDependency */,
 				32D4118114CB64E90050563F /* PBXTargetDependency */,
 			);
-			name = "MonkeysAudio Plugin";
+			name = "FFmpegPlugin Plugin";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = MonkeysAudio;
-			productReference = 8D5B49B6048680CD000E48DA /* MonkeysAudio.bundle */;
+			productReference = 8D5B49B6048680CD000E48DA /* FFmpegPlugin.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -237,7 +237,7 @@
 			attributes = {
 				LastUpgradeCheck = 0410;
 			};
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MonkeysAudio" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "FFmpegPlugin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -262,7 +262,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* MonkeysAudio Plugin */,
+				8D5B49AC048680CD000E48DA /* FFmpegPlugin Plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -339,10 +339,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
+				GCC_PREFIX_HEADER = FFmpegPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = MonkeysAudio;
+				PRODUCT_NAME = FFmpegPlugin;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = YES;
 			};
@@ -359,10 +359,10 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = MonkeysAudio_Prefix.pch;
+				GCC_PREFIX_HEADER = FFmpegPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = MonkeysAudio;
+				PRODUCT_NAME = FFmpegPlugin;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -397,7 +397,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "MonkeysAudio Plugin" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "FFmpegPlugin Plugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,
@@ -406,7 +406,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MonkeysAudio" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "FFmpegPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,
