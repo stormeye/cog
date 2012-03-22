@@ -8,6 +8,8 @@
 
 set -e -u -o pipefail
 
+export LDFLAGS="-headerpad_max_install_names"
+
 if [ "clean" == "$ACTION" ]
 then
   for lib in libavutil libavcodec libavformat
@@ -55,7 +57,8 @@ then
       --target-os=darwin \
       --cc="$compiler" \
       --disable-everything \
-      --enable-protocol=file \
+      --enable-bsf=mp3_header_compress \
+      --enable-bsf=mp3_header_decompress \
       --enable-demuxer=ape \
       --enable-demuxer=asf \
       --enable-demuxer=mp3 \
@@ -75,7 +78,8 @@ then
       --enable-parser=aac \
       --enable-parser=aac_latm \
       --enable-parser=ac3 \
-      --enable-parser=mpegaudio
+      --enable-parser=mpegaudio \
+      --enable-protocol=file
     make
 
     for lib in libavutil libavformat libavcodec
