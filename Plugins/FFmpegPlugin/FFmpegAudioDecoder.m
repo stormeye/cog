@@ -6,7 +6,7 @@
 //  Copyright 2005 Vincent Spader All rights reserved.
 //
 
-#import "MonkeysAudioDecoder.h"
+#import "FFmpegAudioDecoder.h"
 
 #import "Logging.h"
 
@@ -15,11 +15,11 @@ static int min(int a, int b)
     if (a < b) { return a; } else { return b; }
 }
 
-@implementation MonkeysAudioDecoder
+@implementation FFmpegAudioDecoder
 
 + (void)initialize
 {
-    if(self == [MonkeysAudioDecoder class])
+    if(self == [FFmpegAudioDecoder class])
     {
         av_log_set_flags(AV_LOG_SKIP_REPEATED);
         avcodec_register_all();

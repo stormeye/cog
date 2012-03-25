@@ -12,7 +12,7 @@
 #import <libavcodec/avcodec.h>
 #import <libavformat/avformat.h>
 
-@interface MonkeysAudioDecoder : NSObject <CogDecoder>
+@interface FFmpegAudioDecoder : NSObject <CogDecoder>
 {
 	
 	int channels;

@@ -142,6 +142,7 @@
 		3237711614F847DF001D4CC0 /* NowPlayingBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711514F847DF001D4CC0 /* NowPlayingBarView.m */; };
 		3237711A14F84801001D4CC0 /* NowPlayingBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711814F84801001D4CC0 /* NowPlayingBarController.m */; };
 		3237711B14F84801001D4CC0 /* NowPlayingBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3237711914F84801001D4CC0 /* NowPlayingBarController.xib */; };
+		324E3556151FCCEE00E4D535 /* FFmpegPlugin.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 324E3553151BC20D00E4D535 /* FFmpegPlugin.bundle */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		32DB427214ED797400BECF92 /* cog_public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 32DB427114ED797400BECF92 /* cog_public.pem */; };
 		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
@@ -414,6 +415,13 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = "FFmpegPlugin Plugin";
 		};
+		324E3554151FCCB100E4D535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 324E354E151BC20D00E4D535 /* FFmpegPlugin.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = "FFmpegPlugin Plugin";
+		};
 		32D4102614CB58C70050563F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32D4102214CB58C60050563F /* libavutil.xcodeproj */;
@@ -502,6 +510,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				324E3556151FCCEE00E4D535 /* FFmpegPlugin.bundle in CopyFiles */,
 				17B7CF970F5A0A4D00A47027 /* AudioOverload.bundle in CopyFiles */,
 				99EAACA80DD1BB7A00423C38 /* APL.bundle in CopyFiles */,
 				17C8F7D80CBEF3EF008D969D /* Dumb.bundle in CopyFiles */,
@@ -1544,6 +1553,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				324E3555151FCCB100E4D535 /* PBXTargetDependency */,
 				32F1618814E6BD0D00D6AB2F /* PBXTargetDependency */,
 				17C8097E0C3BD1F5005707C4 /* PBXTargetDependency */,
 				17C809820C3BD1F5005707C4 /* PBXTargetDependency */,
@@ -2115,6 +2125,11 @@
 			isa = PBXTargetDependency;
 			name = General;
 			targetProxy = 17F5623A0C3BD9280019975C /* PBXContainerItemProxy */;
+		};
+		324E3555151FCCB100E4D535 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FFmpegPlugin Plugin";
+			targetProxy = 324E3554151FCCB100E4D535 /* PBXContainerItemProxy */;
 		};
 		32F1618814E6BD0D00D6AB2F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
