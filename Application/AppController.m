@@ -344,7 +344,8 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
-	if (flag == NO)
+    BOOL miniaturized = [mainWindow isMiniaturized];
+	if (flag == NO || miniaturized == YES)
 		[mainWindow makeKeyAndOrderFront:self];
 	
 	return NO;
