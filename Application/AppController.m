@@ -256,6 +256,9 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 	NSString *filename = @"~/Library/Application Support/Cog/Default.m3u";
 	[playlistLoader addURL:[NSURL fileURLWithPath:[filename stringByExpandingTildeInPath]]];
 	[[playlistController undoManager] enableUndoRegistration];
+
+        
+    // Restore file tree state
     
     // We need file tree view to restore its state here
     // so attempt to access file tree view controller's root view
