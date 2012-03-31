@@ -70,9 +70,22 @@ escapeForLastFM(NSString *string)
 	if((self = [super init])) {
 
 		_pluginID = @"cog";
-
-		if([[NSUserDefaults standardUserDefaults] boolForKey:@"automaticallyLaunchLastFM"])
-			[[NSWorkspace sharedWorkspace] launchApplication:@"Last.fm.app"];
+                
+		if([[NSUserDefaults standardUserDefaults] boolForKey:@"automaticallyLaunchLastFM"]) {
+            
+            NSArray *launchedApps = [[NSWorkspace sharedWorkspace] runningApplications];
+            BOOL running = NO;
+            for(NSRunningApplication *app in launchedApps) {
+                if([[app bundleIdentifier] isEqualToString:@"fm.last.Last.fm"]) {
+                    running = YES;
+                    break;
+                }
+            }
+            
+            if(!running) {
+                [[NSWorkspace sharedWorkspace] launchApplication:@"Last.fm.app"];
+            }
+        }
 		
 		_keepProcessingAudioScrobblerCommands = YES;
 
