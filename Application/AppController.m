@@ -257,6 +257,12 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 	[playlistLoader addURL:[NSURL fileURLWithPath:[filename stringByExpandingTildeInPath]]];
 	[[playlistController undoManager] enableUndoRegistration];
 
+    // Restore playlist position
+    int peIdx = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastPlayedPlaylistEntry"];
+    PlaylistEntry *pe = [playlistController entryAtIndex:peIdx];
+    DLog(@"Restoring playlist entry: %@", [pe description]);
+    [playlistController setCurrentEntry:pe];
+    [playlistView selectRow:peIdx byExtendingSelection:NO];
         
     // Restore file tree state
     
@@ -324,6 +330,12 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
+    // Save playlist position
+    PlaylistEntry *pe = [playlistController currentEntry];
+    int peIdx = [pe index];
+    DLog(@"Saving playlist position: idx = %d, %@", peIdx, [pe description]);
+    [[NSUserDefaults standardUserDefaults] setInteger:peIdx forKey:@"lastPlayedPlaylistEntry"];
+    
 	[playbackController stop:self];
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -340,9 +352,12 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 	
 	[playlistLoader saveM3u:[folder stringByAppendingPathComponent: fileName]];
     
+    //
     DLog(@"Saving expanded nodes: %@", [expandedNodes description]);
     
     [[NSUserDefaults standardUserDefaults] setValue:[expandedNodes allObjects] forKey:@"fileTreeViewExpandedNodes"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
