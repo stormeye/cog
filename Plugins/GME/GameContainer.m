@@ -32,6 +32,11 @@
 	if (![url isFileURL]) {
 		return nil;
 	}
+    
+    if ([url fragment]) {
+        // input url already has fragment defined - no need to expand further
+        return [NSMutableArray arrayWithObject:url];
+    }
 	
 	Music_Emu *emu;
 	gme_err_t error = gme_open_file([[url path] UTF8String], &emu, 44100);
