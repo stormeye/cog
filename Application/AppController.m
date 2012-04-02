@@ -259,10 +259,12 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
     // Restore playlist position
     int peIdx = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastPlayedPlaylistEntry"];
-    PlaylistEntry *pe = [playlistController entryAtIndex:peIdx];
-    DLog(@"Restoring playlist entry: %@", [pe description]);
-    [playlistController setCurrentEntry:pe];
-    [playlistView selectRow:peIdx byExtendingSelection:NO];
+    if ([[playlistController arrangedObjects] count] > 0) {
+        PlaylistEntry *pe = [playlistController entryAtIndex:peIdx];
+        DLog(@"Restoring playlist entry: %@", [pe description]);
+        [playlistController setCurrentEntry:pe];
+        [playlistView selectRow:peIdx byExtendingSelection:NO];
+    }
         
     // Restore file tree state
     
