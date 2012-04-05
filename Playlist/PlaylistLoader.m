@@ -340,16 +340,19 @@
 
 - (NSDictionary *)readEntryInfo:(PlaylistEntry *)pe
 {
-    // Just setting this to 20 for now...
-    NSMutableDictionary *entryInfo = [NSMutableDictionary dictionaryWithCapacity:20];
-    NSDictionary *entryProperties;
-    entryProperties = [AudioPropertiesReader propertiesForURL:pe.URL];
-    if (entryProperties == nil)
-        return nil;
+    @synchronized(self)
+    {
+        // Just setting this to 20 for now...
+        NSMutableDictionary *entryInfo = [NSMutableDictionary dictionaryWithCapacity:20];
+        NSDictionary *entryProperties;
+        entryProperties = [AudioPropertiesReader propertiesForURL:pe.URL];
+        if (entryProperties == nil)
+            return nil;
         
-    [entryInfo addEntriesFromDictionary:entryProperties];
-    [entryInfo addEntriesFromDictionary:[AudioMetadataReader metadataForURL:pe.URL]];
-    return entryInfo;
+        [entryInfo addEntriesFromDictionary:entryProperties];
+        [entryInfo addEntriesFromDictionary:[AudioMetadataReader metadataForURL:pe.URL]];
+        return entryInfo;
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

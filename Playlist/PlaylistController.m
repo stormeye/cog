@@ -639,6 +639,16 @@
 
 - (void)setCurrentEntry:(PlaylistEntry *)pe
 {
+    
+    if (![pe metadataLoaded]) {
+        // Force loading metadata if it isn't loaded,
+        // will hopefully prevent wrong Growl notifications,
+        // non-updating progress slider and wrong remaining time
+        DLog(@"Metadata isn't loaded for %@", [pe description]);
+        NSDictionary *metadata = [playlistLoader readEntryInfo:pe];
+        [pe setMetadata:metadata];
+    }
+    
 	currentEntry.current = NO;
 	currentEntry.stopAfter = NO;
 	
