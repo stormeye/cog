@@ -10,6 +10,8 @@
 #import "FileTreeViewController.h"
 #import "PlaybackController.h"
 
+#import "Logging.h"
+
 @implementation FileTreeOutlineView
 
 - (void)awakeFromNib
@@ -71,5 +73,4 @@
 
 	return contextMenu;
 }
-
 @end

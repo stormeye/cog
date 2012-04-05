@@ -189,7 +189,7 @@ static int min(int a, int b)
         free(lastReadPacket);
         lastReadPacket = NULL; 
     }
-    if (formatCtx) { av_close_input_stream(formatCtx); formatCtx = NULL; }
+    if (formatCtx) { avformat_close_input(&(formatCtx)); formatCtx = NULL; }
 
     [source close];
     [source release];
