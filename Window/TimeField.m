@@ -8,8 +8,12 @@
 
 #import "TimeField.h"
 
-
 @implementation TimeField
+
+- (void)awakeFromNib
+{
+    showTimeRemaining = [[NSUserDefaults standardUserDefaults] boolForKey:@"timerShowTimeRemaining"];
+}
 
 - (void)update
 {
@@ -32,6 +36,7 @@
 - (void)mouseDown:(NSEvent *)theEvent
 {
 	showTimeRemaining = !showTimeRemaining;
+    [[NSUserDefaults standardUserDefaults] setBool:showTimeRemaining forKey:@"timerShowTimeRemaining"];
 	[self update];
 }
 
