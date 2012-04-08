@@ -189,6 +189,11 @@ static int min(int a, int b)
         free(lastReadPacket);
         lastReadPacket = NULL; 
     }
+    
+    if (lastDecodedFrame) { av_free(lastDecodedFrame); lastDecodedFrame = NULL; }
+    
+    if (codecCtx) { avcodec_close(codecCtx); codecCtx = NULL; }
+    
     if (formatCtx) { avformat_close_input(&(formatCtx)); formatCtx = NULL; }
 
     [source close];
