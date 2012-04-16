@@ -1,3 +1,4 @@
-To compile Cog, simply open the Cog xcode project and build it.
+To compile Cog, you'll have to have yasm installed.
+Once you have it, simply open the Cog xcode project and build it.
 
-If you have any problems, email me at vspader@users.sourceforge.net
+If you have any problems, email me at dmitry.promsky@gmail.com
