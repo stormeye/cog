@@ -45,7 +45,7 @@
 				[track title], @"title",
 				[NSNumber numberWithInt:[[track track] intValue]], @"track",
 				[track genre], @"genre",
-				[track year], @"year",
+                [NSNumber numberWithInt:[[track year] intValue]], @"year",
 				nil];
 		
 		}
