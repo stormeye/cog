@@ -27,7 +27,7 @@ then
   cd src
   # adding /usr/local/bin to PATH so
   # that yasm is found there
-  export PATH="$PATH:/usr/local/bin" 
+  export PATH="$PATH:/usr/local/bin:/opt/local/bin" 
   for arch in $ARCHS
   do
     echo "Building for $arch"
