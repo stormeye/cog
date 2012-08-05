@@ -13,6 +13,18 @@
 
 static NSString *DockIconPlaybackStatusObservationContext = @"DockIconPlaybackStatusObservationContext";
 
+static NSString *getBadgeName(NSString *baseName, BOOL colorfulIcons)
+{
+    if (colorfulIcons)
+    {
+        return [baseName stringByAppendingString:@"Colorful"];
+    }
+    else
+    {
+        return baseName;
+    }
+}
+
 - (void)startObserving
 {
 	[playbackController addObserver:self forKeyPath:@"playbackStatus" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial) context:DockIconPlaybackStatusObservationContext];
@@ -88,15 +100,4 @@ static NSString *DockIconPlaybackStatusObservationContext = @"DockIconPlaybackSt
 	[super dealloc];
 }
 
-static NSString *getBadgeName(NSString *baseName, BOOL colorfulIcons) 
-{
-    if (colorfulIcons) 
-    {
-        return [baseName stringByAppendingString:@"Colorful"];
-    } 
-    else 
-    {
-        return baseName;
-    }
-}
 @end
