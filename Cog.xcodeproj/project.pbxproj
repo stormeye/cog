@@ -85,9 +85,6 @@
 		17A8F6860D6A7FCA0095DA13 /* repeat_none.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F6830D6A7FCA0095DA13 /* repeat_none.png */; };
 		17A8F6870D6A7FCA0095DA13 /* repeat_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F6840D6A7FCA0095DA13 /* repeat_one.png */; };
 		17A8F71A0D6A89730095DA13 /* repeat_album.png in Resources */ = {isa = PBXBuildFile; fileRef = 17A8F7190D6A89730095DA13 /* repeat_album.png */; };
-		17B7CF5C0F5A05EE00A47027 /* pauseBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF590F5A05EE00A47027 /* pauseBadge.png */; };
-		17B7CF5D0F5A05EE00A47027 /* playBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF5A0F5A05EE00A47027 /* playBadge.png */; };
-		17B7CF5E0F5A05EE00A47027 /* stopBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B7CF5B0F5A05EE00A47027 /* stopBadge.png */; };
 		17B7CF970F5A0A4D00A47027 /* AudioOverload.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17B7CF7C0F5A09FD00A47027 /* AudioOverload.bundle */; };
 		17BB5CED0B8A86010009ACB1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BB5CEC0B8A86010009ACB1 /* AudioToolbox.framework */; };
 		17BB5CF90B8A86350009ACB1 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BB5CF60B8A86350009ACB1 /* AudioUnit.framework */; };
@@ -143,6 +140,9 @@
 		3237711A14F84801001D4CC0 /* NowPlayingBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3237711814F84801001D4CC0 /* NowPlayingBarController.m */; };
 		3237711B14F84801001D4CC0 /* NowPlayingBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3237711914F84801001D4CC0 /* NowPlayingBarController.xib */; };
 		324E3556151FCCEE00E4D535 /* FFmpegPlugin.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 324E3553151BC20D00E4D535 /* FFmpegPlugin.bundle */; };
+		3257BD7015CE959000A5FE05 /* pauseDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */; };
+		3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */; };
+		3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		32DB427214ED797400BECF92 /* cog_public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 32DB427114ED797400BECF92 /* cog_public.pem */; };
 		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
@@ -690,9 +690,6 @@
 		17A8F6830D6A7FCA0095DA13 /* repeat_none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repeat_none.png; path = Images/repeat_none.png; sourceTree = "<group>"; };
 		17A8F6840D6A7FCA0095DA13 /* repeat_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repeat_one.png; path = Images/repeat_one.png; sourceTree = "<group>"; };
 		17A8F7190D6A89730095DA13 /* repeat_album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repeat_album.png; path = Images/repeat_album.png; sourceTree = "<group>"; };
-		17B7CF590F5A05EE00A47027 /* pauseBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pauseBadge.png; path = Images/pauseBadge.png; sourceTree = "<group>"; };
-		17B7CF5A0F5A05EE00A47027 /* playBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playBadge.png; path = Images/playBadge.png; sourceTree = "<group>"; };
-		17B7CF5B0F5A05EE00A47027 /* stopBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stopBadge.png; path = Images/stopBadge.png; sourceTree = "<group>"; };
 		17B7CF770F5A09FD00A47027 /* AudioOverload.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioOverload.xcodeproj; path = Plugins/AudioOverload/AudioOverload.xcodeproj; sourceTree = "<group>"; };
 		17BB5CEC0B8A86010009ACB1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		17BB5CF60B8A86350009ACB1 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
@@ -769,6 +766,9 @@
 		3237711814F84801001D4CC0 /* NowPlayingBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingBarController.m; path = Window/NowPlayingBarController.m; sourceTree = "<group>"; };
 		3237711914F84801001D4CC0 /* NowPlayingBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NowPlayingBarController.xib; path = Window/NowPlayingBarController.xib; sourceTree = "<group>"; };
 		324E354E151BC20D00E4D535 /* FFmpegPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FFmpegPlugin.xcodeproj; path = Plugins/FFmpegPlugin/FFmpegPlugin.xcodeproj; sourceTree = "<group>"; };
+		3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pauseDockBadgeColorful.png; path = Images/pauseDockBadgeColorful.png; sourceTree = "<group>"; };
+		3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playDockBadgeColorful.png; path = Images/playDockBadgeColorful.png; sourceTree = "<group>"; };
+		3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stopDockBadgeColorful.png; path = Images/stopDockBadgeColorful.png; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Cog_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cog_Prefix.pch; sourceTree = "<group>"; };
 		32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = Extdeps/ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
 		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
@@ -1017,6 +1017,9 @@
 		177EC02D0B8BC2E60000BC8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */,
+				3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */,
+				3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */,
 				FA3B9D6B15B162B40028B018 /* missingArt@2x.png */,
 				1778D3AF0F645A190037E7A0 /* missingArt.png */,
 				FA745BE6159DDFAF00030276 /* pauseDockBadge.png */,
@@ -1040,9 +1043,6 @@
 				FA4A6C661599C7930060F90C /* navigatorTemplate.pdf */,
 				FA4A6C631599C53D0060F90C /* infoTemplate.pdf */,
 				322D637315112A610036C341 /* randomize.png */,
-				17B7CF590F5A05EE00A47027 /* pauseBadge.png */,
-				17B7CF5A0F5A05EE00A47027 /* playBadge.png */,
-				17B7CF5B0F5A05EE00A47027 /* stopBadge.png */,
 				B09E96620D74A7BC0064F138 /* stop_current.png */,
 				17A8F7190D6A89730095DA13 /* repeat_album.png */,
 				17A8F6820D6A7FCA0095DA13 /* repeat_all.png */,
@@ -2001,9 +2001,6 @@
 				17A8F6870D6A7FCA0095DA13 /* repeat_one.png in Resources */,
 				17A8F71A0D6A89730095DA13 /* repeat_album.png in Resources */,
 				B09E96630D74A7BC0064F138 /* stop_current.png in Resources */,
-				17B7CF5C0F5A05EE00A47027 /* pauseBadge.png in Resources */,
-				17B7CF5D0F5A05EE00A47027 /* playBadge.png in Resources */,
-				17B7CF5E0F5A05EE00A47027 /* stopBadge.png in Resources */,
 				178456C30F6320B5007E8021 /* SpotlightPanel.xib in Resources */,
 				17D1B0D20F6320EA00694C57 /* InfoInspector.xib in Resources */,
 				17D1B1DC0F6330D400694C57 /* Feedback.xib in Resources */,
@@ -2035,6 +2032,9 @@
 				FA745BE9159DDFAF00030276 /* playDockBadge.png in Resources */,
 				FA69B28D15A9FFE000B42A83 /* stopTemplate.pdf in Resources */,
 				FA3B9D6C15B162B40028B018 /* missingArt@2x.png in Resources */,
+				3257BD7015CE959000A5FE05 /* pauseDockBadgeColorful.png in Resources */,
+				3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */,
+				3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

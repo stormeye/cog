@@ -19,6 +19,7 @@
 		17E41DB80C130AA500AC744D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17E41DB70C130AA500AC744D /* Localizable.strings */; };
 		17E78A7E0D68BE3C005C5A59 /* file_tree.png in Resources */ = {isa = PBXBuildFile; fileRef = 17E78A7D0D68BE3C005C5A59 /* file_tree.png */; };
 		17E78B6A0D68C1E3005C5A59 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17E78B680D68C1E3005C5A59 /* Preferences.xib */; };
+		3257BD6B15CE907D00A5FE05 /* appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6A15CE907D00A5FE05 /* appearance.png */; };
 		327BD5221527126A00800728 /* growl.png in Resources */ = {isa = PBXBuildFile; fileRef = 327BD5211527126A00800728 /* growl.png */; };
 		32F1618C14E6BDC700D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1618614E6BCE300D6AB2F /* NDHotKey.framework */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -69,6 +70,7 @@
 		17E41DB50C130A9D00AC744D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		17E78A7D0D68BE3C005C5A59 /* file_tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_tree.png; path = Icons/file_tree.png; sourceTree = "<group>"; };
 		17E78B690D68C1E3005C5A59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		3257BD6A15CE907D00A5FE05 /* appearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appearance.png; path = Icons/appearance.png; sourceTree = "<group>"; };
 		327BD5211527126A00800728 /* growl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = growl.png; path = Icons/growl.png; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* General_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General_Prefix.pch; sourceTree = "<group>"; };
 		32F1618114E6BCE300D6AB2F /* NDHotKey.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NDHotKey.xcodeproj; path = ../../Frameworks/NDHotKey/NDHotKey.xcodeproj; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		8E07ABD90AAC95AF00A4B32F /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3257BD6A15CE907D00A5FE05 /* appearance.png */,
 				327BD5211527126A00800728 /* growl.png */,
 				17C7E5AF0DCCC30A003CBCF7 /* playlist.png */,
 				17E78A7D0D68BE3C005C5A59 /* file_tree.png */,
@@ -321,6 +324,7 @@
 				17E78B6A0D68C1E3005C5A59 /* Preferences.xib in Resources */,
 				17C7E5B00DCCC30A003CBCF7 /* playlist.png in Resources */,
 				327BD5221527126A00800728 /* growl.png in Resources */,
+				3257BD6B15CE907D00A5FE05 /* appearance.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
