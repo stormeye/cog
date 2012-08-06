@@ -65,7 +65,7 @@ static NSString *getBadgeName(NSString *baseName, BOOL colorfulIcons)
         
         if (colorfulIcons)
         {
-            [badgeImage drawInRect:NSMakeRect(28, 28, badgeSize.width,badgeSize.height) 
+            [badgeImage drawInRect:NSMakeRect(0, 0, 128, 128) 
                           fromRect:NSMakeRect(0, 0, badgeSize.width, badgeSize.height) 
                          operation:NSCompositeSourceOver fraction:1.0];
         }
