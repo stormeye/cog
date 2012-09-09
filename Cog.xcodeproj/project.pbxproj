@@ -2393,7 +2393,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -2406,7 +2406,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};

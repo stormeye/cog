@@ -286,7 +286,7 @@
 					../../include,
 					include,
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../../build;
 			};
 			name = Debug;
@@ -303,7 +303,7 @@
 					../../include,
 					include,
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../../build;
 			};
 			name = Release;

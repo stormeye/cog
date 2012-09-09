@@ -1056,7 +1056,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../../build;
 			};
 			name = Debug;
@@ -1068,7 +1068,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../../build;
 			};
 			name = Release;
