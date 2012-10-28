@@ -45,8 +45,8 @@
 	UInt16				keyCode;
 	NSUInteger			modifierFlags;
 	BOOL				requiresModifierKeys,
-						readyForEvent,
-						stayReadyForEvent;
+	readyForEvent,
+	stayReadyForEvent;
 	id					lastReadyForEventSender;
 }
 
@@ -60,12 +60,12 @@
 - (UInt16)keyCode;
 
 /*!
-	@method character
+	@method keyCharacter
 	@abstract Get unicode character.
 	@discussion Returns the unicode character for the last key combination the user pressed while the reciever was active.
 	@result A <tt>unichar</tt> containing character.
  */
-- (unichar)character;
+- (unichar)keyCharacter;
 
 /*!
 	@method modifierFlags

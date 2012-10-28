@@ -27,29 +27,27 @@
 #import "NDHotKeyEvent.h"
 #import "NDKeyboardLayout.h"
 
+@interface NDHotKeyControl ()
+
+@end
+
 /*
  * class implementation NDHotKeyControl
  */
 @implementation NDHotKeyControl
 
-/*
- * -initWithFrame:
- */
 - (id)initWithFrame:(NSRect)aFrame
 {
-    if ( (self = [super initWithFrame:aFrame]) != nil )
-	 {
+    if( (self = [super initWithFrame:aFrame]) != nil )
+	{
 		 [self setEditable:NO];
 		 requiresModifierKeys = YES;
 		 readyForEvent = NO;
 		 stayReadyForEvent = NO;
-   }
+	}
     return self;
 }
 
-/*
- * -initWithCoder:
- */
 - (id)initWithCoder:(NSCoder *)aCoder
 {
 	if( (self = [super initWithCoder:aCoder]) != nil )
@@ -83,33 +81,10 @@
 	}
 }
 
-/*
- * -keyCode
- */
-- (unsigned short)keyCode
-{
-	return keyCode;
-}
+- (unsigned short)keyCode { return keyCode; }
+- (unichar)keyCharacter { return [[NDKeyboardLayout keyboardLayout] characterForKeyCode:[self keyCode]]; }
+- (NSUInteger)modifierFlags { return modifierFlags; }
 
-/*
- * -character
- */
-- (unichar)character
-{
-	return [[NDKeyboardLayout keyboardLayout] characterForKeyCode:[self keyCode]];
-}
-
-/*
- * -modifierFlags
- */
-- (NSUInteger)modifierFlags
-{
-	return modifierFlags;
-}
-
-/*
- * -performKeyEquivalent:
- */
 - (BOOL)performKeyEquivalent:(NSEvent*)anEvent
 {
 	BOOL		theResult = NO;
@@ -123,9 +98,6 @@
 	return theResult;
 }
 
-/*
- * -keyDown:
- */
 - (void)keyDown:(NSEvent *)anEvent
 {
 	NSUInteger		theModifierFlags = [anEvent modifierFlags];
@@ -134,33 +106,23 @@
 
 	if( (theModifierFlags != 0 || !requiresModifierKeys || theChar > 255) && theChar != 0 )
 	{
+		NDKeyboardLayout		* theKeyboardLayout = [NDKeyboardLayout keyboardLayout];
+
+		NSParameterAssert( theKeyboardLayout != nil );
+
 		keyCode = [anEvent keyCode];
 		modifierFlags = theModifierFlags;
 
-		[self setStringValue:[[NDKeyboardLayout keyboardLayout] stringForKeyCode:keyCode modifierFlags:modifierFlags]];
+		[self setStringValue:[theKeyboardLayout stringForKeyCode:keyCode modifierFlags:modifierFlags]];
 		[self performClick:self];
 		if( ![self stayReadyForEvent] )
 			[self setReadyForHotKeyEvent:NO];
 	}
 }
 
-/*
- * -hotKeyEvent
- */
-- (NDHotKeyEvent *)hotKeyEvent
-{
-	return [NDHotKeyEvent getHotKeyForKeyCode:[self keyCode] modifierFlags:[self modifierFlags]];
-}
-
-- (void)setRequiresModifierKeys:(BOOL)aFlag
-{
-	requiresModifierKeys = aFlag;
-}
-
-- (BOOL)requiresModifierKeys
-{
-	return requiresModifierKeys;
-}
+- (NDHotKeyEvent *)hotKeyEvent { return [NDHotKeyEvent getHotKeyForKeyCode:[self keyCode] modifierFlags:[self modifierFlags]]; }
+- (void)setRequiresModifierKeys:(BOOL)aFlag { requiresModifierKeys = aFlag; }
+- (BOOL)requiresModifierKeys { return requiresModifierKeys; }
 
 - (void)setReadyForHotKeyEvent:(BOOL)aFlag
 {
@@ -174,20 +136,9 @@
 	}
 }
 
-- (BOOL)readyForHotKeyEvent
-{
-	return readyForEvent;
-}
-
-- (void)setStayReadyForEvent:(BOOL)aFlag
-{
-	stayReadyForEvent = aFlag;
-}
-
-- (BOOL)stayReadyForEvent
-{
-	return stayReadyForEvent;
-}
+- (BOOL)readyForHotKeyEvent { return readyForEvent; }
+- (void)setStayReadyForEvent:(BOOL)aFlag { stayReadyForEvent = aFlag; }
+- (BOOL)stayReadyForEvent { return stayReadyForEvent; }
 
 
 @end

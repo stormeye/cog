@@ -38,6 +38,15 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
+/*
+	using NDHashTable clas instead of the NDHashTable functions that existed prior to 10.5 we can support garabage collection easier
+ */
+#if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
+	#define NDMapTableClassDefined
+#else
+	#warning Support for 10.4 and earily has been depreciated
+#endif
+
 /*!
 	@defined NDHotKeyEventThreadSafe
 	@abstract A flag to enable thread safety.
@@ -72,6 +81,7 @@ enum
  */
 extern const OSType			NDHotKeyDefaultSignature;
 
+@class			NDHotKeyEvent;
 /*!
 	@class NDHotKeyEvent
 	@abstract Class to represent a HotKey
@@ -82,13 +92,18 @@ extern const OSType			NDHotKeyDefaultSignature;
 {
 @private
 	EventHotKeyRef		reference;
-	UInt16				keyCode;
+	//	UInt16				keyCode;
+	unichar				keyCharacter;
+	BOOL				keyPad;
 	NSUInteger			modifierFlags;
 	int					currentEventType;
 	id					target;
 	SEL					selectorReleased,
-						selectorPressed;
-
+	selectorPressed;
+#ifdef NS_BLOCKS_AVAILABLE
+	void	(^releasedBlock)(NDHotKeyEvent * e);
+	void	(^pressedBlock)(NDHotKeyEvent * e);
+#endif
 	struct
 	{
 		unsigned			individual		: 1;
@@ -395,7 +410,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 
 - (BOOL)setEnabled:(BOOL)flag;
 /*!
-	@method setEnabled:
+	@method setIsEnabled:
 	@abstract Set the hot key enabled or disable.
 	@discussion <tt>setEnabled:</tt> registers or unregisters the recievers hot key combination.
 	@param flag <tt>YES</tt> to enable, <tt>NO</tt> to disable.
@@ -468,6 +483,16 @@ extern const OSType			NDHotKeyDefaultSignature;
  */
 - (BOOL)setTarget:(id)target selector:(SEL)selector;
 
+#ifdef NS_BLOCKS_AVAILABLE
+/*!
+	@method setBlock:
+	@abstract Set the hot key block called when the hot key is released.
+	@discussion Sets a block to be executed on hot key release.
+	@param block The block executed on key release, the block is passed the <tt>NDHotKeyEvent</tt> that represents the event.
+	@result returns <tt>YES</tt> if successful.
+ */
+- (BOOL)setBlock:(void(^)(NDHotKeyEvent*))block;
+#endif
 /*!
 	@method setTarget:selectorReleased:selectorPressed:
 	@abstract Set the hot key target.
@@ -479,6 +504,17 @@ extern const OSType			NDHotKeyDefaultSignature;
  */
 - (BOOL)setTarget:(id)target selectorReleased:(SEL)selectorReleased selectorPressed:(SEL)selectorPressed;
 
+#ifdef NS_BLOCKS_AVAILABLE
+/*!
+	@method setReleasedBlock:pressedBlock:
+	@abstract Set the hot key blocks called when the hot key is pressed and released.
+	@discussion Sets blocks to be executed on hot key released and pressed.
+	@param releasedBlock The block executed on key release, the block is passed the <tt>NDHotKeyEvent</tt> that represents the event.
+	@param pressedBlock The block executed on key pressed, the block is passed the <tt>NDHotKeyEvent</tt> that represents the event.
+	@result returns <tt>YES</tt> if successful.
+ */
+- (BOOL)setReleasedBlock:(void(^)(NDHotKeyEvent*))releasedBlock pressedBlock:(void(^)(NDHotKeyEvent*))pressedBlock;
+#endif
 /*!
 	@method performHotKeyReleased
 	@abstract Invoke the target with the release selector.
@@ -502,12 +538,12 @@ extern const OSType			NDHotKeyDefaultSignature;
 - (UInt16)keyCode;
 
 /*!
-	@method character
+	@method keyCharacter
 	@abstract Get the hot key character.
 	@discussion This is the character for the key code, without modifier keys. The character is for display purposes only and dose not determine the key code.
 	@result A uni code character.
  */
-- (unichar)character;
+- (unichar)keyCharacter;
 
 /*!
 	@method modifierFlags
@@ -536,25 +572,10 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@methodgroup Deprecated Methods
  */
 
-/*!
-	@method getHotKeyForKeyCode:modifierFlags:
- */
 + (NDHotKeyEvent *)getHotKeyForKeyCode:(UInt16)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifierFlags DEPRECATED_ATTRIBUTE;
-/*!
-	@method hotKeyWithKeyCode:character:modifierFlags:
- */
 + (id)hotKeyWithKeyCode:(UInt16)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer DEPRECATED_ATTRIBUTE;
-/*!
-	@method hotKeyWithKeyCode:character:modifierFlags:target:selector:
- */
 + (id)hotKeyWithKeyCode:(UInt16)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer target:(id)target selector:(SEL)selector DEPRECATED_ATTRIBUTE;
-/*!
-	@method initWithKeyCode:character:modifierFlags:target:selector:
- */
 - (id)initWithKeyCode:(UInt16)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer target:(id)target selector:(SEL)selector DEPRECATED_ATTRIBUTE;
-/*!
-	@method initWithKeyCode:character:modifierFlags
- */
 - (id)initWithKeyCode:(UInt16)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer DEPRECATED_ATTRIBUTE;
 
 @end
