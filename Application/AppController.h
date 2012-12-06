@@ -21,6 +21,7 @@
 	IBOutlet PlaylistLoader *playlistLoader;
     
 	IBOutlet NSWindow *mainWindow;
+    IBOutlet NSWindow *miniWindow;
     IBOutlet NSSplitView *mainView;
 	
 	IBOutlet NSSegmentedControl *playbackButtons;

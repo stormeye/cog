@@ -24,16 +24,4 @@
 	return self;
 }
 
-- (void)awakeFromNib
-{
-	if ([self hiddenDefaultsKey]) {
-		[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:[self hiddenDefaultsKey]]];
-	}
-	
-	[super awakeFromNib];
-}
-
-
-
-
 @end

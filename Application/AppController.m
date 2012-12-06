@@ -13,7 +13,7 @@
 
 #import "Logging.h"
 #import "MiniModeMenuTitleTransformer.h"
-#import "DualWindow.h"
+#import "PlaylistEntry.h"
 
 @implementation AppController
 
@@ -606,8 +606,14 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
 - (IBAction)toggleMiniMode:(id)sender
 {
-    [(DualWindow*) mainWindow toggleToolbarShown:self];
     miniMode = !miniMode;
+    [[NSUserDefaults standardUserDefaults] setBool:miniMode forKey:"miniMode"];
+
+    NSWindow *windowToShow = miniMode ? miniWindow : mainWindow;
+    NSWindow *windowToHide = miniMode ? mainWindow : miniWindow;
+
+    [windowToHide close];
+    [windowToShow makeKeyAndOrderFront:self];
 }
 
 - (BOOL)miniModeEnabled

@@ -117,7 +117,6 @@
 		17D1B2810CF8B2830028F5B5 /* song.icns in Resources */ = {isa = PBXBuildFile; fileRef = 17D1B27A0CF8B2830028F5B5 /* song.icns */; };
 		17D1B2820CF8B2830028F5B5 /* vg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 17D1B27B0CF8B2830028F5B5 /* vg.icns */; };
 		17D1B2830CF8B2830028F5B5 /* xm.icns in Resources */ = {isa = PBXBuildFile; fileRef = 17D1B27C0CF8B2830028F5B5 /* xm.icns */; };
-		17E0D5E90F520F02005B6FED /* DualWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E0D5E00F520F02005B6FED /* DualWindow.m */; };
 		17E0D5EA0F520F02005B6FED /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E0D5E20F520F02005B6FED /* MainWindow.m */; };
 		17E0D5EB0F520F02005B6FED /* MiniWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E0D5E40F520F02005B6FED /* MiniWindow.m */; };
 		17E0D5EC0F520F02005B6FED /* PositionSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E0D5E60F520F02005B6FED /* PositionSlider.m */; };
@@ -736,8 +735,6 @@
 		17D1B27A0CF8B2830028F5B5 /* song.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = song.icns; sourceTree = "<group>"; };
 		17D1B27B0CF8B2830028F5B5 /* vg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = vg.icns; sourceTree = "<group>"; };
 		17D1B27C0CF8B2830028F5B5 /* xm.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = xm.icns; sourceTree = "<group>"; };
-		17E0D5DF0F520F02005B6FED /* DualWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DualWindow.h; path = Window/DualWindow.h; sourceTree = "<group>"; };
-		17E0D5E00F520F02005B6FED /* DualWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DualWindow.m; path = Window/DualWindow.m; sourceTree = "<group>"; };
 		17E0D5E10F520F02005B6FED /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainWindow.h; path = Window/MainWindow.h; sourceTree = "<group>"; };
 		17E0D5E20F520F02005B6FED /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainWindow.m; path = Window/MainWindow.m; sourceTree = "<group>"; };
 		17E0D5E30F520F02005B6FED /* MiniWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniWindow.h; path = Window/MiniWindow.h; sourceTree = "<group>"; };
@@ -1315,8 +1312,6 @@
 				17E0D6190F520F9F005B6FED /* VolumeButton.m */,
 				17E0D61A0F520F9F005B6FED /* VolumeSlider.h */,
 				17E0D61B0F520F9F005B6FED /* VolumeSlider.m */,
-				17E0D5DF0F520F02005B6FED /* DualWindow.h */,
-				17E0D5E00F520F02005B6FED /* DualWindow.m */,
 				17E0D5E10F520F02005B6FED /* MainWindow.h */,
 				17E0D5E20F520F02005B6FED /* MainWindow.m */,
 				17E0D5E30F520F02005B6FED /* MiniWindow.h */,
@@ -2205,7 +2200,6 @@
 				173855FF0E0CC81F00488CD4 /* FileTreeOutlineView.m in Sources */,
 				07D971E60ED1DAA800E7602E /* TagEditorController.m in Sources */,
 				173A43A10F3FD26500676A7B /* ToolTipWindow.m in Sources */,
-				17E0D5E90F520F02005B6FED /* DualWindow.m in Sources */,
 				17E0D5EA0F520F02005B6FED /* MainWindow.m in Sources */,
 				17E0D5EB0F520F02005B6FED /* MiniWindow.m in Sources */,
 				17E0D5EC0F520F02005B6FED /* PositionSlider.m in Sources */,
@@ -2595,6 +2589,7 @@
 				3299F143166FA3DC0056C7BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Cog" */ = {
 			isa = XCConfigurationList;
