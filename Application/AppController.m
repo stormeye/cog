@@ -12,6 +12,8 @@
 #import "PathNode.h"
 
 #import "Logging.h"
+#import "MiniModeMenuTitleTransformer.h"
+#import "DualWindow.h"
 
 @implementation AppController
 
@@ -26,6 +28,10 @@
         [[[FontSizetoLineHeightTransformer alloc] init]autorelease];
     [NSValueTransformer setValueTransformer:fontSizetoLineHeightTransformer
                                     forName:@"FontSizetoLineHeightTransformer"];
+
+    NSValueTransformer *miniModeMenuTitleTransformer = [[[MiniModeMenuTitleTransformer alloc] init] autorelease];
+    [NSValueTransformer setValueTransformer:miniModeMenuTitleTransformer
+                                    forName:@"MiniModeMenuTitleTransformer"];
 }
 
 
@@ -596,7 +602,16 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 - (IBAction)decreaseFontSize:(id)sender
 {
 	[self changeFontSize:-1];
-	
-} 
+}
 
+- (IBAction)toggleMiniMode:(id)sender
+{
+    [(DualWindow*) mainWindow toggleToolbarShown:self];
+    miniMode = !miniMode;
+}
+
+- (BOOL)miniModeEnabled
+{
+    return miniMode;
+}
 @end

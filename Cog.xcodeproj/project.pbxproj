@@ -133,6 +133,8 @@
 		17F562390C3BD91B0019975C /* General.preferencePane in Resources */ = {isa = PBXBuildFile; fileRef = 17F5622E0C3BD8FB0019975C /* General.preferencePane */; };
 		17F6C8070F603701000D9DA9 /* PlaybackEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F6C8060F603701000D9DA9 /* PlaybackEventController.m */; };
 		17FAEBAC0F662985007C8707 /* ToolTipTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FAEBAB0F662985007C8707 /* ToolTipTextField.m */; };
+		2F0CD5AE78777835A47B658E /* MiniModeMenuTitleTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CD8D30BDBFC56F419B8BA /* MiniModeMenuTitleTransformer.m */; };
+		2F0CDB6FD92A568493F832BD /* MiniModeMenuTitleTransformer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2F0CDB3CF702DB512E5A9D99 /* MiniModeMenuTitleTransformer.h */; };
 		322D637415112A620036C341 /* randomize.png in Resources */ = {isa = PBXBuildFile; fileRef = 322D637315112A610036C341 /* randomize.png */; };
 		3236263214ED759300BB8837 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
 		3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3236263114ED759300BB8837 /* Sparkle.framework */; };
@@ -144,6 +146,11 @@
 		3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */; };
 		3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
+		3299EF4E166E8A4D0056C7BA /* miniModeToggleTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */; };
+		3299F133166FA3DC0056C7BA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3299F132166FA3DC0056C7BA /* SenTestingKit.framework */; };
+		3299F135166FA3DC0056C7BA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3299F134166FA3DC0056C7BA /* Cocoa.framework */; };
+		3299F13C166FA3DC0056C7BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3299F13A166FA3DC0056C7BA /* InfoPlist.strings */; };
+		3299F13F166FA3DC0056C7BA /* CogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3299F13E166FA3DC0056C7BA /* CogTests.m */; };
 		32DB427214ED797400BECF92 /* cog_public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 32DB427114ED797400BECF92 /* cog_public.pem */; };
 		32F1618914E6BD2100D6AB2F /* NDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
 		5604D45B0D60349B004F5C5D /* SpotlightWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5604D4590D60349B004F5C5D /* SpotlightWindowController.m */; };
@@ -563,6 +570,7 @@
 				3236263314ED760E00BB8837 /* Sparkle.framework in CopyFiles */,
 				17F561400C3BD4F30019975C /* CogAudio.framework in CopyFiles */,
 				170680840B950164006BA573 /* Growl.framework in CopyFiles */,
+				2F0CDB6FD92A568493F832BD /* MiniModeMenuTitleTransformer.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +765,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2F0CD8D30BDBFC56F419B8BA /* MiniModeMenuTitleTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MiniModeMenuTitleTransformer.m; path = Window/MiniModeMenuTitleTransformer.m; sourceTree = "<group>"; };
+		2F0CDB3CF702DB512E5A9D99 /* MiniModeMenuTitleTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniModeMenuTitleTransformer.h; path = Window/MiniModeMenuTitleTransformer.h; sourceTree = "<group>"; };
 		322D6205150B574F0036C341 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		322D637315112A610036C341 /* randomize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = randomize.png; path = Images/randomize.png; sourceTree = "<group>"; };
 		3236263114ED759300BB8837 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
@@ -769,6 +779,16 @@
 		3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pauseDockBadgeColorful.png; path = Images/pauseDockBadgeColorful.png; sourceTree = "<group>"; };
 		3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playDockBadgeColorful.png; path = Images/playDockBadgeColorful.png; sourceTree = "<group>"; };
 		3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stopDockBadgeColorful.png; path = Images/stopDockBadgeColorful.png; sourceTree = "<group>"; };
+		3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = miniModeToggleTemplate.pdf; path = Images/miniModeToggleTemplate.pdf; sourceTree = "<group>"; };
+		3299F131166FA3DC0056C7BA /* CogTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CogTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3299F132166FA3DC0056C7BA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3299F134166FA3DC0056C7BA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		3299F136166FA3DC0056C7BA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3299F139166FA3DC0056C7BA /* CogTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CogTests-Info.plist"; sourceTree = "<group>"; };
+		3299F13B166FA3DC0056C7BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3299F13D166FA3DC0056C7BA /* CogTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CogTests.h; sourceTree = "<group>"; };
+		3299F13E166FA3DC0056C7BA /* CogTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CogTests.m; sourceTree = "<group>"; };
+		3299F140166FA3DC0056C7BA /* CogTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CogTests-Prefix.pch"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Cog_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cog_Prefix.pch; sourceTree = "<group>"; };
 		32D40FCF14CB52930050563F /* ffmpeg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ffmpeg.xcodeproj; path = Extdeps/ffmpeg/ffmpeg.xcodeproj; sourceTree = "<group>"; };
 		32D4102214CB58C60050563F /* libavutil.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libavutil.xcodeproj; path = Extdeps/libavutil/libavutil.xcodeproj; sourceTree = "<group>"; };
@@ -846,6 +866,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3299F12D166FA3DC0056C7BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3299F133166FA3DC0056C7BA /* SenTestingKit.framework in Frameworks */,
+				3299F135166FA3DC0056C7BA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -919,6 +948,7 @@
 				17BB5CEC0B8A86010009ACB1 /* AudioToolbox.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				3299F136166FA3DC0056C7BA /* CoreData.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -1017,6 +1047,7 @@
 		177EC02D0B8BC2E60000BC8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */,
 				3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */,
 				3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */,
 				3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */,
@@ -1298,6 +1329,8 @@
 				3237711514F847DF001D4CC0 /* NowPlayingBarView.m */,
 				3237711714F84801001D4CC0 /* NowPlayingBarController.h */,
 				3237711814F84801001D4CC0 /* NowPlayingBarController.m */,
+				2F0CD8D30BDBFC56F419B8BA /* MiniModeMenuTitleTransformer.m */,
+				2F0CDB3CF702DB512E5A9D99 /* MiniModeMenuTitleTransformer.h */,
 			);
 			name = Window;
 			sourceTree = "<group>";
@@ -1341,6 +1374,7 @@
 			isa = PBXGroup;
 			children = (
 				1770424E0B8BC41800B86321 /* Cog.app */,
+				3299F131166FA3DC0056C7BA /* CogTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1352,6 +1386,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				3299F137166FA3DC0056C7BA /* CogTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				17B619FF0B909ED400BC003F /* PlugIns */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -1397,6 +1432,8 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				3299F132166FA3DC0056C7BA /* SenTestingKit.framework */,
+				3299F134166FA3DC0056C7BA /* Cocoa.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -1408,6 +1445,26 @@
 				324E3553151BC20D00E4D535 /* FFmpegPlugin.bundle */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3299F137166FA3DC0056C7BA /* CogTests */ = {
+			isa = PBXGroup;
+			children = (
+				3299F13D166FA3DC0056C7BA /* CogTests.h */,
+				3299F13E166FA3DC0056C7BA /* CogTests.m */,
+				3299F138166FA3DC0056C7BA /* Supporting Files */,
+			);
+			path = CogTests;
+			sourceTree = "<group>";
+		};
+		3299F138166FA3DC0056C7BA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3299F139166FA3DC0056C7BA /* CogTests-Info.plist */,
+				3299F13A166FA3DC0056C7BA /* InfoPlist.strings */,
+				3299F140166FA3DC0056C7BA /* CogTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		32D40FC114CB522F0050563F /* Extdeps */ = {
@@ -1605,6 +1662,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3299F130166FA3DC0056C7BA /* CogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3299F141166FA3DC0056C7BA /* Build configuration list for PBXNativeTarget "CogTests" */;
+			buildPhases = (
+				3299F12C166FA3DC0056C7BA /* Sources */,
+				3299F12D166FA3DC0056C7BA /* Frameworks */,
+				3299F12E166FA3DC0056C7BA /* Resources */,
+				3299F12F166FA3DC0056C7BA /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CogTests;
+			productName = CogTests;
+			productReference = 3299F131166FA3DC0056C7BA /* CogTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* Cog */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Cog" */;
@@ -1668,6 +1743,7 @@
 				Hebrew,
 				Greek,
 				zh_CN,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Cog */;
 			projectDirPath = "";
@@ -1776,6 +1852,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Cog */,
+				3299F130166FA3DC0056C7BA /* CogTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1952,6 +2029,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3299F12E166FA3DC0056C7BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3299F13C166FA3DC0056C7BA /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2035,12 +2120,37 @@
 				3257BD7015CE959000A5FE05 /* pauseDockBadgeColorful.png in Resources */,
 				3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */,
 				3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */,
+				3299EF4E166E8A4D0056C7BA /* miniModeToggleTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3299F12F166FA3DC0056C7BA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		3299F12C166FA3DC0056C7BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3299F13F166FA3DC0056C7BA /* CogTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2123,6 +2233,7 @@
 				F6F96719102C709000D2C9B4 /* NSString+FinderCompare.m in Sources */,
 				3237711614F847DF001D4CC0 /* NowPlayingBarView.m in Sources */,
 				3237711A14F84801001D4CC0 /* NowPlayingBarController.m in Sources */,
+				2F0CD5AE78777835A47B658E /* MiniModeMenuTitleTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2309,6 +2420,14 @@
 			name = Help;
 			sourceTree = "<group>";
 		};
+		3299F13A166FA3DC0056C7BA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3299F13B166FA3DC0056C7BA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		8E7575D909F31E930080F1EE /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2320,6 +2439,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3299F142166FA3DC0056C7BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CogTests/CogTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "CogTests/CogTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		3299F143166FA3DC0056C7BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CogTests/CogTests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "CogTests/CogTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2413,6 +2588,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3299F141166FA3DC0056C7BA /* Build configuration list for PBXNativeTarget "CogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3299F142166FA3DC0056C7BA /* Debug */,
+				3299F143166FA3DC0056C7BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Cog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

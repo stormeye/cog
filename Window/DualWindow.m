@@ -49,10 +49,10 @@
 	[[NSUserDefaults standardUserDefaults] setBool:h forKey:[self hiddenDefaultsKey]];
 }
 
-- (void)toggleToolbarShown:(id)sender
-{
-	[otherWindow show];
-}
+//- (void)toggleToolbarShown:(id)sender
+//{
+//	[otherWindow show];
+//}
 
 - (void)show
 {

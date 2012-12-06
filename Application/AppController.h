@@ -60,6 +60,8 @@
     NSOperationQueue *queue; // Since we are the app delegate, we take care of the op queue
     
     NSMutableSet* expandedNodes;
+
+    BOOL miniMode;
 }
 
 - (IBAction)openURL:(id)sender;
@@ -98,5 +100,8 @@ OSStatus handleHotKey(EventHandlerCallRef nextHandler,EventRef theEvent,void *us
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification;
 - (void)windowDidExitFullScreen:(NSNotification *)notification;
+
+- (IBAction)toggleMiniMode:(id)sender;
+- (BOOL)miniModeEnabled;
 
 @end
