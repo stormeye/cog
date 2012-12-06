@@ -17,8 +17,6 @@
 
 @implementation AppController
 
-@synthesize miniMode;
-
 + (void)initialize
 {
     // Register transformers
@@ -276,7 +274,10 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     } else {
         DLog(@"Invalid playlist position to restore (pos=%d, playlist size=%d)", peIdx, playlistSize);
     }
-        
+
+    // Restore mini mode
+    [self setMiniMode:[[NSUserDefaults standardUserDefaults] boolForKey:@"miniMode"]];
+
     // Restore file tree state
     
     // We need file tree view to restore its state here
@@ -608,8 +609,18 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
 - (IBAction)toggleMiniMode:(id)sender
 {
-    [self setMiniMode:(!miniMode)]; // explicit setter call so that change notification is emitted
-    [[NSUserDefaults standardUserDefaults] setBool:miniMode forKey:"miniMode"];
+    [self setMiniMode:(!miniMode)];
+}
+
+- (BOOL)miniMode
+{
+    return miniMode;
+}
+
+- (void)setMiniMode:(BOOL)newMiniMode
+{
+    miniMode = newMiniMode;
+    [[NSUserDefaults standardUserDefaults] setBool:miniMode forKey:@"miniMode"];
 
     NSWindow *windowToShow = miniMode ? miniWindow : mainWindow;
     NSWindow *windowToHide = miniMode ? mainWindow : miniWindow;
@@ -617,5 +628,4 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     [windowToHide close];
     [windowToShow makeKeyAndOrderFront:self];
 }
-
 @end
