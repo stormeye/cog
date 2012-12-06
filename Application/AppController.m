@@ -17,6 +17,8 @@
 
 @implementation AppController
 
+@synthesize miniMode;
+
 + (void)initialize
 {
     // Register transformers
@@ -606,7 +608,7 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 
 - (IBAction)toggleMiniMode:(id)sender
 {
-    miniMode = !miniMode;
+    [self setMiniMode:(!miniMode)]; // explicit setter call so that change notification is emitted
     [[NSUserDefaults standardUserDefaults] setBool:miniMode forKey:"miniMode"];
 
     NSWindow *windowToShow = miniMode ? miniWindow : mainWindow;
@@ -616,8 +618,4 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
     [windowToShow makeKeyAndOrderFront:self];
 }
 
-- (BOOL)miniModeEnabled
-{
-    return miniMode;
-}
 @end

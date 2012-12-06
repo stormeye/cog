@@ -103,6 +103,7 @@ OSStatus handleHotKey(EventHandlerCallRef nextHandler,EventRef theEvent,void *us
 - (void)windowDidExitFullScreen:(NSNotification *)notification;
 
 - (IBAction)toggleMiniMode:(id)sender;
-- (BOOL)miniModeEnabled;
+
+@property BOOL miniMode;
 
 @end

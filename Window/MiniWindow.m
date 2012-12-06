@@ -31,4 +31,10 @@
 	return proposedFrameSize;
 }
 
+- (void)toggleToolbarShown:(id)sender {
+    // Mini window IS the toolbar, no point in hiding it.
+    // Do nothing!
+}
+
+
 @end

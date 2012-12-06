@@ -2952,7 +2952,7 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<object class="NSMenuItem" id="107386588">
 									<reference key="NSMenu" ref="725798088"/>
 									<string key="NSTitle">Toggle Mini Mode</string>
-									<string key="NSKeyEquiv"/>
+									<string key="NSKeyEquiv">M</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="80764106"/>
@@ -6244,15 +6244,15 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">title: values.Cog Window Hidden</string>
+						<string key="label">title: miniMode</string>
 						<reference key="source" ref="107386588"/>
-						<reference key="destination" ref="268234899"/>
+						<reference key="destination" ref="558455632"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="107386588"/>
-							<reference key="NSDestination" ref="268234899"/>
-							<string key="NSLabel">title: values.Cog Window Hidden</string>
+							<reference key="NSDestination" ref="558455632"/>
+							<string key="NSLabel">title: miniMode</string>
 							<string key="NSBinding">title</string>
-							<string key="NSKeyPath">values.Cog Window Hidden</string>
+							<string key="NSKeyPath">miniMode</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">MiniModeMenuTitleTransformer</string>
@@ -6260,7 +6260,7 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2510</int>
+					<int key="connectionID">2519</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8772,7 +8772,7 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2517</int>
+			<int key="maxID">2519</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9286,7 +9286,7 @@ AAAAAMoqwGgAAAAAAAAAAAAAAAAAAAAAA</bytes>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MiniWindow</string>
-					<string key="superclassName">DualWindow</string>
+					<string key="superclassName">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MiniWindow.h</string>
