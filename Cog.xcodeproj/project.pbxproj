@@ -144,8 +144,9 @@
 		3257BD7015CE959000A5FE05 /* pauseDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */; };
 		3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */; };
 		3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */ = {isa = PBXBuildFile; fileRef = 3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */; };
+		3259FD1E1672AEB9008FC4D0 /* miniModeOffTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3259FD1C1672AEB9008FC4D0 /* miniModeOffTemplate.pdf */; };
+		3259FD1F1672AEB9008FC4D0 /* miniModeOnTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3259FD1D1672AEB9008FC4D0 /* miniModeOnTemplate.pdf */; };
 		3284FD6F14E6DC37007A5581 /* NDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32F1617314E6BB3C00D6AB2F /* NDHotKey.framework */; };
-		3299EF4E166E8A4D0056C7BA /* miniModeToggleTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */; };
 		3299F133166FA3DC0056C7BA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3299F132166FA3DC0056C7BA /* SenTestingKit.framework */; };
 		3299F135166FA3DC0056C7BA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3299F134166FA3DC0056C7BA /* Cocoa.framework */; };
 		3299F13C166FA3DC0056C7BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3299F13A166FA3DC0056C7BA /* InfoPlist.strings */; };
@@ -776,7 +777,8 @@
 		3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pauseDockBadgeColorful.png; path = Images/pauseDockBadgeColorful.png; sourceTree = "<group>"; };
 		3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playDockBadgeColorful.png; path = Images/playDockBadgeColorful.png; sourceTree = "<group>"; };
 		3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stopDockBadgeColorful.png; path = Images/stopDockBadgeColorful.png; sourceTree = "<group>"; };
-		3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = miniModeToggleTemplate.pdf; path = Images/miniModeToggleTemplate.pdf; sourceTree = "<group>"; };
+		3259FD1C1672AEB9008FC4D0 /* miniModeOffTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = miniModeOffTemplate.pdf; path = Images/miniModeOffTemplate.pdf; sourceTree = "<group>"; };
+		3259FD1D1672AEB9008FC4D0 /* miniModeOnTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = miniModeOnTemplate.pdf; path = Images/miniModeOnTemplate.pdf; sourceTree = "<group>"; };
 		3299F131166FA3DC0056C7BA /* CogTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CogTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3299F132166FA3DC0056C7BA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3299F134166FA3DC0056C7BA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -1044,7 +1046,8 @@
 		177EC02D0B8BC2E60000BC8C /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3299EF4D166E8A4D0056C7BA /* miniModeToggleTemplate.pdf */,
+				3259FD1C1672AEB9008FC4D0 /* miniModeOffTemplate.pdf */,
+				3259FD1D1672AEB9008FC4D0 /* miniModeOnTemplate.pdf */,
 				3257BD6D15CE959000A5FE05 /* pauseDockBadgeColorful.png */,
 				3257BD6E15CE959000A5FE05 /* playDockBadgeColorful.png */,
 				3257BD6F15CE959000A5FE05 /* stopDockBadgeColorful.png */,
@@ -2115,7 +2118,8 @@
 				3257BD7015CE959000A5FE05 /* pauseDockBadgeColorful.png in Resources */,
 				3257BD7115CE959000A5FE05 /* playDockBadgeColorful.png in Resources */,
 				3257BD7215CE959000A5FE05 /* stopDockBadgeColorful.png in Resources */,
-				3299EF4E166E8A4D0056C7BA /* miniModeToggleTemplate.pdf in Resources */,
+				3259FD1E1672AEB9008FC4D0 /* miniModeOffTemplate.pdf in Resources */,
+				3259FD1F1672AEB9008FC4D0 /* miniModeOnTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
