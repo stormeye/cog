@@ -366,7 +366,7 @@
 		[self resetShuffleList];
 }
 
-- (IBAction)randomizeList
+- (IBAction)randomizeList:(id)sender
 {
 	[self setSortDescriptors:nil];
 
