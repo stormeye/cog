@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.SystemVersion">11G63b</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2844</string>
+			<string key="NS.object.0">2549</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -190,7 +190,6 @@
 										<string key="NSRecentsAutosaveName">CogFilter</string>
 										<int key="NSMaximumRecents">255</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -229,7 +228,6 @@
 										<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
 										<bool key="NSVertical">NO</bool>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -271,7 +269,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="856994859"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -313,7 +310,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="181802713"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -355,7 +351,6 @@
 										<int key="NSPeriodicDelay">400</int>
 										<int key="NSPeriodicInterval">75</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="819695176"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -397,7 +392,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="216163061"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -439,7 +433,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="408140268"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -506,7 +499,6 @@
 										<int key="NSSelectedSegment">2</int>
 										<int key="NSTrackingMode">2</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -554,7 +546,6 @@
 										</object>
 										<reference key="NSTextColor" ref="173361739"/>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -596,7 +587,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="18048994"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -638,7 +628,6 @@
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="460651121"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -812,7 +801,6 @@
 							<string key="NSFrame">{{17, 4}, {718, 15}}</string>
 							<reference key="NSSuperview" ref="955312553"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="14436359">
 								<int key="NSCellFlags">67108928</int>
@@ -824,7 +812,6 @@
 								<reference key="NSBackgroundColor" ref="53746901"/>
 								<reference key="NSTextColor" ref="173361739"/>
 							</object>
-							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSSplitView" id="640589646">
 							<reference key="NSNextResponder" ref="955312553"/>
@@ -847,10 +834,8 @@
 													<string key="NSFrameSize">{760, 360}</string>
 													<reference key="NSSuperview" ref="561123847"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="689304715"/>
+													<reference key="NSNextKeyView" ref="864291680"/>
 													<bool key="NSEnabled">YES</bool>
-													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-													<bool key="NSControlAllowsExpansionToolTips">YES</bool>
 													<object class="NSTableHeaderView" key="NSHeaderView" id="367534576">
 														<reference key="NSNextResponder" ref="729711146"/>
 														<int key="NSvFlags">256</int>
@@ -937,81 +922,141 @@
 																			<integer value="0"/>
 																			<object class="NSCachedImageRep">
 																				<object class="NSData" key="NSTIFFRepresentation">
-																					<bytes key="NS.bytes">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
-AAwAAAF4emhUVwAAAAwAAAF4ZGVERQAAAAwAAAF4cm9STwAAAAwAAAF4c3ZTRQAAAAwAAAF4emhDTgAA
-AAwAAAF4amFKUAAAAAwAAAF4YXIAAAAAAAwAAAF4ZWxHUgAAAAwAAAF4cHRQVAAAAAwAAAF4bmxOTAAA
-AAwAAAF4ZnJGUgAAAAwAAAF4ZXNFUwAAAAwAAAF4dGhUSAAAAAwAAAF4dHJUUgAAAAwAAAF4ZmlGSQAA
-AAwAAAF4aHJIUgAAAAwAAAF4cGxQTAAAAAwAAAF4cnVSVQAAAAwAAAF4ZW5VUwAAAAwAAAF4ZGFESwAA
-AAwAAAF4AEUAQQAxADkAMQBNdGV4dAAAAABDb3B5cmlnaHQgQXBwbGUsIEluYy4sIDIwMTIAWFlaIAAA
-AAAAAPPYAAEAAAABFghYWVogAAAAAAAAcBYAADlEAAADo1hZWiAAAAAAAABiGgAAt2MAABkJWFlaIAAA
-AAAAACSnAAAPWAAAtoBjdXJ2AAAAAAAABAAAAAAFAAoADwAUABkAHgAjACgALQAyADYAOwBAAEUASgBP
-AFQAWQBeAGMAaABtAHIAdwB8AIEAhgCLAJAAlQCaAJ8AowCoAK0AsgC3ALwAwQDGAMsA0ADVANsA4ADl
-AOsA8AD2APsBAQEHAQ0BEwEZAR8BJQErATIBOAE+AUUBTAFSAVkBYAFnAW4BdQF8AYMBiwGSAZoBoQGp
-AbEBuQHBAckB0QHZAeEB6QHyAfoCAwIMAhQCHQImAi8COAJBAksCVAJdAmcCcQJ6AoQCjgKYAqICrAK2
-AsECywLVAuAC6wL1AwADCwMWAyEDLQM4A0MDTwNaA2YDcgN+A4oDlgOiA64DugPHA9MD4APsA/kEBgQT
-BCAELQQ7BEgEVQRjBHEEfgSMBJoEqAS2BMQE0wThBPAE/gUNBRwFKwU6BUkFWAVnBXcFhgWWBaYFtQXF
-BdUF5QX2BgYGFgYnBjcGSAZZBmoGewaMBp0GrwbABtEG4wb1BwcHGQcrBz0HTwdhB3QHhgeZB6wHvwfS
-B+UH+AgLCB8IMghGCFoIbgiCCJYIqgi+CNII5wj7CRAJJQk6CU8JZAl5CY8JpAm6Cc8J5Qn7ChEKJwo9
-ClQKagqBCpgKrgrFCtwK8wsLCyILOQtRC2kLgAuYC7ALyAvhC/kMEgwqDEMMXAx1DI4MpwzADNkM8w0N
-DSYNQA1aDXQNjg2pDcMN3g34DhMOLg5JDmQOfw6bDrYO0g7uDwkPJQ9BD14Peg+WD7MPzw/sEAkQJhBD
-EGEQfhCbELkQ1xD1ERMRMRFPEW0RjBGqEckR6BIHEiYSRRJkEoQSoxLDEuMTAxMjE0MTYxODE6QTxRPl
-FAYUJxRJFGoUixStFM4U8BUSFTQVVhV4FZsVvRXgFgMWJhZJFmwWjxayFtYW+hcdF0EXZReJF64X0hf3
-GBsYQBhlGIoYrxjVGPoZIBlFGWsZkRm3Gd0aBBoqGlEadxqeGsUa7BsUGzsbYxuKG7Ib2hwCHCocUhx7
-HKMczBz1HR4dRx1wHZkdwx3sHhYeQB5qHpQevh7pHxMfPh9pH5Qfvx/qIBUgQSBsIJggxCDwIRwhSCF1
-IaEhziH7IiciVSKCIq8i3SMKIzgjZiOUI8Ij8CQfJE0kfCSrJNolCSU4JWgllyXHJfcmJyZXJocmtybo
-JxgnSSd6J6sn3CgNKD8ocSiiKNQpBik4KWspnSnQKgIqNSpoKpsqzysCKzYraSudK9EsBSw5LG4soizX
-LQwtQS12Last4S4WLkwugi63Lu4vJC9aL5Evxy/+MDUwbDCkMNsxEjFKMYIxujHyMioyYzKbMtQzDTNG
-M38zuDPxNCs0ZTSeNNg1EzVNNYc1wjX9Njc2cjauNuk3JDdgN5w31zgUOFA4jDjIOQU5Qjl/Obw5+To2
-OnQ6sjrvOy07azuqO+g8JzxlPKQ84z0iPWE9oT3gPiA+YD6gPuA/IT9hP6I/4kAjQGRApkDnQSlBakGs
-Qe5CMEJyQrVC90M6Q31DwEQDREdEikTORRJFVUWaRd5GIkZnRqtG8Ec1R3tHwEgFSEtIkUjXSR1JY0mp
-SfBKN0p9SsRLDEtTS5pL4kwqTHJMuk0CTUpNk03cTiVObk63TwBPSU+TT91QJ1BxULtRBlFQUZtR5lIx
-UnxSx1MTU19TqlP2VEJUj1TbVShVdVXCVg9WXFapVvdXRFeSV+BYL1h9WMtZGllpWbhaB1pWWqZa9VtF
-W5Vb5Vw1XIZc1l0nXXhdyV4aXmxevV8PX2Ffs2AFYFdgqmD8YU9homH1YklinGLwY0Njl2PrZEBklGTp
-ZT1lkmXnZj1mkmboZz1nk2fpaD9olmjsaUNpmmnxakhqn2r3a09rp2v/bFdsr20IbWBtuW4SbmtuxG8e
-b3hv0XArcIZw4HE6cZVx8HJLcqZzAXNdc7h0FHRwdMx1KHWFdeF2Pnabdvh3VnezeBF4bnjMeSp5iXnn
-ekZ6pXsEe2N7wnwhfIF84X1BfaF+AX5ifsJ/I3+Ef+WAR4CogQqBa4HNgjCCkoL0g1eDuoQdhICE44VH
-hauGDoZyhteHO4efiASIaYjOiTOJmYn+imSKyoswi5aL/IxjjMqNMY2Yjf+OZo7OjzaPnpAGkG6Q1pE/
-kaiSEZJ6kuOTTZO2lCCUipT0lV+VyZY0lp+XCpd1l+CYTJi4mSSZkJn8mmia1ZtCm6+cHJyJnPedZJ3S
-nkCerp8dn4uf+qBpoNihR6G2oiailqMGo3aj5qRWpMelOKWpphqmi6b9p26n4KhSqMSpN6mpqhyqj6sC
-q3Wr6axcrNCtRK24ri2uoa8Wr4uwALB1sOqxYLHWskuywrM4s660JbSctRO1irYBtnm28Ldot+C4WbjR
-uUq5wro7urW7LrunvCG8m70VvY++Cr6Evv+/er/1wHDA7MFnwePCX8Lbw1jD1MRRxM7FS8XIxkbGw8dB
-x7/IPci8yTrJuco4yrfLNsu2zDXMtc01zbXONs62zzfPuNA50LrRPNG+0j/SwdNE08bUSdTL1U7V0dZV
-1tjXXNfg2GTY6Nls2fHadtr724DcBdyK3RDdlt4c3qLfKd+v4DbgveFE4cziU+Lb42Pj6+Rz5PzlhOYN
-5pbnH+ep6DLovOlG6dDqW+rl63Dr++yG7RHtnO4o7rTvQO/M8Fjw5fFy8f/yjPMZ86f0NPTC9VD13vZt
-9vv3ivgZ+Kj5OPnH+lf65/t3/Af8mP0p/br+S/7c/23//3BhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAA
-E9AAAAoOdmNndAAAAAAAAAABAAEAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAEAAAAAAAAAAQAAbmRpbgAA
-AAAAAAA2AACjwAAAVIAAAEzAAACZgAAAJoAAAA9AAABQQAAAVEAAAjMzAAIzMwACMzMAAAAAAAAAAHNm
-MzIAAAAAAAELtwAABZb///NXAAAHKQAA/df///u3///9pgAAA9oAAMD2bW1vZAAAAAAAADijAABnPgAA
-AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
+																					<bytes key="NS.bytes">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
+AkxkZURFAAAAEAAAAlhyb1JPAAAAEgAAAmhzdlNFAAAAEAAAAnp6aENOAAAADAAAAkxqYUpQAAAADgAA
+AophcgAAAAAAFAAAAphlbEdSAAAAIgAAAqxwdFBUAAAAFgAAAs5ubE5MAAAAFgAAAuRmckZSAAAAFgAA
+Avplc0VTAAAAEgAAAmh0aFRIAAAADAAAAxB0clRSAAAAFAAAAxxmaUZJAAAAEAAAAzBockhSAAAAFAAA
+A0BwbFBMAAAAEgAAA1RydVJVAAAAJAAAA2ZlblVTAAAAEgAAA4pkYURLAAAAHAAAA5wARgBhAHIAZQBi
+AG4A/QAgAEwAQwBEAEwAQwBEACAAZQBuACAAYwBvAGwAbwByIA8ATABDAEQAIAXmBdEF4gXVBeAF2QBM
+AEMARAAgAEMAbwBsAG8AcgBpAGQAbwBMAEMARAAgAGMAbwBsAG8AcgBpAFMAegDtAG4AZQBzACAATABD
+AEQEGgQ+BDsETAQ+BEAEPgQyBDgEOQAgAEwAQwBEzuy37AAgAEwAQwBEAEYAYQByAGcAZQAtAEwAQwBE
+AEIAYQByAGUAdgBuAP0AIABMAEMARF9pgnIAIABMAEMARABGAGEAcgBiAC0ATABDAEQATABDAEQAIABj
+AG8AbABvAHIARgDkAHIAZwAtAEwAQwBEMKsw6TD8ACAATABDAEQgDwBMAEMARAAgBkUGRAZIBkYGKQOI
+A7MDxwPBA8kDvAO3ACADvwO4A8wDvQO3ACAATABDAEQATABDAEQAIABhACAAQwBvAHIAZQBzAEsAbABl
+AHUAcgBlAG4ALQBMAEMARABMAEMARAAgAGMAbwB1AGwAZQB1AHIATABDAEQAIA4qDjUAUgBlAG4AawBs
+AGkAIABMAEMARABWAOQAcgBpAC0ATABDAEQATABDAEQAIAB1ACAAYgBvAGoAaQBLAG8AbABvAHIAIABM
+AEMARAQmBDIENQRCBD0EPgQ5ACAEFgQaAC0ENAQ4BEEEPwQ7BDUEOQBDAG8AbABvAHIAIABMAEMARABM
+AEMARAAtAGYAYQByAHYAZQBzAGsA5gByAG10ZXh0AAAAAENvcHlyaWdodCBBcHBsZSwgSW5jLiwgMjAx
+MgBYWVogAAAAAAAA81IAAQAAAAEWz1hZWiAAAAAAAABhbAAAODIAAApCWFlaIAAAAAAAAG8cAACulQAA
+FplYWVogAAAAAAAAJk4AABk5AACyUmN1cnYAAAAAAAAEAAAAAAUACgAPABQAGQAeACMAKAAtADIANgA7
+AEAARQBKAE8AVABZAF4AYwBoAG0AcgB3AHwAgQCGAIsAkACVAJoAnwCjAKgArQCyALcAvADBAMYAywDQ
+ANUA2wDgAOUA6wDwAPYA+wEBAQcBDQETARkBHwElASsBMgE4AT4BRQFMAVIBWQFgAWcBbgF1AXwBgwGL
+AZIBmgGhAakBsQG5AcEByQHRAdkB4QHpAfIB+gIDAgwCFAIdAiYCLwI4AkECSwJUAl0CZwJxAnoChAKO
+ApgCogKsArYCwQLLAtUC4ALrAvUDAAMLAxYDIQMtAzgDQwNPA1oDZgNyA34DigOWA6IDrgO6A8cD0wPg
+A+wD+QQGBBMEIAQtBDsESARVBGMEcQR+BIwEmgSoBLYExATTBOEE8AT+BQ0FHAUrBToFSQVYBWcFdwWG
+BZYFpgW1BcUF1QXlBfYGBgYWBicGNwZIBlkGagZ7BowGnQavBsAG0QbjBvUHBwcZBysHPQdPB2EHdAeG
+B5kHrAe/B9IH5Qf4CAsIHwgyCEYIWghuCIIIlgiqCL4I0gjnCPsJEAklCToJTwlkCXkJjwmkCboJzwnl
+CfsKEQonCj0KVApqCoEKmAquCsUK3ArzCwsLIgs5C1ELaQuAC5gLsAvIC+EL+QwSDCoMQwxcDHUMjgyn
+DMAM2QzzDQ0NJg1ADVoNdA2ODakNww3eDfgOEw4uDkkOZA5/DpsOtg7SDu4PCQ8lD0EPXg96D5YPsw/P
+D+wQCRAmEEMQYRB+EJsQuRDXEPURExExEU8RbRGMEaoRyRHoEgcSJhJFEmQShBKjEsMS4xMDEyMTQxNj
+E4MTpBPFE+UUBhQnFEkUahSLFK0UzhTwFRIVNBVWFXgVmxW9FeAWAxYmFkkWbBaPFrIW1hb6Fx0XQRdl
+F4kXrhfSF/cYGxhAGGUYihivGNUY+hkgGUUZaxmRGbcZ3RoEGioaURp3Gp4axRrsGxQbOxtjG4obshva
+HAIcKhxSHHscoxzMHPUdHh1HHXAdmR3DHeweFh5AHmoelB6+HukfEx8+H2kflB+/H+ogFSBBIGwgmCDE
+IPAhHCFIIXUhoSHOIfsiJyJVIoIiryLdIwojOCNmI5QjwiPwJB8kTSR8JKsk2iUJJTglaCWXJccl9yYn
+Jlcmhya3JugnGCdJJ3onqyfcKA0oPyhxKKIo1CkGKTgpaymdKdAqAio1KmgqmyrPKwIrNitpK50r0SwF
+LDksbiyiLNctDC1BLXYtqy3hLhYuTC6CLrcu7i8kL1ovkS/HL/4wNTBsMKQw2zESMUoxgjG6MfIyKjJj
+Mpsy1DMNM0YzfzO4M/E0KzRlNJ402DUTNU01hzXCNf02NzZyNq426TckN2A3nDfXOBQ4UDiMOMg5BTlC
+OX85vDn5OjY6dDqyOu87LTtrO6o76DwnPGU8pDzjPSI9YT2hPeA+ID5gPqA+4D8hP2E/oj/iQCNAZECm
+QOdBKUFqQaxB7kIwQnJCtUL3QzpDfUPARANER0SKRM5FEkVVRZpF3kYiRmdGq0bwRzVHe0fASAVIS0iR
+SNdJHUljSalJ8Eo3Sn1KxEsMS1NLmkviTCpMcky6TQJNSk2TTdxOJU5uTrdPAE9JT5NP3VAnUHFQu1EG
+UVBRm1HmUjFSfFLHUxNTX1OqU/ZUQlSPVNtVKFV1VcJWD1ZcVqlW91dEV5JX4FgvWH1Yy1kaWWlZuFoH
+WlZaplr1W0VblVvlXDVchlzWXSddeF3JXhpebF69Xw9fYV+zYAVgV2CqYPxhT2GiYfViSWKcYvBjQ2OX
+Y+tkQGSUZOllPWWSZedmPWaSZuhnPWeTZ+loP2iWaOxpQ2maafFqSGqfavdrT2una/9sV2yvbQhtYG25
+bhJua27Ebx5veG/RcCtwhnDgcTpxlXHwcktypnMBc11zuHQUdHB0zHUodYV14XY+dpt2+HdWd7N4EXhu
+eMx5KnmJeed6RnqlewR7Y3vCfCF8gXzhfUF9oX4BfmJ+wn8jf4R/5YBHgKiBCoFrgc2CMIKSgvSDV4O6
+hB2EgITjhUeFq4YOhnKG14c7h5+IBIhpiM6JM4mZif6KZIrKizCLlov8jGOMyo0xjZiN/45mjs6PNo+e
+kAaQbpDWkT+RqJIRknqS45NNk7aUIJSKlPSVX5XJljSWn5cKl3WX4JhMmLiZJJmQmfyaaJrVm0Kbr5wc
+nImc951kndKeQJ6unx2fi5/6oGmg2KFHobaiJqKWowajdqPmpFakx6U4pammGqaLpv2nbqfgqFKoxKk3
+qamqHKqPqwKrdavprFys0K1ErbiuLa6hrxavi7AAsHWw6rFgsdayS7LCszizrrQltJy1E7WKtgG2ebbw
+t2i34LhZuNG5SrnCuju6tbsuu6e8IbybvRW9j74KvoS+/796v/XAcMDswWfB48JfwtvDWMPUxFHEzsVL
+xcjGRsbDx0HHv8g9yLzJOsm5yjjKt8s2y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ
+1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp22vvbgNwF3IrdEN2W3hzeot8p36/gNuC94UThzOJT4tvjY+Pr
+5HPk/OWE5g3mlucf56noMui86Ubp0Opb6uXrcOv77IbtEe2c7ijutO9A78zwWPDl8XLx//KM8xnzp/Q0
+9ML1UPXe9m32+/eK+Bn4qPk4+cf6V/rn+3f8B/yY/Sn9uv5L/tz/bf//cGFyYQAAAAAAAwAAAAJmZgAA
+8qcAAA1ZAAAT0AAACg52Y2d0AAAAAAAAAAAAAwEAAAIAAABWAS4B6wLEA4MEUwVABicHGggYCR8KPQtO
+DGsNkA65D+wRLRJlE6MU4xYqF3kYvxoPG1ccpB3zHzwghCHNIxEkUiWNJssoACkzKmYrlyzKLfcvKDBR
+MYAyqzPVNQI2MTddOIo5tjrhPA09OD5gP4lAsUHcQwhENkVjRpBHuEjeSgFLJExHTWpOj0+0UNhR+FMW
+VDNVT1ZtV41YrlnLWuFb8Fz3XftfAGAKYRliLWNBZFJlX2ZlZ2FoU2k8aiBrAWvgbL9toG6Db2hwUHE4
+ciBzCHPvdNZ1vnaod5N4fnlsell7SXw9fTd+Nn85gEGBS4JXg2WEdIWFhpSHpIizicCKzIvWjN+N547t
+j/KQ9ZH2kvWT9ZT6lgSXFZgsmUeaY5t/nJidrp6/n8ug1KHaouCj6aT0pgOnFagqqUKqXKt3rJStsq7R
+r/GxEbIzs1O0c7WQtqm3urjBucO6wLu7vLW9r76pv6PAncGVworDfMRqxVPGNscYx/nI4MnPysbLw8zB
+zbzOr8+Y0HPRQ9IN0tPTm9Rm1TXWBdbX16jYdtlA2gbax9uA3DXc592R3jve49+N4Dvg6+Gf4lLjA+Ov
+5FXk+eWU5izmv+dS5+Tohekv6eTqqOtu7DPs9e2v7mPvEe+18FDw5vF88hfyxvOP9G71YfZm94r45PrF
+/S7//wAAAFYBIwGwAmoDMgPoBLEFgAZYBz0ILQknCicLIgwwDToOUQ9jEH4RnxK+E+kVEBY4F2EYiBm0
+Gt4cCx0zHlsfgCChIb8i2yP1JQsmHyc1KEkpYCp5K5MssS3MLugwBDEhMjwzWjR0NYs2pDe5OM054jr0
+PAY9Gz4xP01AbEGPQrBD0ETtRghHHUgySUVKVUtjTG5NeE5+T4NQhVGGUohTilSMVYpWhFd5WGhZVFpE
+Wz9cRl1aXndflWCwYcJiymPFZLVlnGZ7Z1doMGkMaexq0Gu6bKltm26Pb4JwcnFcckBzH3P7dNV1rXaG
+d2J4RXkweiR7HXwZfRV+EH8Gf/aA4oHKgrGDlYR3hV2GSodEiEyJYYqBi6WMxo3eju6P9ZD3kfWS85Pw
+lO2V7Jbul/iZEJo5m26cpp3OnuOf6aDlod+i2aPRpMilvqa8p8qo7aohq12snK3ZrxSwTrGIssKz+bUu
+tmS3m7jSugW7NLxfvYW+pr+8wL7BqsKQw33Ed8WAxo/HncijyZ7Kjst1zFPNLc4EztrPstCL0WrSUdNF
+1EXVUdZi13XYhNmH2n3bZtxD3Rrd7N6534fgWOEt4gji5uPD5J3lceZA5wzn1Oij6X/qaetk7Gjtbe5w
+73DwcPFy8nbzefR39Wn2R/cP97P4RfjL+Vr57frQ/Az92v//AAAAKwDEAUsB2AJlAwYDjwQrBM8FegYv
+BukHpQhoCS8J+QrKC58Mdw1SDjIPDg/2ENkRwBKpE5MUfRVnFlIXPRgpGRUZ/BroG9Icvh2uHqMfmyCW
+IZQijyOGJHYlYSZFJyAn+CjMKZ8qcytILCEtAi3pLtcvyDC6MaoymDOANGA1OTYGNs83lThYORk52Tqd
+O2Q8Mj0GPd4+tj+PQGhBREImQxBEAETzRedG1ke7SJZJZUolSuBLmExPTQdNw06DT0lQGFDqUb5Sk1No
+VDtVDVXeVq1XfFhKWRVZ31qoW29cNVz5Xb1egF9DYAhg0WGcYmtjPGQMZNplp2ZxZzhn/Gi/aYBqQGsA
+a8BsgW1DbgRuxW+FcEFw+HGrcllzAXOpdE909HWYdjx23neAeB14vXlgehZ62nurfIN9WH4ofvZ/w4CT
+gWeCRIMqhBiFC4YAhvSH44jNia+KjIthjDSNB43ajrCPipBrkUeSEpLGk1uT7JR6lUGWQpeImQiaipvk
+nRmeMp85oDmhNaIvoyikIaUZphGnCqgJqQ+qIas9rGCth66tr9Ow/LIos1q0krXRtxS4Wbmcute8Bb0p
+vke/YsB/wZ7CvsPfxP/GIcdDyGfJjMqxy9bM/c4pz1vQl9He0zLUjdXu11PYudoh25XdL98O4Xfki+h5
+7U7y9vlR//8AAG5kaW4AAAAAAAAGNgAAk5UAAFaNAABW6QAAkbcAACa7AAAXCgAAUA0AAFQ5AAKHrgAC
+R64AAWuFAAMBAAACAAAAAQAEAAgADwAWAB8AKQA0AEAATABaAGkAeACJAJoArAC+ANIA5gD8ARIBKQFA
+AVkBcwGNAakBxQHjAgECIQJCAmQChwKsAtIC+gMjA00DegOoA9cECAQ6BG0EowTZBRIFSwWGBcMGAQZA
+BoAGwgcFB0oHkAfYCCEIbAi5CQcJVwmoCfoKTQqhCvcLTguoDAQMYgzDDSUNiQ3uDlQOvA8lD5EQABBx
+EOQRWRHPEkYSvRM4E7YUOhTDFVIV4xZ1FwYXlhgmGLgZThnoGogbMRvjHJ8dYh4rHvgfxiCVIWQiNCMG
+I9sksyWPJmwnSygrKQ0p8CrVK7ssni1+LlwvOTAUMPAxzTKqM4k0aDVKNi43FTf/OO053jrSO8o8xT3E
+Psc/zkDaQehC9kQARQZGCEcISAhJCUoMSxRMIU00Tk5PblCUUbxS5VQNVTRWWVd9WKBZxFrnXAtdMF5W
+X3xgpGHOYvhkJGVTZoVnvGj6akNrmWz5bmNv0nFGcrx0NHWvdy14sXo8e9B9b38cgNaClIRMhfaHlIks
+isWMZY4Vj9+RzZPdlf+YIJo5nEyeX6B5oqCk2qctqaCsMK7gsaG0XrcLua68Xb8rwh/FRsiizAzPKNH2
+1JHXKNnR3J7fl+LS5mDp+e0S76zyAPQw9jn3//mK+rj71Py7/aP+cP83//8AAAABAAUACgASABsAJgAy
+AD8ATQBcAG0AfgCRAKQAuQDPAOUA/QEWAS8BSgFmAYMBogHBAeICBAInAkwCcgKaAsMC7wMcA0sDfAOv
+A+QEGgRSBIsExQUBBT0FewW7BfwGPwaDBskHEAdZB6UH8ghBCJMI5gk7CZMJ7ApGCqEK/AtYC7QMEgxy
+DNQNOQ2gDgsOeA7nD1kPzhBGEMARPhG/EkMSyhNTE90UahT6FY8WKhbLF3EYFhi2GVEZ5hp5Gw0bpBxA
+HOQdkR5KHw4f3SCzIY4iaSNCJBgk6yW9JpAnZihCKSUqEisILAUtCC4OLxIwETEIMfky6DPXNMo1wTbB
+N8o42znyOw48MD1RPmk/dEByQWhCWENHRDlFNEY4R0dIX0l+SqFLx0zwThtPRVBrUYZSlFOXVJVVlFag
+V79Y8Vo1W4BczV4eX3Rgz2IjY2ZklWW1Zs5n5Gj7ahZrM2xUbXZumm/AcOpyF3NGdHZ1p3baeBB5TXqP
+e9h9Jn59f+OBZ4MQhMqGdIgGiYeLBIyIjhuPw5GCk1iVQ5c7mTubO505nymhBKLGpHamG6e9qWKrFazd
+rsWwz7L1tTG3fLnLvA++RMBywqbE6cdCybLMMc6c0N3S9NTx1ufY49ro3PTfAeEK4xTlJOdI6ZbsN++K
+86b3bPnO+4T8w/30/vn//wAAAAIACAARAB4ALQA+AFEAZgB9AJYAsADMAOoBCQErAU0BcgGYAcAB6gIW
+AkQCdAKmAtoDEQNJA4QDwAP9BDsEegS6BPwFQQWKBdcGKQaBBt0HPgeiCAgIbwjUCTkJnQoCCmoK1QtE
+C7sMOQzBDVAN5g6CDyEPwBBcEPYRkBItEs0TbhQNFKgVQhXcFnkXHhfOGI4ZYhpCGyocFBz7Hd0euB+S
+IG0hTCIwIxgkBiT5JfEm7yfzKP0qDiskLEAtYC6AL50wuDHTMvM0GjVJNoI3wzkMOlw7sD0HPmA/vkEi
+QpNEFkWuR1pJEUrRTJpOb1BVUjJT2lVaVsxYSFnTW2Zc+F6DYAFhcGLVZDdlnGcJaIFqCmujbU1vAHC3
+cm90HnXDd3V5ZHvufqSAeYHWgvyEAoUIhhCHM4hzidSLVYzpjoiQLpHZk4iVO5bxmKmaXpwKnaefN6C9
+oj+jwKVEpsqoUKnUq1Ss0K5Gr7mxKLKXtAi1fbb8uIm6JrvQvYK/NsDpwpzET8YEx7vJc8srzOTOntBY
+0hTT0tWP10rY/9qs3E/d6N914P3iguQD5YLnAuiD6gTrf+zu7kbvefCd8Y3ydfNE8/f0qvVO9dv2aPb2
+93b36fhc+M/5Q/mr+g36cPrS+zX7mPvx/En8ovz7/VT9rf4D/lj+rP8B/1X/qv//AABzZjMyAAAAAAAB
+DEIAAAXe///zJgAAB5IAAP2R///7ov///aMAAAPcAADAbG1tb2QAAAAAAAAGEAAAnN8AAAAAyirAaAAA
+AAAAAAAAAAAAAAAAAAA</bytes>
 																				</object>
 																				<string key="NSCacheWindowColorSpace">NSCalibratedRGBColorSpace</string>
 																				<int key="NSCacheWindowBPS">8</int>
@@ -1331,7 +1376,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 											<reference key="NSSuperview" ref="381323260"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="615484342"/>
-											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<reference key="NSTarget" ref="381323260"/>
 											<string key="NSAction">_doScroller:</string>
 											<double key="NSPercent">0.81927709999999998</double>
@@ -1343,7 +1387,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 											<reference key="NSSuperview" ref="381323260"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="729711146"/>
-											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<int key="NSsFlags">1</int>
 											<reference key="NSTarget" ref="381323260"/>
 											<string key="NSAction">_doScroller:</string>
@@ -1368,16 +1411,13 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 									<string key="NSFrameSize">{760, 377}</string>
 									<reference key="NSSuperview" ref="640589646"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="864291680"/>
+									<reference key="NSNextKeyView" ref="561123847"/>
 									<int key="NSsFlags">133648</int>
 									<reference key="NSVScroller" ref="689304715"/>
 									<reference key="NSHScroller" ref="864291680"/>
 									<reference key="NSContentView" ref="561123847"/>
 									<reference key="NSHeaderClipView" ref="729711146"/>
 									<bytes key="NSScrollAmts">AAAAAAAAAABBwAAAQcAAAA</bytes>
-									<double key="NSMinMagnification">0.25</double>
-									<double key="NSMaxMagnification">4</double>
-									<double key="NSMagnification">1</double>
 								</object>
 							</object>
 							<string key="NSFrame">{{0, 24}, {760, 377}}</string>
@@ -1393,7 +1433,7 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="640589646"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 1002}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{400, 455}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">Cog</string>
@@ -1445,12 +1485,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Info Inspector</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="2022">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{28, 14}, {26, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="541859327">
 										<int key="NSCellFlags">67108864</int>
@@ -1466,7 +1503,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="856994859"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1487,12 +1523,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Normal Mode</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="504559427">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{27, 14}, {26, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="971362832">
 										<int key="NSCellFlags">67108864</int>
@@ -1511,7 +1544,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="376382686"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1532,12 +1564,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Playback Buttons</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSegmentedControl" key="NSToolbarItemView" id="554424892">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{3, 14}, {92, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSegmentedCell" key="NSCell" id="351497335">
 										<int key="NSCellFlags">-2080374784</int>
@@ -1572,7 +1601,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSSelectedSegment">2</int>
 										<int key="NSTrackingMode">2</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1593,12 +1621,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Repeat</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="309737116">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{9, 14}, {26, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="1066327926">
 										<int key="NSCellFlags">67108864</int>
@@ -1614,7 +1639,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="18048994"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1635,12 +1659,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Volume</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="821906296">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{11, 14}, {26, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="187502392">
 										<int key="NSCellFlags">67108864</int>
@@ -1656,7 +1677,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSPeriodicDelay">400</int>
 										<int key="NSPeriodicInterval">75</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="819695176"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1677,12 +1697,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Current Time</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSTextField" key="NSToolbarItemView" id="201123626">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{20, 14}, {38, 15}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="574618720">
 										<int key="NSCellFlags">71303232</int>
@@ -1695,7 +1712,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<reference key="NSBackgroundColor" ref="53746901"/>
 										<reference key="NSTextColor" ref="173361739"/>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1716,12 +1732,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Position</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSlider" key="NSToolbarItemView" id="163997941">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">270</int>
 									<string key="NSFrame">{{0, 14}, {96, 15}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSliderCell" key="NSCell" id="503443845">
 										<int key="NSCellFlags">603979776</int>
@@ -1738,7 +1751,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
 										<bool key="NSVertical">NO</bool>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<nil key="NSToolbarItemImage"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1759,12 +1771,9 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 								<string key="NSToolbarItemPaletteLabel">Shuffle</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="346418907">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{9, 14}, {26, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="807886215">
 										<int key="NSCellFlags">67108864</int>
@@ -1780,7 +1789,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 								<reference key="NSToolbarItemImage" ref="181802713"/>
 								<nil key="NSToolbarItemTarget"/>
@@ -1925,15 +1933,12 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 				<string key="NSWindowContentMaxSize">{600, 1}</string>
 				<string key="NSWindowContentMinSize">{400, 1}</string>
 				<object class="NSView" key="NSWindowView" id="292934259">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">-2147483392</int>
 					<string key="NSFrameSize">{480, 0}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView"/>
 					<bool key="NSViewIsLayerTreeHost">YES</bool>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 1002}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{400, 56}</string>
 				<string key="NSMaxSize">{600, 56}</string>
 				<string key="NSFrameAutosaveName">Mini Window</string>
@@ -3464,7 +3469,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 							<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
 							<bool key="NSVertical">YES</bool>
 						</object>
-						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</object>
 				<string key="NSFrameSize">{26, 168}</string>
@@ -6181,14 +6185,6 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 					<int key="connectionID">2407</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">playlistSelectionController</string>
-						<reference key="source" ref="895277152"/>
-						<reference key="destination" ref="1039052152"/>
-					</object>
-					<int key="connectionID">2426</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleWindow:</string>
 						<reference key="source" ref="895277152"/>
@@ -6211,6 +6207,30 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 						<reference key="destination" ref="593372690"/>
 					</object>
 					<int key="connectionID">2454</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">appController</string>
+						<reference key="source" ref="895277152"/>
+						<reference key="destination" ref="558455632"/>
+					</object>
+					<int key="connectionID">2538</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">currentEntryController</string>
+						<reference key="source" ref="895277152"/>
+						<reference key="destination" ref="200345764"/>
+					</object>
+					<int key="connectionID">2539</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">playlistSelectionController</string>
+						<reference key="source" ref="895277152"/>
+						<reference key="destination" ref="1039052152"/>
+					</object>
+					<int key="connectionID">2540</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -8818,7 +8838,7 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2537</int>
+			<int key="maxID">2540</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9307,14 +9327,42 @@ AADICPNoAAAAAAAAAAAAAAAAAAAAAA</bytes>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">playlistSelectionController</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>currentEntryController</string>
+							<string>playlistSelectionController</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">playlistSelectionController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">playlistSelectionController</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>currentEntryController</string>
+							<string>playlistSelectionController</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">appController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">currentEntryController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">playlistSelectionController</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

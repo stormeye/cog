@@ -2,24 +2,24 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.SystemVersion">11G63b</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1938</string>
+			<string key="NS.object.0">2549</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSTextField</string>
-			<string>NSView</string>
-			<string>NSWindowTemplate</string>
 			<string>NSCustomObject</string>
 			<string>NSImageCell</string>
-			<string>NSUserDefaultsController</string>
 			<string>NSImageView</string>
+			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
+			<string>NSUserDefaultsController</string>
+			<string>NSView</string>
+			<string>NSWindowTemplate</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -524,13 +524,8 @@
 							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="23346814">
-								<int key="NSCellFlags">604110336</int>
+								<int key="NSCellFlags">671219200</int>
 								<int key="NSCellFlags2">33554432</int>
-								<object class="NSFont" key="NSSupport">
-									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">13</double>
-									<int key="NSfFlags">1044</int>
-								</object>
 								<int key="NSAlign">0</int>
 								<int key="NSScale">0</int>
 								<int key="NSStyle">0</int>
@@ -573,67 +568,51 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.artist</string>
+						<string key="label">value: valueToDisplay.artist</string>
 						<reference key="source" ref="506726868"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="506726868"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.artist</string>
+							<string key="NSLabel">value: valueToDisplay.artist</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.artist</string>
+							<string key="NSKeyPath">valueToDisplay.artist</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">66</int>
+					<int key="connectionID">108</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.album</string>
+						<string key="label">value: valueToDisplay.album</string>
 						<reference key="source" ref="1007870810"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1007870810"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.album</string>
+							<string key="NSLabel">value: valueToDisplay.album</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.album</string>
+							<string key="NSKeyPath">valueToDisplay.album</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">68</int>
+					<int key="connectionID">109</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.title</string>
+						<string key="label">value: valueToDisplay.title</string>
 						<reference key="source" ref="797234154"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="797234154"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.title</string>
+							<string key="NSLabel">value: valueToDisplay.title</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.title</string>
+							<string key="NSKeyPath">valueToDisplay.title</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">69</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.track</string>
-						<reference key="source" ref="188694493"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="188694493"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.track</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.track</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">70</int>
+					<int key="connectionID">110</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -645,19 +624,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.length</string>
-						<reference key="source" ref="713956939"/>
+						<string key="label">value: valueToDisplay.track</string>
+						<reference key="source" ref="188694493"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="713956939"/>
+							<reference key="NSSource" ref="188694493"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.length</string>
+							<string key="NSLabel">value: valueToDisplay.track</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.length</string>
+							<string key="NSKeyPath">valueToDisplay.track</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">71</int>
+					<int key="connectionID">111</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -669,19 +648,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.year</string>
+						<string key="label">value: valueToDisplay.length</string>
+						<reference key="source" ref="713956939"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="713956939"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: valueToDisplay.length</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">valueToDisplay.length</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">112</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: valueToDisplay.year</string>
 						<reference key="source" ref="484678971"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="484678971"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.year</string>
+							<string key="NSLabel">value: valueToDisplay.year</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.year</string>
+							<string key="NSKeyPath">valueToDisplay.year</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">72</int>
+					<int key="connectionID">113</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -693,111 +688,111 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.genre</string>
+						<string key="label">value: valueToDisplay.genre</string>
 						<reference key="source" ref="57997097"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="57997097"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.genre</string>
+							<string key="NSLabel">value: valueToDisplay.genre</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.genre</string>
+							<string key="NSKeyPath">valueToDisplay.genre</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">73</int>
+					<int key="connectionID">114</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.sampleRate</string>
+						<string key="label">value: valueToDisplay.sampleRate</string>
 						<reference key="source" ref="742011215"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="742011215"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.sampleRate</string>
+							<string key="NSLabel">value: valueToDisplay.sampleRate</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.sampleRate</string>
+							<string key="NSKeyPath">valueToDisplay.sampleRate</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">74</int>
+					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.channels</string>
+						<string key="label">value: valueToDisplay.channels</string>
 						<reference key="source" ref="696884505"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="696884505"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.channels</string>
+							<string key="NSLabel">value: valueToDisplay.channels</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.channels</string>
+							<string key="NSKeyPath">valueToDisplay.channels</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">75</int>
+					<int key="connectionID">117</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.bitrate</string>
+						<string key="label">value: valueToDisplay.bitrate</string>
 						<reference key="source" ref="350019704"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="350019704"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.bitrate</string>
+							<string key="NSLabel">value: valueToDisplay.bitrate</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.bitrate</string>
+							<string key="NSKeyPath">valueToDisplay.bitrate</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">78</int>
+					<int key="connectionID">118</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.bitsPerSample</string>
+						<string key="label">value: valueToDisplay.bitsPerSample</string>
 						<reference key="source" ref="1044989116"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1044989116"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.bitsPerSample</string>
+							<string key="NSLabel">value: valueToDisplay.bitsPerSample</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.bitsPerSample</string>
+							<string key="NSKeyPath">valueToDisplay.bitsPerSample</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">77</int>
+					<int key="connectionID">122</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.filename</string>
+						<string key="label">value: valueToDisplay.filename</string>
 						<reference key="source" ref="8570052"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="8570052"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.filename</string>
+							<string key="NSLabel">value: valueToDisplay.filename</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.filename</string>
+							<string key="NSKeyPath">valueToDisplay.filename</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">89</int>
+					<int key="connectionID">115</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: playlistSelectionController.selection.albumArt</string>
+						<string key="label">value: valueToDisplay.albumArt</string>
 						<reference key="source" ref="844725820"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="844725820"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: playlistSelectionController.selection.albumArt</string>
+							<string key="NSLabel">value: valueToDisplay.albumArt</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">playlistSelectionController.selection.albumArt</string>
+							<string key="NSKeyPath">valueToDisplay.albumArt</string>
 							<object class="NSDictionary" key="NSOptions">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSArray" key="dict.sortedKeys">
@@ -806,7 +801,7 @@
 									<string>NSConditionallySetsEnabled</string>
 									<string>NSValueTransformerName</string>
 								</object>
-								<object class="NSMutableArray" key="dict.values">
+								<object class="NSArray" key="dict.values">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<boolean value="NO"/>
 									<boolean value="NO"/>
@@ -816,7 +811,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">106</int>
+					<int key="connectionID">121</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1336,7 +1331,7 @@
 					<string>95.IBPluginDependency</string>
 					<string>96.IBPluginDependency</string>
 				</object>
-				<object class="NSMutableArray" key="dict.values">
+				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1426,7 +1421,7 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">107</int>
+			<int key="maxID">122</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1454,14 +1449,42 @@
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">playlistSelectionController</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>currentEntryController</string>
+							<string>playlistSelectionController</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">playlistSelectionController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">playlistSelectionController</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>currentEntryController</string>
+							<string>playlistSelectionController</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">appController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">currentEntryController</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">playlistSelectionController</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
