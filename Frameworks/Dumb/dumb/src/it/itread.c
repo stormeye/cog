@@ -1192,7 +1192,6 @@ DUH *dumb_read_it_quick(DUMBFILE *f)
 	DUH_SIGTYPE_DESC *descptr = &_dumb_sigtype_it;
 
 	sigdata = it_load_sigdata(f);
-	printf("sigdata: %i\n", sigdata);
 	if (!sigdata)
 		return NULL;
 

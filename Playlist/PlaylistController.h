@@ -12,7 +12,6 @@
 
 @class PlaylistLoader;
 @class PlaylistEntry;
-@class EntriesController;
 @class SpotlightWindowController;
 @class PlaybackController;
 
@@ -37,7 +36,6 @@ typedef enum {
 
 @interface PlaylistController : DNDArrayController {
 	IBOutlet PlaylistLoader *playlistLoader;
-	IBOutlet EntriesController *entriesController;
 	IBOutlet SpotlightWindowController *spotlightWindowController;
 	IBOutlet PlaybackController *playbackController;
 	
@@ -47,6 +45,8 @@ typedef enum {
 	NSString *totalTime;
 	
 	PlaylistEntry *currentEntry;
+
+    NSUndoManager *undoManager;
 }
 
 @property(retain) PlaylistEntry *currentEntry;
