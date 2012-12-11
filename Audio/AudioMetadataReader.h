@@ -14,5 +14,7 @@
 }
 
 + (NSDictionary *)metadataForURL:(NSURL *)url;
++ (NSImage *)getCachedAlbumArtFor:(NSDictionary *)metadata;
++ (void)cacheAlbumArtFor:(NSDictionary *)metadata;
 
 @end

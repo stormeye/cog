@@ -15,7 +15,4 @@
 
 }
 
-+ (BOOL)isCoverFile:(NSString *)fileName;
-+ (NSArray *)coverNames;
-
 @end

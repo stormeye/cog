@@ -2516,6 +2516,7 @@
 					CogAudio,
 				);
 				PRODUCT_NAME = Cog;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Audio\"/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -2547,6 +2548,7 @@
 					CogAudio,
 				);
 				PRODUCT_NAME = Cog;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Audio\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
