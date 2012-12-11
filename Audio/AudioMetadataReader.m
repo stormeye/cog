@@ -16,21 +16,30 @@
     NSDictionary *pluginData = [[PluginController sharedPluginController] metadataForURL:url];
 	NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:pluginData];
     NSImage *albumArt = [result objectForKey:@"albumArt"];
-    if (nil == albumArt && [url isFileURL])
+
+    if (nil == albumArt)
     {
-
+        // Metadata reader plugins couldn't find album art, try looking at cache and in filesystem
         NSImage *img = [AudioMetadataReader getCachedAlbumArtFor:pluginData];
-        if (nil == img)
-        {
-            img = [AudioMetadataReader getAlbumArtFromFileForURL:url metadata:result];
-        }
-
         if (nil != img)
         {
             [result setValue:img forKey:@"albumArt"];
-            [AudioMetadataReader cacheAlbumArtFor:result];
+        }
+        else
+        {
+            // Couldn't find in cache - look at files
+            if ([url isFileURL])
+            {
+                img = [AudioMetadataReader getAlbumArtFromFileForURL:url metadata:result];
+                if (img != nil)
+                {
+                    [result setValue:img forKey:@"albumArt"];
+                    [AudioMetadataReader cacheAlbumArtFor:result];
+                }
+            }
         }
     }
+
     return [NSDictionary dictionaryWithDictionary:result];
 }
 
