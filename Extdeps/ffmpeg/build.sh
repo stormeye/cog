@@ -80,6 +80,16 @@ then
       --enable-parser=ac3 \
       --enable-parser=mpegaudio \
       --enable-protocol=file
+
+    # FFmpeg's configure script will try to link to SDL,
+    # even though nothing requires it in the config above.
+    #
+    # Work around that by hackishly modifying config.mak 
+    # (using unholy regexps of doom!) after it's been generated.
+    perl -pi -e 's/-lSDLmain -lSDL//' config.mak
+    perl -pi -e 's/SDL_LIBS=.*$/SDL_LIBS=/' config.mak
+    perl -pi -e 's/SDL_CFLAGS=.*$/SDL_CFLAGS=/' config.mak
+
     make
 
     for lib in libavutil libavformat libavcodec
