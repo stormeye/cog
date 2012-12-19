@@ -104,6 +104,10 @@
 
 - (void)dealloc
 {
+    [[inputNode exitAtTheEndOfTheStream] signal];
+    [[inputNode semaphore] signal];
+    [[inputNode exitAtTheEndOfTheStream] wait]; // wait for decoder to be closed (see InputNode's -(void)process )
+
 	[userInfo release];
 	[streamURL release];
 

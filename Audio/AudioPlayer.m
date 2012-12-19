@@ -56,7 +56,6 @@
 	output = [[OutputNode alloc] initWithController:self previous:nil];
 	[output setup];
 	[output setVolume: volume];
-	
 	@synchronized(chainQueue) {
 		NSEnumerator *enumerator = [chainQueue objectEnumerator];
 		id anObject;
@@ -66,7 +65,6 @@
 		}
 		[chainQueue removeAllObjects];
 		endOfInputReached = NO;
-		
 		if (bufferChain)
 		{
 			[bufferChain setShouldContinue:NO];
@@ -74,7 +72,7 @@
 			[bufferChain release];
 		}
 	}
-	
+
 	bufferChain = [[BufferChain alloc] initWithController:self];
 	[self notifyStreamChanged:userInfo];
 	
@@ -97,7 +95,7 @@
 		
 		bufferChain = [[BufferChain alloc] initWithController:self];
 	}
-	
+
 	[bufferChain setUserInfo:userInfo];
 
 	[self setShouldContinue:YES];
