@@ -106,7 +106,7 @@
 {
 	[userInfo release];
 	[streamURL release];
-	
+
 	[inputNode release];
 	[converterNode release];
 
@@ -117,7 +117,7 @@
 
 - (void)seek:(double)time
 {
-	long frame = time * [[[inputNode properties] objectForKey:@"sampleRate"] floatValue];
+	long frame = (long) round(time * [[[inputNode properties] objectForKey:@"sampleRate"] floatValue]);
 
 	[inputNode seek:frame];
 }
@@ -171,6 +171,15 @@
 {
 	[inputNode setShouldContinue:s];
 	[converterNode setShouldContinue:s];
+}
+
+- (BOOL)isRunning
+{
+    InputNode *inputNode = [self inputNode];
+    if (nil != inputNode && [inputNode shouldContinue] && ![inputNode endOfStream])
+    {
+        return YES;
+    }
 }
 
 @end

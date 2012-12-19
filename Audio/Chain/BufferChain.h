@@ -55,4 +55,6 @@
 
 - (void)inputFormatDidChange:(AudioStreamBasicDescription)format;
 
+- (BOOL)isRunning;
+
 @end

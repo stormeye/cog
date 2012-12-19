@@ -31,7 +31,11 @@ void PrintStreamDesc (AudioStreamBasicDescription *inDesc)
 @implementation ConverterNode
 
 //called from the complexfill when the audio is converted...good clean fun
-static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumberDataPackets, AudioBufferList* ioData, AudioStreamPacketDescription** outDataPacketDescription, void* inUserData)
+static OSStatus ACInputProc(AudioConverterRef inAudioConverter,
+                            UInt32* ioNumberDataPackets,
+                            AudioBufferList* ioData,
+                            AudioStreamPacketDescription** outDataPacketDescription,
+                            void* inUserData)
 {
 	ConverterNode *converter = (ConverterNode *)inUserData;
 	OSStatus err = noErr;
@@ -49,7 +53,9 @@ static OSStatus ACInputProc(AudioConverterRef inAudioConverter, UInt32* ioNumber
 	amountToWrite = (*ioNumberDataPackets)*(converter->inputFormat.mBytesPerPacket);
 
 	if (converter->callbackBuffer != NULL)
+    {
 		free(converter->callbackBuffer);
+    }
 	converter->callbackBuffer = malloc(amountToWrite);
 
 	amountRead = [converter readData:converter->callbackBuffer amount:amountToWrite];

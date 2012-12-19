@@ -15,6 +15,16 @@
 
 @implementation InputNode
 
+- (id)initWithController:(id)c previous:(id)p {
+    self = [super initWithController:c previous:p];
+    if (self) {
+        exitAtTheEndOfTheStream = [[Semaphore alloc] init];
+    }
+
+    return self;
+}
+
+
 - (BOOL)openWithSource:(id<CogSource>)source
 {
 	decoder = [AudioDecoder audioDecoderForSource:source];
@@ -130,20 +140,38 @@
 				}
 				
 				DLog(@"End of stream? %@", [self properties]);
+
 				endOfStream = YES;
 				shouldClose = [controller endOfInputReached]; //Lets us know if we should keep going or not (occassionally, for track changes within a file)
 				DLog(@"closing? is %i", shouldClose);
-				break; 
+
+                // wait before exiting, as we might still get seeking request
+                DLog("InputNode: Before wait")
+                [exitAtTheEndOfTheStream waitIndefinitely];
+                DLog("InputNode: After wait, should seek = %d", shouldSeek)
+                if (shouldSeek)
+                {
+                    endOfStream = NO;
+                    shouldClose = NO;
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
 			}
 		
 			[self writeData:inputBuffer amount:amountInBuffer];
 			amountInBuffer = 0;
 		}
 	}
+
 	if (shouldClose)
 		[decoder close];
-	
-	free(inputBuffer);
+
+    free(inputBuffer);
+
+    [exitAtTheEndOfTheStream signal];
 }
 
 - (void)seek:(long)frame
@@ -152,6 +180,11 @@
 	shouldSeek = YES;
 	DLog(@"Should seek!");
 	[semaphore signal];
+
+    if (endOfStream)
+    {
+        [exitAtTheEndOfTheStream signal];
+    }
 }
 
 - (BOOL)setTrack:(NSURL *)track
@@ -168,6 +201,9 @@
 - (void)dealloc
 {
 	DLog(@"Input Node dealloc");
+    [exitAtTheEndOfTheStream signal];
+    [exitAtTheEndOfTheStream wait]; // wait for decoder to be closed (see -(void)process )
+    [exitAtTheEndOfTheStream release];
 
 	[decoder removeObserver:self forKeyPath:@"properties"];
 	[decoder removeObserver:self forKeyPath:@"metadata"];
