@@ -21,7 +21,7 @@
 
 #include "avcodec.h"
 
-#define ALT_BITSTREAM_READER_LE
+#define BITSTREAM_READER_LE
 #include "get_bits.h"
 
 typedef struct Escape130Context {
@@ -309,11 +309,11 @@ static int escape130_decode_frame(AVCodecContext *avctx,
 AVCodec ff_escape130_decoder = {
     .name           = "escape130",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_ESCAPE130,
+    .id             = AV_CODEC_ID_ESCAPE130,
     .priv_data_size = sizeof(Escape130Context),
     .init           = escape130_decode_init,
     .close          = escape130_decode_close,
     .decode         = escape130_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Escape 130"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Escape 130"),
 };

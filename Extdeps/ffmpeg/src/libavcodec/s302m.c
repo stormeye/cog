@@ -20,6 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "libavutil/common.h"
 #include "libavutil/intreadwrite.h"
 #include "avcodec.h"
 
@@ -73,6 +74,9 @@ static int s302m_parse_frame_header(AVCodecContext *avctx, const uint8_t *buf,
             break;
         case 4:
             avctx->channel_layout = AV_CH_LAYOUT_QUAD;
+            break;
+        case 6:
+            avctx->channel_layout = AV_CH_LAYOUT_5POINT1_BACK;
             break;
         case 8:
             avctx->channel_layout = AV_CH_LAYOUT_5POINT1_BACK | AV_CH_LAYOUT_STEREO_DOWNMIX;
@@ -166,7 +170,7 @@ static int s302m_decode_init(AVCodecContext *avctx)
 AVCodec ff_s302m_decoder = {
     .name           = "s302m",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_S302M,
+    .id             = AV_CODEC_ID_S302M,
     .priv_data_size = sizeof(S302MDecodeContext),
     .init           = s302m_decode_init,
     .decode         = s302m_decode_frame,

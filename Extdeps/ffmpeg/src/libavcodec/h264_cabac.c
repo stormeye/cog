@@ -28,6 +28,9 @@
 #define CABAC 1
 #define UNCHECKED_BITSTREAM_READER 1
 
+#include "config.h"
+#include "cabac.h"
+#include "cabac_functions.h"
 #include "internal.h"
 #include "dsputil.h"
 #include "avcodec.h"
@@ -35,14 +38,11 @@
 #include "h264data.h"
 #include "h264_mvpred.h"
 #include "golomb.h"
+#include "libavutil/avassert.h"
 
-#include "cabac.h"
 #if ARCH_X86
 #include "x86/h264_i386.h"
 #endif
-
-//#undef NDEBUG
-#include <assert.h>
 
 /* Cabac pre state table */
 
@@ -1559,13 +1559,6 @@ static av_always_inline int get_cabac_cbf_ctx( H264Context *h, int cat, int idx,
     return base_ctx[cat] + ctx;
 }
 
-DECLARE_ASM_CONST(1, uint8_t, last_coeff_flag_offset_8x8)[63] = {
-    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4,
-    5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8
-};
-
 static av_always_inline void
 decode_cabac_residual_internal(H264Context *h, DCTELEM *block,
                                int cat, int n, const uint8_t *scantable,
@@ -1657,18 +1650,18 @@ decode_cabac_residual_internal(H264Context *h, DCTELEM *block,
             index[coeff_count++] = last;\
         }
         const uint8_t *sig_off = significant_coeff_flag_offset_8x8[MB_FIELD];
-#if ARCH_X86 && HAVE_7REGS && HAVE_EBX_AVAILABLE && !defined(BROKEN_RELOCATIONS)
-        coeff_count= decode_significance_8x8_x86(CC, significant_coeff_ctx_base, index,
+#ifdef decode_significance
+        coeff_count = decode_significance_8x8(CC, significant_coeff_ctx_base, index,
                                                  last_coeff_ctx_base, sig_off);
     } else {
         if (is_dc && chroma422) { // dc 422
             DECODE_SIGNIFICANCE(7, sig_coeff_offset_dc[last], sig_coeff_offset_dc[last]);
         } else {
-            coeff_count= decode_significance_x86(CC, max_coeff, significant_coeff_ctx_base, index,
+            coeff_count = decode_significance(CC, max_coeff, significant_coeff_ctx_base, index,
                                                  last_coeff_ctx_base-significant_coeff_ctx_base);
         }
 #else
-        DECODE_SIGNIFICANCE( 63, sig_off[last], last_coeff_flag_offset_8x8[last] );
+        DECODE_SIGNIFICANCE( 63, sig_off[last], ff_h264_last_coeff_flag_offset_8x8[last] );
     } else {
         if (is_dc && chroma422) { // dc 422
             DECODE_SIGNIFICANCE(7, sig_coeff_offset_dc[last], sig_coeff_offset_dc[last]);
@@ -1677,7 +1670,7 @@ decode_cabac_residual_internal(H264Context *h, DCTELEM *block,
         }
 #endif
     }
-    assert(coeff_count > 0);
+    av_assert2(coeff_count > 0);
 
     if( is_dc ) {
         if( cat == 3 )
@@ -1689,7 +1682,7 @@ decode_cabac_residual_internal(H264Context *h, DCTELEM *block,
         if( max_coeff == 64 )
             fill_rectangle(&h->non_zero_count_cache[scan8[n]], 2, 2, 8, coeff_count, 1);
         else {
-            assert( cat == 1 || cat ==  2 || cat ==  4 || cat == 7 || cat == 8 || cat == 11 || cat == 12 );
+            av_assert2( cat == 1 || cat ==  2 || cat ==  4 || cat == 7 || cat == 8 || cat == 11 || cat == 12 );
             h->non_zero_count_cache[scan8[n]] = coeff_count;
         }
     }
@@ -1864,8 +1857,8 @@ static av_always_inline void decode_cabac_luma_residual( H264Context *h, const u
 }
 
 /**
- * decodes a macroblock
- * @return 0 if OK, AC_ERROR / DC_ERROR / MV_ERROR if an error is noticed
+ * Decode a macroblock.
+ * @return 0 if OK, ER_AC_ERROR / ER_DC_ERROR / ER_MV_ERROR if an error is noticed
  */
 int ff_h264_decode_mb_cabac(H264Context *h) {
     MpegEncContext * const s = &h->s;
@@ -1916,7 +1909,7 @@ int ff_h264_decode_mb_cabac(H264Context *h) {
 
     if( h->slice_type_nos == AV_PICTURE_TYPE_B ) {
         int ctx = 0;
-        assert(h->slice_type_nos == AV_PICTURE_TYPE_B);
+        av_assert2(h->slice_type_nos == AV_PICTURE_TYPE_B);
 
         if( !IS_DIRECT( h->left_type[LTOP]-1 ) )
             ctx++;
@@ -1969,7 +1962,7 @@ int ff_h264_decode_mb_cabac(H264Context *h) {
         mb_type= decode_cabac_intra_mb_type(h, 3, 1);
         if(h->slice_type == AV_PICTURE_TYPE_SI && mb_type)
             mb_type--;
-        assert(h->slice_type_nos == AV_PICTURE_TYPE_I);
+        av_assert2(h->slice_type_nos == AV_PICTURE_TYPE_I);
 decode_intra_mb:
         partition_count = 0;
         cbp= i_mb_type_info[mb_type].cbp;
@@ -1982,8 +1975,8 @@ decode_intra_mb:
     h->slice_table[ mb_xy ]= h->slice_num;
 
     if(IS_INTRA_PCM(mb_type)) {
-        static const uint16_t mb_sizes[4] = {256,384,512,768};
-        const int mb_size = mb_sizes[h->sps.chroma_format_idc]*h->sps.bit_depth_luma >> 3;
+        const int mb_size = ff_h264_mb_sizes[h->sps.chroma_format_idc] *
+                            h->sps.bit_depth_luma >> 3;
         const uint8_t *ptr;
 
         // We assume these blocks are very rare so we do not optimize it.
@@ -1996,6 +1989,8 @@ decode_intra_mb:
         }
 
         // The pixels are stored in the same order as levels in h->mb array.
+        if ((int) (h->cabac.bytestream_end - ptr) < mb_size)
+            return -1;
         memcpy(h->mb, ptr, mb_size); ptr+=mb_size;
 
         ff_init_cabac_decoder(&h->cabac, ptr, h->cabac.bytestream_end - ptr);
@@ -2040,14 +2035,14 @@ decode_intra_mb:
             write_back_intra_pred_mode(h);
             if( ff_h264_check_intra4x4_pred_mode(h) < 0 ) return -1;
         } else {
-            h->intra16x16_pred_mode= ff_h264_check_intra16x16_pred_mode( h, h->intra16x16_pred_mode );
+            h->intra16x16_pred_mode= ff_h264_check_intra_pred_mode( h, h->intra16x16_pred_mode, 0 );
             if( h->intra16x16_pred_mode < 0 ) return -1;
         }
         if(decode_chroma){
             h->chroma_pred_mode_table[mb_xy] =
             pred_mode                        = decode_cabac_mb_chroma_pre_mode( h );
 
-            pred_mode= ff_h264_check_intra_chroma_pred_mode( h, pred_mode );
+            pred_mode= ff_h264_check_intra_pred_mode( h, pred_mode, 1 );
             if( pred_mode < 0 ) return -1;
             h->chroma_pred_mode= pred_mode;
         } else {
@@ -2228,7 +2223,7 @@ decode_intra_mb:
                 }
             }
         }else{
-            assert(IS_8X16(mb_type));
+            av_assert2(IS_8X16(mb_type));
             for(list=0; list<h->list_count; list++){
                     for(i=0; i<2; i++){
                         if(IS_DIR(mb_type, i, list)){ //FIXME optimize

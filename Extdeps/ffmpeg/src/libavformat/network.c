@@ -21,6 +21,7 @@
 #include "libavutil/avutil.h"
 #include "network.h"
 #include "libavcodec/internal.h"
+#include "libavutil/mem.h"
 
 #define THREADS (HAVE_PTHREADS || (defined(WIN32) && !defined(__MINGW32CE__)))
 
@@ -124,13 +125,16 @@ int ff_network_inited_globally;
 
 int ff_network_init(void)
 {
+#if HAVE_WINSOCK2_H
+    WSADATA wsaData;
+#endif
+
     if (!ff_network_inited_globally)
         av_log(NULL, AV_LOG_WARNING, "Using network protocols without global "
                                      "network initialization. Please use "
                                      "avformat_network_init(), this will "
                                      "become mandatory later.\n");
 #if HAVE_WINSOCK2_H
-    WSADATA wsaData;
     if (WSAStartup(MAKEWORD(1,1), &wsaData))
         return 0;
 #endif
@@ -162,6 +166,14 @@ int ff_neterrno(void)
         return AVERROR(EAGAIN);
     case WSAEINTR:
         return AVERROR(EINTR);
+    case WSAEPROTONOSUPPORT:
+        return AVERROR(EPROTONOSUPPORT);
+    case WSAETIMEDOUT:
+        return AVERROR(ETIMEDOUT);
+    case WSAECONNREFUSED:
+        return AVERROR(ECONNREFUSED);
+    case WSAEINPROGRESS:
+        return AVERROR(EINPROGRESS);
     }
     return -err;
 }
@@ -180,4 +192,3 @@ int ff_is_multicast_address(struct sockaddr *addr)
 
     return 0;
 }
-

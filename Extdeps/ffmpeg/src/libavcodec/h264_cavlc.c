@@ -35,9 +35,8 @@
 #include "h264data.h" // FIXME FIXME FIXME
 #include "h264_mvpred.h"
 #include "golomb.h"
+#include "libavutil/avassert.h"
 
-//#undef NDEBUG
-#include <assert.h>
 
 static const uint8_t golomb_to_inter_cbp_gray[16]={
  0, 1, 2, 4, 8, 3, 5,10,12,15, 7,11,13,14, 6, 9,
@@ -282,7 +281,7 @@ static int8_t cavlc_level_tab[7][1<<LEVEL_TAB_BITS][2];
 #define RUN7_VLC_BITS                  6
 
 /**
- * gets the predicted number of non-zero coefficients.
+ * Get the predicted number of non-zero coefficients.
  * @param n block index
  */
 static inline int pred_non_zero_count(H264Context *h, int n){
@@ -361,7 +360,7 @@ av_cold void ff_h264_decode_init_vlc(void){
          * the packed static coeff_token_vlc table sizes
          * were initialized correctly.
          */
-        assert(offset == FF_ARRAY_ELEMS(coeff_token_vlc_tables));
+        av_assert0(offset == FF_ARRAY_ELEMS(coeff_token_vlc_tables));
 
         for(i=0; i<3; i++){
             chroma_dc_total_zeros_vlc[i].table = chroma_dc_total_zeros_vlc_tables[i];
@@ -437,7 +436,7 @@ static inline int get_level_prefix(GetBitContext *gb){
 }
 
 /**
- * decodes a residual block.
+ * Decode a residual block.
  * @param n block index
  * @param scantable scantable
  * @param max_coeff number of coefficients in the block
@@ -481,7 +480,7 @@ static int decode_residual(H264Context *h, GetBitContext *gb, DCTELEM *block, in
 
     trailing_ones= coeff_token&3;
     tprintf(h->s.avctx, "trailing:%d, total:%d\n", trailing_ones, total_coeff);
-    assert(total_coeff<=16);
+    av_assert2(total_coeff<=16);
 
     i = show_bits(gb, 3);
     skip_bits(gb, trailing_ones);
@@ -513,7 +512,7 @@ static int decode_residual(H264Context *h, GetBitContext *gb, DCTELEM *block, in
                 else
                     level_code= prefix + get_bits(gb, 4); //part
             }else{
-                level_code= 30 + get_bits(gb, prefix-3); //part
+                level_code= 30;
                 if(prefix>=16){
                     if(prefix > 25+3){
                         av_log(h->s.avctx, AV_LOG_ERROR, "Invalid level prefix\n");
@@ -521,6 +520,7 @@ static int decode_residual(H264Context *h, GetBitContext *gb, DCTELEM *block, in
                     }
                     level_code += (1<<(prefix-3))-4096;
                 }
+                level_code += get_bits(gb, prefix-3); //part
             }
 
             if(trailing_ones < 3) level_code += 2;
@@ -638,7 +638,7 @@ static av_always_inline int decode_luma_residual(H264Context *h, GetBitContext *
             return -1; //FIXME continue if partitioned and other return -1 too
         }
 
-        assert((cbp&15) == 0 || (cbp&15) == 15);
+        av_assert2((cbp&15) == 0 || (cbp&15) == 15);
 
         if(cbp&15){
             for(i8x8=0; i8x8<4; i8x8++){
@@ -744,7 +744,7 @@ int ff_h264_decode_mb_cavlc(H264Context *h){
             goto decode_intra_mb;
         }
     }else{
-       assert(h->slice_type_nos == AV_PICTURE_TYPE_I);
+       av_assert2(h->slice_type_nos == AV_PICTURE_TYPE_I);
         if(h->slice_type == AV_PICTURE_TYPE_SI && mb_type)
             mb_type--;
 decode_intra_mb:
@@ -765,8 +765,8 @@ decode_intra_mb:
 
     if(IS_INTRA_PCM(mb_type)){
         unsigned int x;
-        static const uint16_t mb_sizes[4] = {256,384,512,768};
-        const int mb_size = mb_sizes[h->sps.chroma_format_idc]*h->sps.bit_depth_luma >> 3;
+        const int mb_size = ff_h264_mb_sizes[h->sps.chroma_format_idc] *
+                            h->sps.bit_depth_luma >> 3;
 
         // We assume these blocks are very rare so we do not optimize it.
         align_get_bits(&s->gb);
@@ -823,12 +823,12 @@ decode_intra_mb:
             if( ff_h264_check_intra4x4_pred_mode(h) < 0)
                 return -1;
         }else{
-            h->intra16x16_pred_mode= ff_h264_check_intra16x16_pred_mode(h, h->intra16x16_pred_mode);
+            h->intra16x16_pred_mode= ff_h264_check_intra_pred_mode(h, h->intra16x16_pred_mode, 0);
             if(h->intra16x16_pred_mode < 0)
                 return -1;
         }
         if(decode_chroma){
-            pred_mode= ff_h264_check_intra_chroma_pred_mode(h, get_ue_golomb_31(&s->gb));
+            pred_mode= ff_h264_check_intra_pred_mode(h, get_ue_golomb_31(&s->gb), 1);
             if(pred_mode < 0)
                 return -1;
             h->chroma_pred_mode= pred_mode;
@@ -856,7 +856,7 @@ decode_intra_mb:
                 h->ref_cache[1][scan8[12]] = PART_NOT_AVAILABLE;
             }
         }else{
-            assert(h->slice_type_nos == AV_PICTURE_TYPE_P); //FIXME SP correct ?
+            av_assert2(h->slice_type_nos == AV_PICTURE_TYPE_P); //FIXME SP correct ?
             for(i=0; i<4; i++){
                 h->sub_mb_type[i]= get_ue_golomb_31(&s->gb);
                 if(h->sub_mb_type[i] >=4){
@@ -1011,7 +1011,7 @@ decode_intra_mb:
                 }
             }
         }else{
-            assert(IS_8X16(mb_type));
+            av_assert2(IS_8X16(mb_type));
             for(list=0; list<h->list_count; list++){
                     for(i=0; i<2; i++){
                         unsigned int val;
@@ -1169,4 +1169,3 @@ decode_intra_mb:
 
     return 0;
 }
-

@@ -25,7 +25,7 @@
  */
 
 #include "avcodec.h"
-#define ALT_BITSTREAM_READER_LE
+#define BITSTREAM_READER_LE
 #include "get_bits.h"
 
 
@@ -234,7 +234,7 @@ static int seqvideo_decode_frame(AVCodecContext *avctx,
     seq->frame.reference = 3;
     seq->frame.buffer_hints = FF_BUFFER_HINTS_VALID | FF_BUFFER_HINTS_PRESERVE | FF_BUFFER_HINTS_REUSABLE;
     if (avctx->reget_buffer(avctx, &seq->frame)) {
-        av_log(seq->avctx, AV_LOG_ERROR, "tiertexseqvideo: reget_buffer() failed\n");
+        av_log(seq->avctx, AV_LOG_ERROR, "reget_buffer() failed\n");
         return -1;
     }
 
@@ -260,11 +260,11 @@ static av_cold int seqvideo_decode_end(AVCodecContext *avctx)
 AVCodec ff_tiertexseqvideo_decoder = {
     .name           = "tiertexseqvideo",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_TIERTEXSEQVIDEO,
+    .id             = AV_CODEC_ID_TIERTEXSEQVIDEO,
     .priv_data_size = sizeof(SeqVideoContext),
     .init           = seqvideo_decode_init,
     .close          = seqvideo_decode_end,
     .decode         = seqvideo_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Tiertex Limited SEQ video"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Tiertex Limited SEQ video"),
 };

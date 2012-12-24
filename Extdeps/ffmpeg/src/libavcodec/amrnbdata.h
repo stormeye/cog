@@ -71,7 +71,7 @@ typedef struct {
 } AMRNBFrame;
 
 /** The index of a frame parameter */
-#define AMR_BIT(field)                  (offsetof(AMRNBFrame, field) >> 1)
+#define AMR_BIT(field)                  (offsetof(AMRNBFrame, field))
 /** The index of a subframe-specific parameter */
 #define AMR_OF(frame_num, variable)     AMR_BIT(subframe[frame_num].variable)
 
@@ -1669,4 +1669,3 @@ static const float highpass_poles[2] = { -1.933105469, 0.935913085 };
 static const float highpass_gain     = 0.939819335;
 
 #endif /* AVCODEC_AMRNBDATA_H */
-

@@ -61,11 +61,16 @@ void  free(void *ptr);
 
 #define ALIGN (HAVE_AVX ? 32 : 16)
 
-/* You can redefine av_malloc and av_free in your project to use your
-   memory allocator. You do not need to suppress this file because the
-   linker will do it automatically. */
+/* NOTE: if you want to override these functions with your own
+ * implementations (not recommended) you have to link libav* as
+ * dynamic libraries and remove -Wl,-Bsymbolic from the linker flags.
+ * Note that this will cost performance. */
 
-#define MAX_MALLOC_SIZE INT_MAX
+static size_t max_alloc_size= INT_MAX;
+
+void av_max_alloc(size_t max){
+    max_alloc_size = max;
+}
 
 void *av_malloc(size_t size)
 {
@@ -75,7 +80,7 @@ void *av_malloc(size_t size)
 #endif
 
     /* let's disallow possible ambiguous cases */
-    if (size > (MAX_MALLOC_SIZE-32))
+    if (size > (max_alloc_size-32))
         return NULL;
 
 #if CONFIG_MEMALIGN_HACK
@@ -89,6 +94,8 @@ void *av_malloc(size_t size)
     if (size) //OS X on SDK 10.6 has a broken posix_memalign implementation
     if (posix_memalign(&ptr,ALIGN,size))
         ptr = NULL;
+#elif HAVE_ALIGNED_MALLOC
+    ptr = _aligned_malloc(size, ALIGN);
 #elif HAVE_MEMALIGN
     ptr = memalign(ALIGN,size);
     /* Why 64?
@@ -118,8 +125,14 @@ void *av_malloc(size_t size)
 #else
     ptr = malloc(size);
 #endif
-    if(!ptr && !size)
+    if(!ptr && !size) {
+        size = 1;
         ptr= av_malloc(1);
+    }
+#if CONFIG_MEMORY_POISONING
+    if (ptr)
+        memset(ptr, 0x2a, size);
+#endif
     return ptr;
 }
 
@@ -130,7 +143,7 @@ void *av_realloc(void *ptr, size_t size)
 #endif
 
     /* let's disallow possible ambiguous cases */
-    if (size > (MAX_MALLOC_SIZE-16))
+    if (size > (max_alloc_size-32))
         return NULL;
 
 #if CONFIG_MEMALIGN_HACK
@@ -140,6 +153,8 @@ void *av_realloc(void *ptr, size_t size)
     ptr= realloc((char*)ptr - diff, size + diff);
     if(ptr) ptr = (char*)ptr + diff;
     return ptr;
+#elif HAVE_ALIGNED_MALLOC
+    return _aligned_realloc(ptr, size + !size, ALIGN);
 #else
     return realloc(ptr, size + !size);
 #endif
@@ -165,6 +180,8 @@ void av_free(void *ptr)
 #if CONFIG_MEMALIGN_HACK
     if (ptr)
         free((char*)ptr - ((char*)ptr)[-1]);
+#elif HAVE_ALIGNED_MALLOC
+    _aligned_free(ptr);
 #else
     free(ptr);
 #endif
@@ -224,3 +241,4 @@ void av_dynarray_add(void *tab_ptr, int *nb_ptr, void *elem)
     tab[nb++] = (intptr_t)elem;
     *nb_ptr = nb;
 }
+

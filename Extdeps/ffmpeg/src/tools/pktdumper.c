@@ -18,17 +18,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "config.h"
 #include <limits.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#if HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+#if HAVE_IO_H
+#include <io.h>
+#endif
+
+#define FILENAME_BUF_SIZE 4096
+
+#include "libavutil/avstring.h"
+#include "libavutil/time.h"
 #include "libavformat/avformat.h"
 
-#define PKTFILESUFF "_%08"PRId64"_%02d_%010"PRId64"_%06d_%c.bin"
-
-#undef strcat
+#define PKTFILESUFF "_%08" PRId64 "_%02d_%010" PRId64 "_%06d_%c.bin"
 
 static int usage(int ret)
 {
@@ -42,14 +51,14 @@ static int usage(int ret)
 
 int main(int argc, char **argv)
 {
-    char fntemplate[PATH_MAX];
-    char pktfilename[PATH_MAX];
+    char fntemplate[FILENAME_BUF_SIZE];
+    char pktfilename[FILENAME_BUF_SIZE];
     AVFormatContext *fctx = NULL;
     AVPacket pkt;
-    int64_t pktnum = 0;
+    int64_t pktnum  = 0;
     int64_t maxpkts = 0;
-    int donotquit = 0;
-    int nowrite = 0;
+    int donotquit   = 0;
+    int nowrite     = 0;
     int err;
 
     if ((argc > 1) && !strncmp(argv[1], "-", 1)) {
@@ -64,16 +73,16 @@ int main(int argc, char **argv)
         return usage(1);
     if (argc > 2)
         maxpkts = atoi(argv[2]);
-    strncpy(fntemplate, argv[1], PATH_MAX-1);
+    av_strlcpy(fntemplate, argv[1], sizeof(fntemplate));
     if (strrchr(argv[1], '/'))
-        strncpy(fntemplate, strrchr(argv[1], '/')+1, PATH_MAX-1);
+        av_strlcpy(fntemplate, strrchr(argv[1], '/') + 1, sizeof(fntemplate));
     if (strrchr(fntemplate, '.'))
         *strrchr(fntemplate, '.') = '\0';
     if (strchr(fntemplate, '%')) {
         fprintf(stderr, "can't use filenames containing '%%'\n");
         return usage(1);
     }
-    if (strlen(fntemplate) + sizeof(PKTFILESUFF) >= PATH_MAX-1) {
+    if (strlen(fntemplate) + sizeof(PKTFILESUFF) >= sizeof(fntemplate) - 1) {
         fprintf(stderr, "filename too long\n");
         return usage(1);
     }
@@ -99,11 +108,14 @@ int main(int argc, char **argv)
 
     while ((err = av_read_frame(fctx, &pkt)) >= 0) {
         int fd;
-        snprintf(pktfilename, PATH_MAX-1, fntemplate, pktnum, pkt.stream_index, pkt.pts, pkt.size, (pkt.flags & AV_PKT_FLAG_KEY)?'K':'_');
-        printf(PKTFILESUFF"\n", pktnum, pkt.stream_index, pkt.pts, pkt.size, (pkt.flags & AV_PKT_FLAG_KEY)?'K':'_');
+        snprintf(pktfilename, sizeof(pktfilename), fntemplate, pktnum,
+                 pkt.stream_index, pkt.pts, pkt.size,
+                 (pkt.flags & AV_PKT_FLAG_KEY) ? 'K' : '_');
+        printf(PKTFILESUFF "\n", pktnum, pkt.stream_index, pkt.pts, pkt.size,
+               (pkt.flags & AV_PKT_FLAG_KEY) ? 'K' : '_');
         //printf("open(\"%s\")\n", pktfilename);
         if (!nowrite) {
-            fd = open(pktfilename, O_WRONLY|O_CREAT, 0644);
+            fd  = open(pktfilename, O_WRONLY | O_CREAT, 0644);
             err = write(fd, pkt.data, pkt.size);
             if (err < 0) {
                 fprintf(stderr, "write: error %d\n", err);
@@ -117,10 +129,10 @@ int main(int argc, char **argv)
             break;
     }
 
-    av_close_input_file(fctx);
+    avformat_close_input(&fctx);
 
     while (donotquit)
-        sleep(60);
+        av_usleep(60 * 1000000);
 
     return 0;
 }

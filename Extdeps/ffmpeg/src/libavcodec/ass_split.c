@@ -232,7 +232,7 @@ static const char *ass_split_section(ASSSplitContext *ctx, const char *buf)
                         break;
                     }
                 (*number)++;
-                buf = skip_space(buf + len + 1);
+                buf = skip_space(buf + len + (buf[len] == ','));
             }
             ctx->field_order[ctx->current_section] = order;
         } else if (section->fields_header) {
@@ -352,8 +352,10 @@ void ff_ass_split_free(ASSSplitContext *ctx)
 {
     if (ctx) {
         int i;
-        for (i=0; i<FF_ARRAY_ELEMS(ass_sections); i++)
+        for (i=0; i<FF_ARRAY_ELEMS(ass_sections); i++) {
             free_section(ctx, &ass_sections[i]);
+            av_freep(&(ctx->field_order[i]));
+        }
         av_free(ctx);
     }
 }
@@ -454,7 +456,7 @@ int ff_ass_split_override_codes(const ASSCodesCallbacks *callbacks, void *priv,
     return 0;
 }
 
-ASSStyle *ass_style_get(ASSSplitContext *ctx, const char *style)
+ASSStyle *ff_ass_style_get(ASSSplitContext *ctx, const char *style)
 {
     ASS *ass = &ctx->ass;
     int i;

@@ -37,7 +37,7 @@ typedef struct MXGContext {
     unsigned int cache_size;
 } MXGContext;
 
-static int mxg_read_header(AVFormatContext *s, AVFormatParameters *ap)
+static int mxg_read_header(AVFormatContext *s)
 {
     AVStream *video_st, *audio_st;
     MXGContext *mxg = s->priv_data;
@@ -47,14 +47,14 @@ static int mxg_read_header(AVFormatContext *s, AVFormatParameters *ap)
     if (!video_st)
         return AVERROR(ENOMEM);
     video_st->codec->codec_type = AVMEDIA_TYPE_VIDEO;
-    video_st->codec->codec_id = CODEC_ID_MXPEG;
+    video_st->codec->codec_id = AV_CODEC_ID_MXPEG;
     avpriv_set_pts_info(video_st, 64, 1, 1000000);
 
     audio_st = avformat_new_stream(s, NULL);
     if (!audio_st)
         return AVERROR(ENOMEM);
     audio_st->codec->codec_type = AVMEDIA_TYPE_AUDIO;
-    audio_st->codec->codec_id = CODEC_ID_PCM_ALAW;
+    audio_st->codec->codec_id = AV_CODEC_ID_PCM_ALAW;
     audio_st->codec->channels = 1;
     audio_st->codec->sample_rate = 8000;
     audio_st->codec->bits_per_coded_sample = 8;
@@ -104,7 +104,7 @@ static int mxg_update_cache(AVFormatContext *s, unsigned int cache_size)
     /* reallocate internal buffer */
     if (current_pos > current_pos + cache_size)
         return AVERROR(ENOMEM);
-    if (mxg->soi_ptr) soi_pos = mxg->soi_ptr - mxg->buffer;
+    soi_pos = mxg->soi_ptr - mxg->buffer;
     mxg->buffer = av_fast_realloc(mxg->buffer, &mxg->buffer_size,
                                   current_pos + cache_size +
                                   FF_INPUT_BUFFER_PADDING_SIZE);
@@ -240,11 +240,11 @@ static int mxg_close(struct AVFormatContext *s)
 }
 
 AVInputFormat ff_mxg_demuxer = {
-    .name = "mxg",
-    .long_name = NULL_IF_CONFIG_SMALL("MxPEG clip file format"),
+    .name           = "mxg",
+    .long_name      = NULL_IF_CONFIG_SMALL("MxPEG clip"),
     .priv_data_size = sizeof(MXGContext),
-    .read_header = mxg_read_header,
-    .read_packet = mxg_read_packet,
-    .read_close = mxg_close,
-    .extensions = "mxg"
+    .read_header    = mxg_read_header,
+    .read_packet    = mxg_read_packet,
+    .read_close     = mxg_close,
+    .extensions     = "mxg",
 };

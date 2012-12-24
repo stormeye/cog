@@ -25,6 +25,7 @@
  */
 
 #include "avcodec.h"
+#include "libavutil/common.h"
 
 /*
  * Adapted to libavcodec by Francois Revol <revol@free.fr>
@@ -231,7 +232,7 @@ static av_cold int mace_decode_init(AVCodecContext * avctx)
 {
     MACEContext *ctx = avctx->priv_data;
 
-    if (avctx->channels > 2)
+    if (avctx->channels > 2 || avctx->channels <= 0)
         return -1;
     avctx->sample_fmt = AV_SAMPLE_FMT_S16;
 
@@ -249,7 +250,7 @@ static int mace_decode_frame(AVCodecContext *avctx, void *data,
     int16_t *samples;
     MACEContext *ctx = avctx->priv_data;
     int i, j, k, l, ret;
-    int is_mace3 = (avctx->codec_id == CODEC_ID_MACE3);
+    int is_mace3 = (avctx->codec_id == AV_CODEC_ID_MACE3);
 
     /* get output buffer */
     ctx->frame.nb_samples = 3 * (buf_size << (1 - is_mace3)) / avctx->channels;
@@ -292,22 +293,21 @@ static int mace_decode_frame(AVCodecContext *avctx, void *data,
 AVCodec ff_mace3_decoder = {
     .name           = "mace3",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MACE3,
+    .id             = AV_CODEC_ID_MACE3,
     .priv_data_size = sizeof(MACEContext),
     .init           = mace_decode_init,
     .decode         = mace_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("MACE (Macintosh Audio Compression/Expansion) 3:1"),
+    .long_name      = NULL_IF_CONFIG_SMALL("MACE (Macintosh Audio Compression/Expansion) 3:1"),
 };
 
 AVCodec ff_mace6_decoder = {
     .name           = "mace6",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MACE6,
+    .id             = AV_CODEC_ID_MACE6,
     .priv_data_size = sizeof(MACEContext),
     .init           = mace_decode_init,
     .decode         = mace_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("MACE (Macintosh Audio Compression/Expansion) 6:1"),
+    .long_name      = NULL_IF_CONFIG_SMALL("MACE (Macintosh Audio Compression/Expansion) 6:1"),
 };
-

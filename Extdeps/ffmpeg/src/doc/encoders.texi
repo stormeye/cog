@@ -511,6 +511,12 @@ rc_2pass_vbr_minsection_pct
 @item slices
 @code{VP8E_SET_TOKEN_PARTITIONS}
 
+@item max-intra-rate
+@code{VP8E_SET_MAX_INTRA_BITRATE_PCT}
+
+@item force_key_frames
+@code{VPX_EFLAG_FORCE_KF}
+
 @item Alternate reference frame related
 @table @option
 @item vp8flags altref
@@ -577,7 +583,7 @@ Allow to set any x264 option, see x264 --fullhelp for a list.
 ":".
 @end table
 
-For example to specify libx264 encoding options with @file{ffmpeg}:
+For example to specify libx264 encoding options with @command{ffmpeg}:
 @example
 ffmpeg -i foo.mpg -vcodec libx264 -x264opts keyint=123:min-keyint=20 -an out.mkv
 @end example

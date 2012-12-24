@@ -28,11 +28,12 @@
 #define UNCHECKED_BITSTREAM_READER 1
 
 #include <math.h>
+
+#include "dsputil.h"
 #include "avcodec.h"
 #include "get_bits.h"
 #include "put_bits.h"
 #include "wmavoice_data.h"
-#include "celp_math.h"
 #include "celp_filters.h"
 #include "acelp_vectors.h"
 #include "acelp_filters.h"
@@ -191,7 +192,7 @@ typedef struct {
      * @{
      */
     int spillover_nbits;          ///< number of bits of the previous packet's
-                                  ///< last superframe preceeding this
+                                  ///< last superframe preceding this
                                   ///< packet's first full superframe (useful
                                   ///< for re-synchronization also)
     int has_residual_lsps;        ///< if set, superframes contain one set of
@@ -318,10 +319,9 @@ static av_cold int decode_vbmtree(GetBitContext *gb, int8_t vbm_tree[25])
           0x0ffc, 0x0ffd, 0x0ffe,        //   1111111111+00/01/10
           0x3ffc, 0x3ffd, 0x3ffe, 0x3fff // 111111111111+xx
     };
-    int cntr[8], n, res;
+    int cntr[8] = { 0 }, n, res;
 
     memset(vbm_tree, 0xff, sizeof(vbm_tree[0]) * 25);
-    memset(cntr,     0,    sizeof(cntr));
     for (n = 0; n < 17; n++) {
         res = get_bits(gb, 3);
         if (cntr[res] > 3) // should be >= 3 + (res == 7))
@@ -515,11 +515,11 @@ static int kalman_smoothen(WMAVoiceContext *s, int pitch,
     float optimal_gain = 0, dot;
     const float *ptr = &in[-FFMAX(s->min_pitch_val, pitch - 3)],
                 *end = &in[-FFMIN(s->max_pitch_val, pitch + 3)],
-                *best_hist_ptr;
+                *best_hist_ptr = NULL;
 
     /* find best fitting point in history */
     do {
-        dot = ff_dot_productf(in, ptr, size);
+        dot = ff_scalarproduct_float_c(in, ptr, size);
         if (dot > optimal_gain) {
             optimal_gain  = dot;
             best_hist_ptr = ptr;
@@ -528,7 +528,7 @@ static int kalman_smoothen(WMAVoiceContext *s, int pitch,
 
     if (optimal_gain <= 0)
         return -1;
-    dot = ff_dot_productf(best_hist_ptr, best_hist_ptr, size);
+    dot = ff_scalarproduct_float_c(best_hist_ptr, best_hist_ptr, size);
     if (dot <= 0) // would be 1.0
         return -1;
 
@@ -558,8 +558,8 @@ static float tilt_factor(const float *lpcs, int n_lpcs)
 {
     float rh0, rh1;
 
-    rh0 = 1.0     + ff_dot_productf(lpcs,  lpcs,    n_lpcs);
-    rh1 = lpcs[0] + ff_dot_productf(lpcs, &lpcs[1], n_lpcs - 1);
+    rh0 = 1.0     + ff_scalarproduct_float_c(lpcs,  lpcs,    n_lpcs);
+    rh1 = lpcs[0] + ff_scalarproduct_float_c(lpcs, &lpcs[1], n_lpcs - 1);
 
     return rh1 / rh0;
 }
@@ -652,7 +652,7 @@ static void calc_input_response(WMAVoiceContext *s, float *lpcs,
                              -1.8 * tilt_factor(coeffs, remainder - 1),
                              coeffs, remainder);
     }
-    sq = (1.0 / 64.0) * sqrtf(1 / ff_dot_productf(coeffs, coeffs, remainder));
+    sq = (1.0 / 64.0) * sqrtf(1 / ff_scalarproduct_float_c(coeffs, coeffs, remainder));
     for (n = 0; n < remainder; n++)
         coeffs[n] *= sq;
 }
@@ -774,7 +774,7 @@ static void postfilter(WMAVoiceContext *s, const float *synth,
           *synth_pf = &s->synth_filter_out_buf[MAX_LSPS_ALIGN16],
           *synth_filter_in = zero_exc_pf;
 
-    assert(size <= MAX_FRAMESIZE / 2);
+    av_assert0(size <= MAX_FRAMESIZE / 2);
 
     /* generate excitation from input signal */
     ff_celp_lp_zero_synthesis_filterf(zero_exc_pf, lpcs, synth, size, s->lsps);
@@ -1241,7 +1241,7 @@ static void synth_block_hardcoded(WMAVoiceContext *s, GetBitContext *gb,
     float gain;
     int n, r_idx;
 
-    assert(size <= MAX_FRAMESIZE);
+    av_assert0(size <= MAX_FRAMESIZE);
 
     /* Set the offset from which we start reading wmavoice_std_codebook */
     if (frame_desc->fcb_type == FCB_TYPE_SILENCE) {
@@ -1277,7 +1277,7 @@ static void synth_block_fcb_acb(WMAVoiceContext *s, GetBitContext *gb,
     int n, idx, gain_weight;
     AMRFixed fcb;
 
-    assert(size <= MAX_FRAMESIZE / 2);
+    av_assert0(size <= MAX_FRAMESIZE / 2);
     memset(pulses, 0, sizeof(*pulses) * size);
 
     fcb.pitch_lag      = block_pitch_sh2 >> 2;
@@ -1316,7 +1316,7 @@ static void synth_block_fcb_acb(WMAVoiceContext *s, GetBitContext *gb,
     /* Calculate gain for adaptive & fixed codebook signal.
      * see ff_amr_set_fixed_gain(). */
     idx = get_bits(gb, 7);
-    fcb_gain = expf(ff_dot_productf(s->gain_pred_err, gain_coeff, 6) -
+    fcb_gain = expf(ff_scalarproduct_float_c(s->gain_pred_err, gain_coeff, 6) -
                     5.2409161640 + wmavoice_gain_codebook_fcb[idx]);
     acb_gain = wmavoice_gain_codebook_acb[idx];
     pred_err = av_clipf(wmavoice_gain_codebook_fcb[idx],
@@ -1440,14 +1440,15 @@ static int synth_frame(AVCodecContext *ctx, GetBitContext *gb, int frame_idx,
     int pitch[MAX_BLOCKS], last_block_pitch;
 
     /* Parse frame type ("frame header"), see frame_descs */
-    int bd_idx = s->vbm_tree[get_vlc2(gb, frame_type_vlc.table, 6, 3)],
-        block_nsamples = MAX_FRAMESIZE / frame_descs[bd_idx].n_blocks;
+    int bd_idx = s->vbm_tree[get_vlc2(gb, frame_type_vlc.table, 6, 3)], block_nsamples;
 
     if (bd_idx < 0) {
         av_log(ctx, AV_LOG_ERROR,
                "Invalid frame type VLC code, skipping\n");
         return -1;
     }
+
+    block_nsamples = MAX_FRAMESIZE / frame_descs[bd_idx].n_blocks;
 
     /* Pitch calculation for ACB_TYPE_ASYMMETRIC ("pitch-per-frame") */
     if (frame_descs[bd_idx].acb_type == ACB_TYPE_ASYMMETRIC) {
@@ -1653,7 +1654,7 @@ static int check_bits_for_superframe(GetBitContext *orig_gb,
     /* initialize a copy */
     init_get_bits(gb, orig_gb->buffer, orig_gb->size_in_bits);
     skip_bits_long(gb, get_bits_count(orig_gb));
-    assert(get_bits_left(gb) == get_bits_left(orig_gb));
+    av_assert1(get_bits_left(gb) == get_bits_left(orig_gb));
 
     /* superframe header */
     if (get_bits_left(gb) < 14)
@@ -1725,9 +1726,6 @@ static int check_bits_for_superframe(GetBitContext *orig_gb,
  * (if less than 480), usually used to prevent blanks at track boundaries.
  *
  * @param ctx WMA Voice decoder context
- * @param samples pointer to output buffer for voice samples
- * @param data_size pointer containing the size of #samples on input, and the
- *                  amount of #samples filled on output
  * @return 0 on success, <0 on error or 1 if there was not enough data to
  *         fully parse the superframe
  */
@@ -1807,7 +1805,7 @@ static int synth_superframe(AVCodecContext *ctx, int *got_frame_ptr)
     s->frame.nb_samples = n_samples;
     samples = (float *)s->frame.data[0];
 
-    /* Parse frames, optionally preceeded by per-frame (independent) LSPs. */
+    /* Parse frames, optionally preceded by per-frame (independent) LSPs. */
     for (n = 0; n < 3; n++) {
         if (!s->has_residual_lsps) {
             int m;
@@ -1992,7 +1990,7 @@ static int wmavoice_decode_packet(AVCodecContext *ctx, void *data,
         /* rewind bit reader to start of last (incomplete) superframe... */
         init_get_bits(gb, avpkt->data, size << 3);
         skip_bits_long(gb, (size << 3) - pos);
-        assert(get_bits_left(gb) == pos);
+        av_assert1(get_bits_left(gb) == pos);
 
         /* ...and cache it for spillover in next packet */
         init_put_bits(&s->pb, s->sframe_cache, SFRAME_CACHE_MAXSIZE);
@@ -2049,12 +2047,12 @@ static av_cold void wmavoice_flush(AVCodecContext *ctx)
 AVCodec ff_wmavoice_decoder = {
     .name           = "wmavoice",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_WMAVOICE,
+    .id             = AV_CODEC_ID_WMAVOICE,
     .priv_data_size = sizeof(WMAVoiceContext),
     .init           = wmavoice_decode_init,
     .close          = wmavoice_decode_end,
     .decode         = wmavoice_decode_packet,
     .capabilities   = CODEC_CAP_SUBFRAMES | CODEC_CAP_DR1,
-    .flush     = wmavoice_flush,
-    .long_name = NULL_IF_CONFIG_SMALL("Windows Media Audio Voice"),
+    .flush          = wmavoice_flush,
+    .long_name      = NULL_IF_CONFIG_SMALL("Windows Media Audio Voice"),
 };

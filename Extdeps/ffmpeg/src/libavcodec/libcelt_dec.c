@@ -40,7 +40,7 @@ static int ff_celt_error_to_averror(int err)
 #endif
         case CELT_INTERNAL_ERROR:   return AVERROR(EFAULT);
         case CELT_CORRUPTED_DATA:   return AVERROR_INVALIDDATA;
-        case CELT_UNIMPLEMENTED:    return AVERROR(ENOTSUP);
+        case CELT_UNIMPLEMENTED:    return AVERROR(ENOSYS);
 #ifdef ENOTRECOVERABLE
         case CELT_INVALID_STATE:    return AVERROR(ENOTRECOVERABLE);
 #endif
@@ -135,7 +135,7 @@ static int libcelt_dec_decode(AVCodecContext *c, void *frame,
 AVCodec ff_libcelt_decoder = {
     .name           = "libcelt",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_CELT,
+    .id             = AV_CODEC_ID_CELT,
     .priv_data_size = sizeof(struct libcelt_context),
     .init           = libcelt_dec_init,
     .close          = libcelt_dec_close,

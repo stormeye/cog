@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "libavutil/common.h"
 #include "libavutil/intreadwrite.h"
 #include "libavutil/mathematics.h"
 #include "adx.h"
@@ -58,7 +59,7 @@ int avpriv_adx_decode_header(AVCodecContext *avctx, const uint8_t *buf,
 
     /* channels */
     avctx->channels = buf[7];
-    if (avctx->channels > 2)
+    if (avctx->channels <= 0 || avctx->channels > 2)
         return AVERROR_INVALIDDATA;
 
     /* sample rate */

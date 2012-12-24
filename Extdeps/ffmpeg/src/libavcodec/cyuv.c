@@ -34,6 +34,7 @@
 
 #include "avcodec.h"
 #include "dsputil.h"
+#include "libavutil/internal.h"
 
 
 typedef struct CyuvDecodeContext {
@@ -83,7 +84,7 @@ static int cyuv_decode_frame(AVCodecContext *avctx,
     unsigned char cur_byte;
     int pixel_groups;
 
-    if (avctx->codec_id == CODEC_ID_AURA) {
+    if (avctx->codec_id == AV_CODEC_ID_AURA) {
         y_table = u_table;
         u_table = v_table;
     }
@@ -182,13 +183,13 @@ static av_cold int cyuv_decode_end(AVCodecContext *avctx)
 AVCodec ff_aura_decoder = {
     .name           = "aura",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_AURA,
+    .id             = AV_CODEC_ID_AURA,
     .priv_data_size = sizeof(CyuvDecodeContext),
     .init           = cyuv_decode_init,
     .close          = cyuv_decode_end,
     .decode         = cyuv_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Auravision AURA"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Auravision AURA"),
 };
 #endif
 
@@ -196,12 +197,12 @@ AVCodec ff_aura_decoder = {
 AVCodec ff_cyuv_decoder = {
     .name           = "cyuv",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_CYUV,
+    .id             = AV_CODEC_ID_CYUV,
     .priv_data_size = sizeof(CyuvDecodeContext),
     .init           = cyuv_decode_init,
     .close          = cyuv_decode_end,
     .decode         = cyuv_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Creative YUV (CYUV)"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Creative YUV (CYUV)"),
 };
 #endif

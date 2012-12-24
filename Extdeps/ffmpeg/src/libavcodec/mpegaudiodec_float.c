@@ -26,15 +26,11 @@
 AVCodec ff_mp1float_decoder = {
     .name           = "mp1float",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MP1,
+    .id             = AV_CODEC_ID_MP1,
     .priv_data_size = sizeof(MPADecodeContext),
     .init           = decode_init,
     .decode         = decode_frame,
-#if FF_API_PARSE_FRAME
-    .capabilities   = CODEC_CAP_PARSE_ONLY | CODEC_CAP_DR1,
-#else
     .capabilities   = CODEC_CAP_DR1,
-#endif
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("MP1 (MPEG audio layer 1)"),
 };
@@ -43,15 +39,11 @@ AVCodec ff_mp1float_decoder = {
 AVCodec ff_mp2float_decoder = {
     .name           = "mp2float",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MP2,
+    .id             = AV_CODEC_ID_MP2,
     .priv_data_size = sizeof(MPADecodeContext),
     .init           = decode_init,
     .decode         = decode_frame,
-#if FF_API_PARSE_FRAME
-    .capabilities   = CODEC_CAP_PARSE_ONLY | CODEC_CAP_DR1,
-#else
     .capabilities   = CODEC_CAP_DR1,
-#endif
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("MP2 (MPEG audio layer 2)"),
 };
@@ -60,15 +52,11 @@ AVCodec ff_mp2float_decoder = {
 AVCodec ff_mp3float_decoder = {
     .name           = "mp3float",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MP3,
+    .id             = AV_CODEC_ID_MP3,
     .priv_data_size = sizeof(MPADecodeContext),
     .init           = decode_init,
     .decode         = decode_frame,
-#if FF_API_PARSE_FRAME
-    .capabilities   = CODEC_CAP_PARSE_ONLY | CODEC_CAP_DR1,
-#else
     .capabilities   = CODEC_CAP_DR1,
-#endif
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("MP3 (MPEG audio layer 3)"),
 };
@@ -77,15 +65,11 @@ AVCodec ff_mp3float_decoder = {
 AVCodec ff_mp3adufloat_decoder = {
     .name           = "mp3adufloat",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MP3ADU,
+    .id             = AV_CODEC_ID_MP3ADU,
     .priv_data_size = sizeof(MPADecodeContext),
     .init           = decode_init,
     .decode         = decode_frame_adu,
-#if FF_API_PARSE_FRAME
-    .capabilities   = CODEC_CAP_PARSE_ONLY | CODEC_CAP_DR1,
-#else
     .capabilities   = CODEC_CAP_DR1,
-#endif
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("ADU (Application Data Unit) MP3 (MPEG audio layer 3)"),
 };
@@ -94,7 +78,7 @@ AVCodec ff_mp3adufloat_decoder = {
 AVCodec ff_mp3on4float_decoder = {
     .name           = "mp3on4float",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_MP3ON4,
+    .id             = AV_CODEC_ID_MP3ON4,
     .priv_data_size = sizeof(MP3On4DecodeContext),
     .init           = decode_init_mp3on4,
     .close          = decode_close_mp3on4,

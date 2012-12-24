@@ -83,10 +83,10 @@ static const uint64_t thd_layout[13] = {
     AV_CH_BACK_LEFT|AV_CH_BACK_RIGHT,                       // LRrs
     AV_CH_BACK_CENTER,                                      // Cs
     AV_CH_TOP_CENTER,                                       // Ts
-    AV_CH_SIDE_LEFT|AV_CH_SIDE_RIGHT,                       // LRsd - TODO: Surround Direct
-    AV_CH_FRONT_LEFT_OF_CENTER|AV_CH_FRONT_RIGHT_OF_CENTER, // LRw  - TODO: Wide
+    AV_CH_SURROUND_DIRECT_LEFT|AV_CH_SURROUND_DIRECT_RIGHT, // LRsd
+    AV_CH_WIDE_LEFT|AV_CH_WIDE_RIGHT,                       // LRw
     AV_CH_TOP_FRONT_CENTER,                                 // Cvh
-    AV_CH_LOW_FREQUENCY                                     // LFE2
+    AV_CH_LOW_FREQUENCY_2,                                  // LFE2
 };
 
 static int mlp_samplerate(int in)
@@ -109,7 +109,8 @@ static int truehd_channels(int chanmap)
 
 uint64_t ff_truehd_layout(int chanmap)
 {
-    int layout = 0, i;
+    int i;
+    uint64_t layout = 0;
 
     for (i = 0; i < 13; i++)
         layout |= thd_layout[i] * ((chanmap >> i) & 1);
@@ -128,7 +129,7 @@ int ff_mlp_read_major_sync(void *log, MLPHeaderInfo *mh, GetBitContext *gb)
     int ratebits;
     uint16_t checksum;
 
-    assert(get_bits_count(gb) == 0);
+    av_assert1(get_bits_count(gb) == 0);
 
     if (gb->size_in_bits < 28 << 3) {
         av_log(log, AV_LOG_ERROR, "packet too short, unable to read major sync\n");
@@ -314,8 +315,9 @@ static int mlp_parse(AVCodecParserContext *s,
         else
             avctx->sample_fmt = AV_SAMPLE_FMT_S16;
         avctx->sample_rate = mh.group1_samplerate;
-        avctx->frame_size = mh.access_unit_size;
+        s->duration = mh.access_unit_size;
 
+        if(!avctx->channels || !avctx->channel_layout) {
         if (mh.stream_type == 0xbb) {
             /* MLP stream */
             avctx->channels = mlp_channels[mh.channels_mlp];
@@ -329,6 +331,7 @@ static int mlp_parse(AVCodecParserContext *s,
                 avctx->channels = truehd_channels(mh.channels_thd_stream1);
                 avctx->channel_layout = ff_truehd_layout(mh.channels_thd_stream1);
             }
+        }
         }
 
         if (!mh.is_vbr) /* Stream is CBR */
@@ -348,7 +351,7 @@ lost_sync:
 }
 
 AVCodecParser ff_mlp_parser = {
-    .codec_ids      = { CODEC_ID_MLP, CODEC_ID_TRUEHD },
+    .codec_ids      = { AV_CODEC_ID_MLP, AV_CODEC_ID_TRUEHD },
     .priv_data_size = sizeof(MLPParseContext),
     .parser_init    = mlp_init,
     .parser_parse   = mlp_parse,

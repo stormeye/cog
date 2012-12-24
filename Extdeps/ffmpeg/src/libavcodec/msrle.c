@@ -1,5 +1,5 @@
 /*
- * Micrsoft RLE Video Decoder
+ * Microsoft RLE video decoder
  * Copyright (C) 2003 the ffmpeg project
  *
  * This file is part of FFmpeg.
@@ -21,7 +21,7 @@
 
 /**
  * @file
- * MS RLE Video Decoder by Mike Melanson (melanson@pcisys.net)
+ * MS RLE video decoder by Mike Melanson (melanson@pcisys.net)
  * For more information about the MS RLE format, visit:
  *   http://www.pcisys.net/~melanson/codecs/
  *
@@ -40,6 +40,7 @@ typedef struct MsrleContext {
     AVCodecContext *avctx;
     AVFrame frame;
 
+    GetByteContext gb;
     const unsigned char *buf;
     int size;
 
@@ -49,6 +50,7 @@ typedef struct MsrleContext {
 static av_cold int msrle_decode_init(AVCodecContext *avctx)
 {
     MsrleContext *s = avctx->priv_data;
+    int i;
 
     s->avctx = avctx;
 
@@ -70,6 +72,10 @@ static av_cold int msrle_decode_init(AVCodecContext *avctx)
 
     avcodec_get_frame_defaults(&s->frame);
     s->frame.data[0] = NULL;
+
+    if (avctx->extradata_size >= AVPALETTE_SIZE)
+        for (i = 0; i < AVPALETTE_SIZE/4; i++)
+            s->pal[i] = 0xFF<<24 | AV_RL32(avctx->extradata+4*i);
 
     return 0;
 }
@@ -100,7 +106,6 @@ static int msrle_decode_frame(AVCodecContext *avctx,
             s->frame.palette_has_changed = 1;
             memcpy(s->pal, pal, AVPALETTE_SIZE);
         }
-
         /* make the palette available */
         memcpy(s->frame.data[1], s->pal, AVPALETTE_SIZE);
     }
@@ -127,7 +132,8 @@ static int msrle_decode_frame(AVCodecContext *avctx,
             ptr += s->frame.linesize[0];
         }
     } else {
-        ff_msrle_decode(avctx, (AVPicture*)&s->frame, avctx->bits_per_coded_sample, buf, buf_size);
+        bytestream2_init(&s->gb, buf, buf_size);
+        ff_msrle_decode(avctx, (AVPicture*)&s->frame, avctx->bits_per_coded_sample, &s->gb);
     }
 
     *data_size = sizeof(AVFrame);
@@ -151,11 +157,11 @@ static av_cold int msrle_decode_end(AVCodecContext *avctx)
 AVCodec ff_msrle_decoder = {
     .name           = "msrle",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MSRLE,
+    .id             = AV_CODEC_ID_MSRLE,
     .priv_data_size = sizeof(MsrleContext),
     .init           = msrle_decode_init,
     .close          = msrle_decode_end,
     .decode         = msrle_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name= NULL_IF_CONFIG_SMALL("Microsoft RLE"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Microsoft RLE"),
 };

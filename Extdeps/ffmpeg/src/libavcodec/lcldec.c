@@ -195,7 +195,7 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size, AVPac
 
     /* Decompress frame */
     switch (avctx->codec_id) {
-    case CODEC_ID_MSZH:
+    case AV_CODEC_ID_MSZH:
         switch (c->compression) {
         case COMP_MSZH:
             if (c->flags & FLAG_MULTITHREAD) {
@@ -229,22 +229,48 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size, AVPac
                 len = mszh_dlen;
             }
             break;
-        case COMP_MSZH_NOCOMP:
+        case COMP_MSZH_NOCOMP: {
+            int bppx2;
+            switch (c->imgtype) {
+            case IMGTYPE_YUV111:
+            case IMGTYPE_RGB24:
+                bppx2 = 6;
+                break;
+            case IMGTYPE_YUV422:
+            case IMGTYPE_YUV211:
+                bppx2 = 4;
+                break;
+            case IMGTYPE_YUV411:
+            case IMGTYPE_YUV420:
+                bppx2 = 3;
+                break;
+            default:
+                bppx2 = 0; // will error out below
+                break;
+            }
+            if (len < ((width * height * bppx2) >> 1))
+                return AVERROR_INVALIDDATA;
             break;
+        }
         default:
             av_log(avctx, AV_LOG_ERROR, "BUG! Unknown MSZH compression in frame decoder.\n");
             return -1;
         }
         break;
 #if CONFIG_ZLIB_DECODER
-    case CODEC_ID_ZLIB:
+    case AV_CODEC_ID_ZLIB:
         /* Using the original dll with normal compression (-1) and RGB format
          * gives a file with ZLIB fourcc, but frame is really uncompressed.
          * To be sure that's true check also frame size */
         if (c->compression == COMP_ZLIB_NORMAL && c->imgtype == IMGTYPE_RGB24 &&
-            len == width * height * 3)
-            break;
-        if (c->flags & FLAG_MULTITHREAD) {
+            len == width * height * 3) {
+            if (c->flags & FLAG_PNGFILTER) {
+                memcpy(c->decomp_buf, encoded, len);
+                encoded = c->decomp_buf;
+            } else {
+                break;
+            }
+        } else if (c->flags & FLAG_MULTITHREAD) {
             int ret;
             mthread_inlen = AV_RL32(encoded);
             mthread_inlen = FFMIN(mthread_inlen, len - 8);
@@ -270,7 +296,7 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size, AVPac
 
 
     /* Apply PNG filter */
-    if (avctx->codec_id == CODEC_ID_ZLIB && (c->flags & FLAG_PNGFILTER)) {
+    if (avctx->codec_id == AV_CODEC_ID_ZLIB && (c->flags & FLAG_PNGFILTER)) {
         switch (c->imgtype) {
         case IMGTYPE_YUV111:
         case IMGTYPE_RGB24:
@@ -462,12 +488,12 @@ static av_cold int decode_init(AVCodecContext *avctx)
     avcodec_get_frame_defaults(&c->pic);
     if (avctx->extradata_size < 8) {
         av_log(avctx, AV_LOG_ERROR, "Extradata size too small.\n");
-        return 1;
+        return AVERROR_INVALIDDATA;
     }
 
     /* Check codec type */
-    if ((avctx->codec_id == CODEC_ID_MSZH  && avctx->extradata[7] != CODEC_MSZH) ||
-        (avctx->codec_id == CODEC_ID_ZLIB  && avctx->extradata[7] != CODEC_ZLIB)) {
+    if ((avctx->codec_id == AV_CODEC_ID_MSZH  && avctx->extradata[7] != CODEC_MSZH) ||
+        (avctx->codec_id == AV_CODEC_ID_ZLIB  && avctx->extradata[7] != CODEC_ZLIB)) {
         av_log(avctx, AV_LOG_ERROR, "Codec id and codec type mismatch. This should not happen.\n");
     }
 
@@ -511,13 +537,13 @@ static av_cold int decode_init(AVCodecContext *avctx)
         break;
     default:
         av_log(avctx, AV_LOG_ERROR, "Unsupported image format %d.\n", c->imgtype);
-        return 1;
+        return AVERROR_INVALIDDATA;
     }
 
     /* Detect compression method */
     c->compression = (int8_t)avctx->extradata[5];
     switch (avctx->codec_id) {
-    case CODEC_ID_MSZH:
+    case AV_CODEC_ID_MSZH:
         switch (c->compression) {
         case COMP_MSZH:
             av_log(avctx, AV_LOG_DEBUG, "Compression enabled.\n");
@@ -528,11 +554,11 @@ static av_cold int decode_init(AVCodecContext *avctx)
             break;
         default:
             av_log(avctx, AV_LOG_ERROR, "Unsupported compression format for MSZH (%d).\n", c->compression);
-            return 1;
+            return AVERROR_INVALIDDATA;
         }
         break;
 #if CONFIG_ZLIB_DECODER
-    case CODEC_ID_ZLIB:
+    case AV_CODEC_ID_ZLIB:
         switch (c->compression) {
         case COMP_ZLIB_HISPEED:
             av_log(avctx, AV_LOG_DEBUG, "High speed compression.\n");
@@ -546,7 +572,7 @@ static av_cold int decode_init(AVCodecContext *avctx)
         default:
             if (c->compression < Z_NO_COMPRESSION || c->compression > Z_BEST_COMPRESSION) {
                 av_log(avctx, AV_LOG_ERROR, "Unsupported compression level for ZLIB: (%d).\n", c->compression);
-                return 1;
+                return AVERROR_INVALIDDATA;
             }
             av_log(avctx, AV_LOG_DEBUG, "Compression level for ZLIB: (%d).\n", c->compression);
         }
@@ -554,14 +580,14 @@ static av_cold int decode_init(AVCodecContext *avctx)
 #endif
     default:
         av_log(avctx, AV_LOG_ERROR, "BUG! Unknown codec in compression switch.\n");
-        return 1;
+        return AVERROR_INVALIDDATA;
     }
 
     /* Allocate decompression buffer */
     if (c->decomp_size) {
         if ((c->decomp_buf = av_malloc(max_decomp_size)) == NULL) {
             av_log(avctx, AV_LOG_ERROR, "Can't allocate decompression buffer.\n");
-            return 1;
+            return AVERROR(ENOMEM);
         }
     }
 
@@ -571,14 +597,14 @@ static av_cold int decode_init(AVCodecContext *avctx)
         av_log(avctx, AV_LOG_DEBUG, "Multithread encoder flag set.\n");
     if (c->flags & FLAG_NULLFRAME)
         av_log(avctx, AV_LOG_DEBUG, "Nullframe insertion flag set.\n");
-    if (avctx->codec_id == CODEC_ID_ZLIB && (c->flags & FLAG_PNGFILTER))
+    if (avctx->codec_id == AV_CODEC_ID_ZLIB && (c->flags & FLAG_PNGFILTER))
         av_log(avctx, AV_LOG_DEBUG, "PNG filter flag set.\n");
     if (c->flags & FLAGMASK_UNUSED)
         av_log(avctx, AV_LOG_ERROR, "Unknown flag set (%d).\n", c->flags);
 
     /* If needed init zlib */
 #if CONFIG_ZLIB_DECODER
-    if (avctx->codec_id == CODEC_ID_ZLIB) {
+    if (avctx->codec_id == AV_CODEC_ID_ZLIB) {
         int zret;
         c->zstream.zalloc = Z_NULL;
         c->zstream.zfree = Z_NULL;
@@ -587,7 +613,7 @@ static av_cold int decode_init(AVCodecContext *avctx)
         if (zret != Z_OK) {
             av_log(avctx, AV_LOG_ERROR, "Inflate init error: %d\n", zret);
             av_freep(&c->decomp_buf);
-            return 1;
+            return AVERROR_UNKNOWN;
         }
     }
 #endif
@@ -608,7 +634,7 @@ static av_cold int decode_end(AVCodecContext *avctx)
     if (c->pic.data[0])
         avctx->release_buffer(avctx, &c->pic);
 #if CONFIG_ZLIB_DECODER
-    if (avctx->codec_id == CODEC_ID_ZLIB)
+    if (avctx->codec_id == AV_CODEC_ID_ZLIB)
         inflateEnd(&c->zstream);
 #endif
 
@@ -619,13 +645,13 @@ static av_cold int decode_end(AVCodecContext *avctx)
 AVCodec ff_mszh_decoder = {
     .name           = "mszh",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MSZH,
+    .id             = AV_CODEC_ID_MSZH,
     .priv_data_size = sizeof(LclDecContext),
     .init           = decode_init,
     .close          = decode_end,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("LCL (LossLess Codec Library) MSZH"),
+    .long_name      = NULL_IF_CONFIG_SMALL("LCL (LossLess Codec Library) MSZH"),
 };
 #endif
 
@@ -633,12 +659,12 @@ AVCodec ff_mszh_decoder = {
 AVCodec ff_zlib_decoder = {
     .name           = "zlib",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_ZLIB,
+    .id             = AV_CODEC_ID_ZLIB,
     .priv_data_size = sizeof(LclDecContext),
     .init           = decode_init,
     .close          = decode_end,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("LCL (LossLess Codec Library) ZLIB"),
+    .long_name      = NULL_IF_CONFIG_SMALL("LCL (LossLess Codec Library) ZLIB"),
 };
 #endif

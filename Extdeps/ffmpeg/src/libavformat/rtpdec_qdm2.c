@@ -52,8 +52,8 @@ struct PayloadContext {
 };
 
 /**
- * Parses configuration (basically the codec-specific extradata) from
- * a RTP config subpacket (starts with 0xff).
+ * Parse configuration (basically the codec-specific extradata) from
+ * an RTP config subpacket (starts with 0xff).
  *
  * Layout of the config subpacket (in bytes):
  * 1: 0xFF          <- config ID
@@ -128,7 +128,7 @@ static int qdm2_parse_config(PayloadContext *qdm, AVStream *st,
 }
 
 /**
- * Parses a single subpacket. We store this subpacket in an intermediate
+ * Parse a single subpacket. We store this subpacket in an intermediate
  * buffer (position depends on the ID (byte[0]). When called, at least
  * 4 bytes are available for reading (see qdm2_parse_packet()).
  *
@@ -179,7 +179,7 @@ static int qdm2_parse_subpacket(PayloadContext *qdm, AVStream *st,
 }
 
 /**
- * Adds a superblock header around a set of subpackets.
+ * Add a superblock header around a set of subpackets.
  *
  * @return <0 on error, else 0.
  */
@@ -259,14 +259,14 @@ static int qdm2_parse_packet(AVFormatContext *s, PayloadContext *qdm,
                 return res;
             p += res;
 
-            /* We set codec_id to CODEC_ID_NONE initially to
+            /* We set codec_id to AV_CODEC_ID_NONE initially to
              * delay decoder initialization since extradata is
              * carried within the RTP stream, not SDP. Here,
-             * by setting codec_id to CODEC_ID_QDM2, we are signalling
+             * by setting codec_id to AV_CODEC_ID_QDM2, we are signalling
              * to the decoder that it is OK to initialize. */
-            st->codec->codec_id = CODEC_ID_QDM2;
+            st->codec->codec_id = AV_CODEC_ID_QDM2;
         }
-        if (st->codec->codec_id == CODEC_ID_NONE)
+        if (st->codec->codec_id == AV_CODEC_ID_NONE)
             return AVERROR(EAGAIN);
 
         /* subpackets */
@@ -310,7 +310,7 @@ static void qdm2_extradata_free(PayloadContext *qdm)
 RTPDynamicProtocolHandler ff_qdm2_dynamic_handler = {
     .enc_name         = "X-QDM",
     .codec_type       = AVMEDIA_TYPE_AUDIO,
-    .codec_id         = CODEC_ID_NONE,
+    .codec_id         = AV_CODEC_ID_NONE,
     .alloc            = qdm2_extradata_new,
     .free             = qdm2_extradata_free,
     .parse_packet     = qdm2_parse_packet,

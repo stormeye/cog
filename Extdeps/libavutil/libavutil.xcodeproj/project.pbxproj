@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3240D369168904F90030D21A /* time.h in Headers */ = {isa = PBXBuildFile; fileRef = 3240D368168904F90030D21A /* time.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3285BE64168902E200D36C57 /* intfloat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3285BE63168902E200D36C57 /* intfloat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4100E14CB58C60050563F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D4100D14CB58C60050563F /* Cocoa.framework */; };
 		32D4101814CB58C60050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4101614CB58C60050563F /* InfoPlist.strings */; };
 		32D4102A14CB59000050563F /* avconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4102914CB59000050563F /* avconfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +27,7 @@
 		32D4112814CB623B0050563F /* libavutil in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32D4112714CB623B0050563F /* libavutil */; };
 		32D4118F14CB65A80050563F /* audioconvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4118D14CB65A80050563F /* audioconvert.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4119014CB65A80050563F /* mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4118E14CB65A80050563F /* mem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32D646E21689010B0091C1E0 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D646E11689010B0091C1E0 /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3240D368168904F90030D21A /* time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = time.h; path = ../ffmpeg/src/libavutil/time.h; sourceTree = "<group>"; };
+		3285BE63168902E200D36C57 /* intfloat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = intfloat.h; path = ../ffmpeg/src/libavutil/intfloat.h; sourceTree = "<group>"; };
 		32D4100A14CB58C60050563F /* libavutil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libavutil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32D4100D14CB58C60050563F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		32D4101014CB58C60050563F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -76,6 +81,7 @@
 		32D4112714CB623B0050563F /* libavutil */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavutil; path = ../ffmpeg/libavutil; sourceTree = "<group>"; };
 		32D4118D14CB65A80050563F /* audioconvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audioconvert.h; path = ../ffmpeg/src/libavutil/audioconvert.h; sourceTree = "<group>"; };
 		32D4118E14CB65A80050563F /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mem.h; path = ../ffmpeg/src/libavutil/mem.h; sourceTree = "<group>"; };
+		32D646E11689010B0091C1E0 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../ffmpeg/src/libavutil/version.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,10 +149,13 @@
 		32D4102814CB58D80050563F /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				3285BE63168902E200D36C57 /* intfloat.h */,
+				32D646E11689010B0091C1E0 /* version.h */,
 				32D4118D14CB65A80050563F /* audioconvert.h */,
 				32D4118E14CB65A80050563F /* mem.h */,
 				32D4102B14CB59630050563F /* attributes.h */,
 				32D4102C14CB59630050563F /* avutil.h */,
+				3240D368168904F90030D21A /* time.h */,
 				32D4102D14CB59630050563F /* common.h */,
 				32D4102E14CB59630050563F /* cpu.h */,
 				32D4102F14CB59630050563F /* dict.h */,
@@ -199,6 +208,9 @@
 				32D4118F14CB65A80050563F /* audioconvert.h in Headers */,
 				32D4119014CB65A80050563F /* mem.h in Headers */,
 				32D4104214CB59630050563F /* samplefmt.h in Headers */,
+				32D646E21689010B0091C1E0 /* version.h in Headers */,
+				3285BE64168902E200D36C57 /* intfloat.h in Headers */,
+				3240D369168904F90030D21A /* time.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

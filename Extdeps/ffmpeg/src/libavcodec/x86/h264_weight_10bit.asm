@@ -40,7 +40,7 @@ SECTION .text
 ;                  int weight, int offset);
 ;-----------------------------------------------------------------------------
 %macro WEIGHT_PROLOGUE 0
-.prologue
+.prologue:
     PROLOGUE 0,6,8
     movifnidn  r0, r0mp
     movifnidn r1d, r1m
@@ -93,7 +93,7 @@ SECTION .text
 cglobal h264_weight_16_10_%1
     WEIGHT_PROLOGUE
     WEIGHT_SETUP %1
-.nextrow
+.nextrow:
     WEIGHT_OP %1,  0
     mova [r0   ], m5
     WEIGHT_OP %1, 16
@@ -113,7 +113,7 @@ WEIGHT_FUNC_DBL sse4
 cglobal h264_weight_8_10_%1
     WEIGHT_PROLOGUE
     WEIGHT_SETUP %1
-.nextrow
+.nextrow:
     WEIGHT_OP  %1, 0
     mova     [r0], m5
     add        r0, r1
@@ -133,7 +133,7 @@ cglobal h264_weight_4_10_%1
     sar         r2d, 1
     WEIGHT_SETUP %1
     lea         r3, [r1*2]
-.nextrow
+.nextrow:
     WEIGHT_OP   %1, 0, r1
     movh      [r0], m5
     movhps [r0+r1], m5
@@ -152,15 +152,15 @@ WEIGHT_FUNC_HALF_MM sse4
 ; void h264_biweight(uint8_t *dst, uint8_t *src, int stride, int height,
 ;                    int log2_denom, int weightd, int weights, int offset);
 ;-----------------------------------------------------------------------------
-%ifdef ARCH_X86_32
+%if ARCH_X86_32
 DECLARE_REG_TMP 3
 %else
-DECLARE_REG_TMP 10
+DECLARE_REG_TMP 7
 %endif
 
 %macro BIWEIGHT_PROLOGUE 0
-.prologue
-    PROLOGUE 0,7,8
+.prologue:
+    PROLOGUE 0,8,8
     movifnidn  r0, r0mp
     movifnidn  r1, r1mp
     movifnidn r2d, r2m
@@ -221,7 +221,7 @@ DECLARE_REG_TMP 10
 cglobal h264_biweight_16_10_%1
     BIWEIGHT_PROLOGUE
     BIWEIGHT_SETUP %1
-.nextrow
+.nextrow:
     BIWEIGHT  %1,  0
     mova [r0   ], m0
     BIWEIGHT  %1, 16
@@ -241,7 +241,7 @@ BIWEIGHT_FUNC_DBL sse4
 cglobal h264_biweight_8_10_%1
     BIWEIGHT_PROLOGUE
     BIWEIGHT_SETUP %1
-.nextrow
+.nextrow:
     BIWEIGHT %1, 0
     mova   [r0], m0
     add      r0, r2
@@ -261,7 +261,7 @@ cglobal h264_biweight_4_10_%1
     BIWEIGHT_SETUP %1
     sar        r3d, 1
     lea        r4, [r2*2]
-.nextrow
+.nextrow:
     BIWEIGHT    %1, 0, r2
     movh   [r0   ], m0
     movhps [r0+r2], m0

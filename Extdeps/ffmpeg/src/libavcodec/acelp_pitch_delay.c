@@ -20,6 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "libavutil/common.h"
+#include "libavutil/libm.h"
 #include "libavutil/mathematics.h"
 #include "avcodec.h"
 #include "dsputil.h"
@@ -116,7 +118,7 @@ int16_t ff_acelp_decode_gain_code(
            );
 #else
     mr_energy = gain_corr_factor * exp(M_LN10 / (20 << 23) * mr_energy) /
-                sqrt(dsp->scalarproduct_int16(fc_v, fc_v, subframe_size, 0));
+                sqrt(dsp->scalarproduct_int16(fc_v, fc_v, subframe_size));
     return mr_energy >> 12;
 #endif
 }
@@ -130,7 +132,7 @@ float ff_amr_set_fixed_gain(float fixed_gain_factor, float fixed_mean_energy,
     // Note 10^(0.05 * -10log(average x2)) = 1/sqrt((average x2)).
     float val = fixed_gain_factor *
         exp2f(M_LOG2_10 * 0.05 *
-              (ff_dot_productf(pred_table, prediction_error, 4) +
+              (ff_scalarproduct_float_c(pred_table, prediction_error, 4) +
                energy_mean)) /
         sqrtf(fixed_mean_energy);
 

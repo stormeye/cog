@@ -58,6 +58,9 @@ typedef struct MJpegDecodeContext {
     int ls;
     int progressive;
     int rgb;
+    int upscale_h;
+    int chroma_height;
+    int upscale_v;
     int rct;            /* standard rct */
     int pegasus_rct;    /* pegasus reversible colorspace transform */
     int bits;           /* bits per component */
@@ -65,7 +68,7 @@ typedef struct MJpegDecodeContext {
     int maxval;
     int near;         ///< near lossless bound (si 0 for lossless)
     int t1,t2,t3;
-    int reset;        ///< context halfing intervall ?rename
+    int reset;        ///< context halfing interval ?rename
 
     int width, height;
     int mb_width, mb_height;

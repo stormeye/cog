@@ -69,11 +69,11 @@ static av_cold int decode_init(AVCodecContext *avctx)
 
     avctx->bits_per_raw_sample = 10;
 
-    dsputil_init(&ctx->dsp, avctx);
+    ff_dsputil_init(&ctx->dsp, avctx);
     ff_proresdsp_init(&ctx->prodsp, avctx);
 
     avctx->coded_frame = &ctx->frame;
-    ctx->frame.type = FF_I_TYPE;
+    ctx->frame.type = AV_PICTURE_TYPE_I;
     ctx->frame.key_frame = 1;
 
     ff_init_scantable_permutation(idct_permutation,
@@ -277,7 +277,7 @@ static int decode_picture_header(AVCodecContext *avctx, const uint8_t *buf, cons
             val = q;                                                    \
             SKIP_BITS(re, gb, q+1);                                     \
         }                                                               \
-    } while (0);                                                        \
+    } while (0)
 
 #define TOSIGNED(x) (((x) >> 1) ^ (-((x) & 1)))
 
@@ -302,7 +302,7 @@ static av_always_inline void decode_dc_coeffs(GetBitContext *gb, DCTELEM *out,
     code = 5;
     sign = 0;
     for (i = 1; i < blocks_per_slice; i++, out += 64) {
-        DECODE_CODEWORD(code, dc_codebook[FFMIN(code, 6)]);
+        DECODE_CODEWORD(code, dc_codebook[FFMIN(code, 6U)]);
         if(code) sign ^= -(code & 1);
         else     sign  = 0;
         prev_dc += (((code + 1) >> 1) ^ sign) - sign;
@@ -358,7 +358,7 @@ static av_always_inline void decode_ac_coeffs(AVCodecContext *avctx, GetBitConte
 }
 
 static void decode_slice_luma(AVCodecContext *avctx, SliceContext *slice,
-                              uint8_t *dst, int dst_stride,
+                              uint16_t *dst, int dst_stride,
                               const uint8_t *buf, unsigned buf_size,
                               const int16_t *qmat)
 {
@@ -379,16 +379,16 @@ static void decode_slice_luma(AVCodecContext *avctx, SliceContext *slice,
     block = blocks;
     for (i = 0; i < slice->mb_count; i++) {
         ctx->prodsp.idct_put(dst, dst_stride, block+(0<<6), qmat);
-        ctx->prodsp.idct_put(dst+16, dst_stride, block+(1<<6), qmat);
-        ctx->prodsp.idct_put(dst+8*dst_stride, dst_stride, block+(2<<6), qmat);
-        ctx->prodsp.idct_put(dst+8*dst_stride+16, dst_stride, block+(3<<6), qmat);
+        ctx->prodsp.idct_put(dst             +8, dst_stride, block+(1<<6), qmat);
+        ctx->prodsp.idct_put(dst+4*dst_stride  , dst_stride, block+(2<<6), qmat);
+        ctx->prodsp.idct_put(dst+4*dst_stride+8, dst_stride, block+(3<<6), qmat);
         block += 4*64;
-        dst += 32;
+        dst += 16;
     }
 }
 
 static void decode_slice_chroma(AVCodecContext *avctx, SliceContext *slice,
-                                uint8_t *dst, int dst_stride,
+                                uint16_t *dst, int dst_stride,
                                 const uint8_t *buf, unsigned buf_size,
                                 const int16_t *qmat, int log2_blocks_per_mb)
 {
@@ -410,9 +410,9 @@ static void decode_slice_chroma(AVCodecContext *avctx, SliceContext *slice,
     for (i = 0; i < slice->mb_count; i++) {
         for (j = 0; j < log2_blocks_per_mb; j++) {
             ctx->prodsp.idct_put(dst,              dst_stride, block+(0<<6), qmat);
-            ctx->prodsp.idct_put(dst+8*dst_stride, dst_stride, block+(1<<6), qmat);
+            ctx->prodsp.idct_put(dst+4*dst_stride, dst_stride, block+(1<<6), qmat);
             block += 2*64;
-            dst += 16;
+            dst += 8;
         }
     }
 }
@@ -431,6 +431,7 @@ static int decode_slice_thread(AVCodecContext *avctx, void *arg, int jobnr, int 
     int16_t qmat_chroma_scaled[64];
     int mb_x_shift;
 
+    slice->ret = -1;
     //av_log(avctx, AV_LOG_INFO, "slice %d mb width %d mb x %d y %d\n",
     //       jobnr, slice->mb_count, slice->mb_x, slice->mb_y);
 
@@ -482,31 +483,32 @@ static int decode_slice_thread(AVCodecContext *avctx, void *arg, int jobnr, int 
         dest_v += pic->linesize[2];
     }
 
-    decode_slice_luma(avctx, slice, dest_y, luma_stride,
+    decode_slice_luma(avctx, slice, (uint16_t*)dest_y, luma_stride,
                       buf, y_data_size, qmat_luma_scaled);
 
     if (!(avctx->flags & CODEC_FLAG_GRAY)) {
-        decode_slice_chroma(avctx, slice, dest_u, chroma_stride,
+        decode_slice_chroma(avctx, slice, (uint16_t*)dest_u, chroma_stride,
                             buf + y_data_size, u_data_size,
                             qmat_chroma_scaled, log2_chroma_blocks_per_mb);
-        decode_slice_chroma(avctx, slice, dest_v, chroma_stride,
+        decode_slice_chroma(avctx, slice, (uint16_t*)dest_v, chroma_stride,
                             buf + y_data_size + u_data_size, v_data_size,
                             qmat_chroma_scaled, log2_chroma_blocks_per_mb);
     }
 
+    slice->ret = 0;
     return 0;
 }
 
 static int decode_picture(AVCodecContext *avctx)
 {
     ProresContext *ctx = avctx->priv_data;
-    int i, threads_ret[ctx->slice_count];
+    int i;
 
-    avctx->execute2(avctx, decode_slice_thread, NULL, threads_ret, ctx->slice_count);
+    avctx->execute2(avctx, decode_slice_thread, NULL, NULL, ctx->slice_count);
 
     for (i = 0; i < ctx->slice_count; i++)
-        if (threads_ret[i] < 0)
-            return threads_ret[i];
+        if (ctx->slices[i].ret < 0)
+            return ctx->slices[i].ret;
 
     return 0;
 }
@@ -584,7 +586,7 @@ static av_cold int decode_close(AVCodecContext *avctx)
 AVCodec ff_prores_decoder = {
     .name           = "prores",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_PRORES,
+    .id             = AV_CODEC_ID_PRORES,
     .priv_data_size = sizeof(ProresContext),
     .init           = decode_init,
     .close          = decode_close,

@@ -27,11 +27,10 @@
  * @author Josh Allmann <joshua.allmann@gmail.com>
  */
 
+#include "libavutil/avassert.h"
 #include "libavutil/avstring.h"
 #include "libavutil/base64.h"
 #include "libavcodec/bytestream.h"
-
-#include <assert.h>
 
 #include "rtpdec.h"
 #include "rtpdec_formats.h"
@@ -183,7 +182,7 @@ static int xiph_handle_packet(AVFormatContext * ctx,
         data->timestamp = *timestamp;
 
     } else {
-        assert(fragmented < 4);
+        av_assert1(fragmented < 4);
         if (data->timestamp != *timestamp) {
             // skip if fragmented timestamp is incorrect;
             // a start packet has been lost somewhere
@@ -372,9 +371,12 @@ static int xiph_parse_fmtp_pair(AVStream* stream,
 }
 
 static int xiph_parse_sdp_line(AVFormatContext *s, int st_index,
-                                 PayloadContext *data, const char *line)
+                               PayloadContext *data, const char *line)
 {
     const char *p;
+
+    if (st_index < 0)
+        return 0;
 
     if (av_strstart(line, "fmtp:", &p)) {
         return ff_parse_fmtp(s->streams[st_index], data, p,
@@ -387,7 +389,7 @@ static int xiph_parse_sdp_line(AVFormatContext *s, int st_index,
 RTPDynamicProtocolHandler ff_theora_dynamic_handler = {
     .enc_name         = "theora",
     .codec_type       = AVMEDIA_TYPE_VIDEO,
-    .codec_id         = CODEC_ID_THEORA,
+    .codec_id         = AV_CODEC_ID_THEORA,
     .parse_sdp_a_line = xiph_parse_sdp_line,
     .alloc            = xiph_new_context,
     .free             = xiph_free_context,
@@ -397,7 +399,7 @@ RTPDynamicProtocolHandler ff_theora_dynamic_handler = {
 RTPDynamicProtocolHandler ff_vorbis_dynamic_handler = {
     .enc_name         = "vorbis",
     .codec_type       = AVMEDIA_TYPE_AUDIO,
-    .codec_id         = CODEC_ID_VORBIS,
+    .codec_id         = AV_CODEC_ID_VORBIS,
     .parse_sdp_a_line = xiph_parse_sdp_line,
     .alloc            = xiph_new_context,
     .free             = xiph_free_context,

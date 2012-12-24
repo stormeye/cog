@@ -211,7 +211,7 @@ static inline uint64_t avg4(uint64_t l1, uint64_t l2, uint64_t l3, uint64_t l4)
 
 #define MAKE_OP(OPNAME, SUFF, OPKIND, STORE)                                \
 static void OPNAME ## _pixels ## SUFF ## _axp                               \
-        (uint8_t *restrict block, const uint8_t *restrict pixels,           \
+        (uint8_t *av_restrict block, const uint8_t *av_restrict pixels,           \
          int line_size, int h)                                              \
 {                                                                           \
     if ((size_t) pixels & 0x7) {                                            \
@@ -222,7 +222,7 @@ static void OPNAME ## _pixels ## SUFF ## _axp                               \
 }                                                                           \
                                                                             \
 static void OPNAME ## _pixels16 ## SUFF ## _axp                             \
-        (uint8_t *restrict block, const uint8_t *restrict pixels,           \
+        (uint8_t *av_restrict block, const uint8_t *av_restrict pixels,           \
          int line_size, int h)                                              \
 {                                                                           \
     OPNAME ## _pixels ## SUFF ## _axp(block,     pixels,     line_size, h); \
@@ -268,7 +268,7 @@ static void put_pixels16_axp_asm(uint8_t *block, const uint8_t *pixels,
     put_pixels_axp_asm(block + 8, pixels + 8, line_size, h);
 }
 
-void dsputil_init_alpha(DSPContext* c, AVCodecContext *avctx)
+void ff_dsputil_init_alpha(DSPContext* c, AVCodecContext *avctx)
 {
     const int high_bit_depth = avctx->bits_per_raw_sample > 8;
 

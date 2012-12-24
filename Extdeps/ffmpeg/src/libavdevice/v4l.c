@@ -21,8 +21,6 @@
 
 #include "avdevice.h"
 
-#if FF_API_V4L
-
 #undef __STRICT_ANSI__ //workaround due to broken kernel headers
 #include "config.h"
 #include "libavutil/rational.h"
@@ -243,7 +241,7 @@ static int grab_read_header(AVFormatContext *s1, AVFormatParameters *ap)
     s->fd = video_fd;
 
     st->codec->codec_type = AVMEDIA_TYPE_VIDEO;
-    st->codec->codec_id = CODEC_ID_RAWVIDEO;
+    st->codec->codec_id = AV_CODEC_ID_RAWVIDEO;
     st->codec->width = s->video_win.width;
     st->codec->height = s->video_win.height;
     st->codec->time_base = s->time_base;
@@ -339,10 +337,10 @@ static int grab_read_close(AVFormatContext *s1)
 }
 
 static const AVOption options[] = {
-    { "standard", "", offsetof(VideoData, standard), AV_OPT_TYPE_INT, {.dbl = VIDEO_MODE_NTSC}, VIDEO_MODE_PAL, VIDEO_MODE_NTSC, AV_OPT_FLAG_DECODING_PARAM, "standard" },
-    { "PAL",   "", 0, AV_OPT_TYPE_CONST, {.dbl = VIDEO_MODE_PAL},   0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
-    { "SECAM", "", 0, AV_OPT_TYPE_CONST, {.dbl = VIDEO_MODE_SECAM}, 0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
-    { "NTSC",  "", 0, AV_OPT_TYPE_CONST, {.dbl = VIDEO_MODE_NTSC},  0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
+    { "standard", "", offsetof(VideoData, standard), AV_OPT_TYPE_INT, {.i64 = VIDEO_MODE_NTSC}, VIDEO_MODE_PAL, VIDEO_MODE_NTSC, AV_OPT_FLAG_DECODING_PARAM, "standard" },
+    { "PAL",   "", 0, AV_OPT_TYPE_CONST, {.i64 = VIDEO_MODE_PAL},   0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
+    { "SECAM", "", 0, AV_OPT_TYPE_CONST, {.i64 = VIDEO_MODE_SECAM}, 0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
+    { "NTSC",  "", 0, AV_OPT_TYPE_CONST, {.i64 = VIDEO_MODE_NTSC},  0, 0, AV_OPT_FLAG_DECODING_PARAM, "standard" },
     { NULL },
 };
 
@@ -363,4 +361,3 @@ AVInputFormat ff_v4l_demuxer = {
     .flags          = AVFMT_NOFILE,
     .priv_class     = &v4l_class,
 };
-#endif  /* FF_API_V4L */

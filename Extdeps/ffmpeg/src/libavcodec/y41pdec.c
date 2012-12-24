@@ -64,7 +64,7 @@ static int y41p_decode_frame(AVCodecContext *avctx, void *data,
     }
 
     pic->key_frame = 1;
-    pic->pict_type = FF_I_TYPE;
+    pic->pict_type = AV_PICTURE_TYPE_I;
 
     for (i = avctx->height - 1; i >= 0 ; i--) {
         y = &pic->data[0][i * pic->linesize[0]];
@@ -107,7 +107,7 @@ static av_cold int y41p_decode_close(AVCodecContext *avctx)
 AVCodec ff_y41p_decoder = {
     .name         = "y41p",
     .type         = AVMEDIA_TYPE_VIDEO,
-    .id           = CODEC_ID_Y41P,
+    .id           = AV_CODEC_ID_Y41P,
     .init         = y41p_decode_init,
     .decode       = y41p_decode_frame,
     .close        = y41p_decode_close,

@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "libavutil/common.h"
 #include "libavutil/intreadwrite.h"
 #include "avcodec.h"
 
@@ -36,7 +37,6 @@
  * Decoder context
  */
 typedef struct DxaDecContext {
-    AVCodecContext *avctx;
     AVFrame pic, prev;
 
     int dsize;
@@ -292,7 +292,6 @@ static av_cold int decode_init(AVCodecContext *avctx)
 {
     DxaDecContext * const c = avctx->priv_data;
 
-    c->avctx = avctx;
     avctx->pix_fmt = PIX_FMT_PAL8;
 
     avcodec_get_frame_defaults(&c->pic);
@@ -323,12 +322,11 @@ static av_cold int decode_end(AVCodecContext *avctx)
 AVCodec ff_dxa_decoder = {
     .name           = "dxa",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_DXA,
+    .id             = AV_CODEC_ID_DXA,
     .priv_data_size = sizeof(DxaDecContext),
     .init           = decode_init,
     .close          = decode_end,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Feeble Files/ScummVM DXA"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Feeble Files/ScummVM DXA"),
 };
-

@@ -47,7 +47,7 @@ void ff_put_pixels8_y2_no_rnd_armv6(uint8_t *, const uint8_t *, int, int);
 void ff_avg_pixels8_armv6(uint8_t *, const uint8_t *, int, int);
 
 void ff_add_pixels_clamped_armv6(const DCTELEM *block,
-                                 uint8_t *restrict pixels,
+                                 uint8_t *av_restrict pixels,
                                  int line_size);
 
 void ff_get_pixels_armv6(DCTELEM *block, const uint8_t *pixels, int stride);
@@ -70,7 +70,7 @@ int ff_sse16_armv6(void *s, uint8_t *blk1, uint8_t *blk2,
 int ff_pix_norm1_armv6(uint8_t *pix, int line_size);
 int ff_pix_sum_armv6(uint8_t *pix, int line_size);
 
-void av_cold ff_dsputil_init_armv6(DSPContext* c, AVCodecContext *avctx)
+av_cold void ff_dsputil_init_armv6(DSPContext *c, AVCodecContext *avctx)
 {
     const int high_bit_depth = avctx->bits_per_raw_sample > 8;
 

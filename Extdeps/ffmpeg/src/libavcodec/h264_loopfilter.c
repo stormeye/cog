@@ -34,9 +34,6 @@
 #include "mathops.h"
 #include "rectangle.h"
 
-//#undef NDEBUG
-#include <assert.h>
-
 /* Deblocking filter (p153) */
 static const uint8_t alpha_table[52*3] = {
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -101,7 +98,11 @@ static const uint8_t tc0_table[52*3][4] = {
 };
 
 /* intra: 0 if this loopfilter call is guaranteed to be inter (bS < 4), 1 if it might be intra (bS == 4) */
-static void av_always_inline filter_mb_edgev( uint8_t *pix, int stride, const int16_t bS[4], unsigned int qp, int a, int b, H264Context *h, int intra ) {
+static av_always_inline void filter_mb_edgev(uint8_t *pix, int stride,
+                                             const int16_t bS[4],
+                                             unsigned int qp, int a, int b,
+                                             H264Context *h, int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -118,7 +119,12 @@ static void av_always_inline filter_mb_edgev( uint8_t *pix, int stride, const in
         h->h264dsp.h264_h_loop_filter_luma_intra(pix, stride, alpha, beta);
     }
 }
-static void av_always_inline filter_mb_edgecv( uint8_t *pix, int stride, const int16_t bS[4], unsigned int qp, int a, int b, H264Context *h, int intra ) {
+
+static av_always_inline void filter_mb_edgecv(uint8_t *pix, int stride,
+                                              const int16_t bS[4],
+                                              unsigned int qp, int a, int b,
+                                              H264Context *h, int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -136,7 +142,12 @@ static void av_always_inline filter_mb_edgecv( uint8_t *pix, int stride, const i
     }
 }
 
-static void av_always_inline filter_mb_mbaff_edgev( H264Context *h, uint8_t *pix, int stride, const int16_t bS[7], int bsi, int qp, int a, int b, int intra ) {
+static av_always_inline void filter_mb_mbaff_edgev(H264Context *h, uint8_t *pix,
+                                                   int stride,
+                                                   const int16_t bS[7], int bsi,
+                                                   int qp, int a, int b,
+                                                   int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -153,7 +164,13 @@ static void av_always_inline filter_mb_mbaff_edgev( H264Context *h, uint8_t *pix
         h->h264dsp.h264_h_loop_filter_luma_mbaff_intra(pix, stride, alpha, beta);
     }
 }
-static void av_always_inline filter_mb_mbaff_edgecv( H264Context *h, uint8_t *pix, int stride, const int16_t bS[7], int bsi, int qp, int a, int b, int intra ) {
+
+static av_always_inline void filter_mb_mbaff_edgecv(H264Context *h,
+                                                    uint8_t *pix, int stride,
+                                                    const int16_t bS[7],
+                                                    int bsi, int qp, int a,
+                                                    int b, int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -171,7 +188,11 @@ static void av_always_inline filter_mb_mbaff_edgecv( H264Context *h, uint8_t *pi
     }
 }
 
-static void av_always_inline filter_mb_edgeh( uint8_t *pix, int stride, const int16_t bS[4], unsigned int qp, int a, int b, H264Context *h, int intra ) {
+static av_always_inline void filter_mb_edgeh(uint8_t *pix, int stride,
+                                             const int16_t bS[4],
+                                             unsigned int qp, int a, int b,
+                                             H264Context *h, int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -189,7 +210,11 @@ static void av_always_inline filter_mb_edgeh( uint8_t *pix, int stride, const in
     }
 }
 
-static void av_always_inline filter_mb_edgech( uint8_t *pix, int stride, const int16_t bS[4], unsigned int qp, int a, int b, H264Context *h, int intra ) {
+static av_always_inline void filter_mb_edgech(uint8_t *pix, int stride,
+                                              const int16_t bS[4],
+                                              unsigned int qp, int a, int b,
+                                              H264Context *h, int intra)
+{
     const unsigned int index_a = qp + a;
     const int alpha = alpha_table[index_a];
     const int beta  = beta_table[qp + b];
@@ -207,10 +232,17 @@ static void av_always_inline filter_mb_edgech( uint8_t *pix, int stride, const i
     }
 }
 
-static void av_always_inline h264_filter_mb_fast_internal( H264Context *h, int mb_x, int mb_y, uint8_t *img_y, uint8_t *img_cb, uint8_t *img_cr,
-                                                           unsigned int linesize, unsigned int uvlinesize, int pixel_shift) {
+static av_always_inline void h264_filter_mb_fast_internal(H264Context *h,
+                                                          int mb_x, int mb_y,
+                                                          uint8_t *img_y,
+                                                          uint8_t *img_cb,
+                                                          uint8_t *img_cr,
+                                                          unsigned int linesize,
+                                                          unsigned int uvlinesize,
+                                                          int pixel_shift)
+{
     MpegEncContext * const s = &h->s;
-    int chroma = !(CONFIG_GRAY && (s->flags&CODEC_FLAG_GRAY));
+    int chroma = CHROMA && !(CONFIG_GRAY && (s->flags&CODEC_FLAG_GRAY));
     int chroma444 = CHROMA444;
     int chroma422 = CHROMA422;
 
@@ -383,7 +415,7 @@ static void av_always_inline h264_filter_mb_fast_internal( H264Context *h, int m
 }
 
 void ff_h264_filter_mb_fast( H264Context *h, int mb_x, int mb_y, uint8_t *img_y, uint8_t *img_cb, uint8_t *img_cr, unsigned int linesize, unsigned int uvlinesize) {
-    assert(!FRAME_MBAFF);
+    av_assert2(!FRAME_MBAFF);
     if(!h->h264dsp.h264_loop_filter_strength || h->pps.chroma_qp_diff) {
         ff_h264_filter_mb(h, mb_x, mb_y, img_y, img_cb, img_cr, linesize, uvlinesize);
         return;
@@ -678,7 +710,7 @@ void ff_h264_filter_mb( H264Context *h, int mb_x, int mb_y, uint8_t *img_y, uint
     const int mvy_limit = IS_INTERLACED(mb_type) ? 2 : 4;
     int first_vertical_edge_done = 0;
     av_unused int dir;
-    int chroma = !(CONFIG_GRAY && (s->flags&CODEC_FLAG_GRAY));
+    int chroma = CHROMA && !(CONFIG_GRAY && (s->flags&CODEC_FLAG_GRAY));
     int qp_bd_offset = 6 * (h->sps.bit_depth_luma - 8);
     int a = h->slice_alpha_c0_offset - qp_bd_offset;
     int b = h->slice_beta_offset - qp_bd_offset;

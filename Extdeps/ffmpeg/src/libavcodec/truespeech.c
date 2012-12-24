@@ -37,7 +37,7 @@ typedef struct {
     AVFrame frame;
     DSPContext dsp;
     /* input data */
-    uint8_t buffer[32];
+    DECLARE_ALIGNED(16, uint8_t, buffer)[32];
     int16_t vector[8];  ///< input vector: 5/5/4/4/4/3/3/3
     int offset1[2];     ///< 8-bit value, used in one copying offset
     int offset2[4];     ///< 7-bit value, encodes offsets for copying and for two-point filter
@@ -68,7 +68,7 @@ static av_cold int truespeech_decode_init(AVCodecContext * avctx)
 
     avctx->sample_fmt = AV_SAMPLE_FMT_S16;
 
-    dsputil_init(&c->dsp, avctx);
+    ff_dsputil_init(&c->dsp, avctx);
 
     avcodec_get_frame_defaults(&c->frame);
     avctx->coded_frame = &c->frame;
@@ -182,7 +182,7 @@ static void truespeech_apply_twopoint_filter(TSContext *dec, int quart)
     off = av_clip(off, 0, 145);
     ptr0 = tmp + 145 - off;
     ptr1 = tmp + 146;
-    filter = (const int16_t*)ts_order2_coeffs + (t % 25) * 2;
+    filter = ts_order2_coeffs + (t % 25) * 2;
     for(i = 0; i < 60; i++){
         t = (ptr0[0] * filter[0] + ptr0[1] * filter[1] + 0x2000) >> 14;
         ptr0++;
@@ -207,7 +207,7 @@ static void truespeech_place_pulses(TSContext *dec, int16_t *out, int quart)
     }
 
     coef = dec->pulsepos[quart] >> 15;
-    ptr1 = (const int16_t*)ts_pulse_values + 30;
+    ptr1 = ts_pulse_values + 30;
     ptr2 = tmp;
     for(i = 0, j = 3; (i < 30) && (j > 0); i++){
         t = *ptr1++;
@@ -220,7 +220,7 @@ static void truespeech_place_pulses(TSContext *dec, int16_t *out, int quart)
         }
     }
     coef = dec->pulsepos[quart] & 0x7FFF;
-    ptr1 = (const int16_t*)ts_pulse_values;
+    ptr1 = ts_pulse_values;
     for(i = 30, j = 4; (i < 60) && (j > 0); i++){
         t = *ptr1++;
         if(coef >= t)
@@ -360,10 +360,10 @@ static int truespeech_decode_frame(AVCodecContext *avctx, void *data,
 AVCodec ff_truespeech_decoder = {
     .name           = "truespeech",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_TRUESPEECH,
+    .id             = AV_CODEC_ID_TRUESPEECH,
     .priv_data_size = sizeof(TSContext),
     .init           = truespeech_decode_init,
     .decode         = truespeech_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("DSP Group TrueSpeech"),
+    .long_name      = NULL_IF_CONFIG_SMALL("DSP Group TrueSpeech"),
 };

@@ -19,6 +19,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "libavutil/imgutils.h"
 #include "avcodec.h"
 #include "pnm.h"
@@ -34,12 +37,12 @@ static void pnm_get(PNMContext *sc, char *str, int buf_size)
     int c;
 
     /* skip spaces and comments */
-    for (;;) {
+    while (sc->bytestream < sc->bytestream_end) {
         c = *sc->bytestream++;
         if (c == '#')  {
-            do {
+            while (c != '\n' && sc->bytestream < sc->bytestream_end) {
                 c = *sc->bytestream++;
-            } while (c != '\n' && sc->bytestream < sc->bytestream_end);
+            }
         } else if (!pnm_space(c)) {
             break;
         }
@@ -67,7 +70,7 @@ int ff_pnm_decode_header(AVCodecContext *avctx, PNMContext * const s)
     if (s->type==1 || s->type==4) {
         avctx->pix_fmt = PIX_FMT_MONOWHITE;
     } else if (s->type==2 || s->type==5) {
-        if (avctx->codec_id == CODEC_ID_PGMYUV)
+        if (avctx->codec_id == AV_CODEC_ID_PGMYUV)
             avctx->pix_fmt = PIX_FMT_YUV420P;
         else
             avctx->pix_fmt = PIX_FMT_GRAY8;
@@ -93,7 +96,9 @@ int ff_pnm_decode_header(AVCodecContext *avctx, PNMContext * const s)
             } else if (!strcmp(buf1, "MAXVAL")) {
                 pnm_get(s, buf1, sizeof(buf1));
                 maxval = strtol(buf1, NULL, 10);
-            } else if (!strcmp(buf1, "TUPLETYPE")) {
+            } else if (!strcmp(buf1, "TUPLTYPE") ||
+                       /* libavcodec used to write invalid files */
+                       !strcmp(buf1, "TUPLETYPE")) {
                 pnm_get(s, tuple_type, sizeof(tuple_type));
             } else if (!strcmp(buf1, "ENDHDR")) {
                 break;
@@ -102,27 +107,35 @@ int ff_pnm_decode_header(AVCodecContext *avctx, PNMContext * const s)
             }
         }
         /* check that all tags are present */
-        if (w <= 0 || h <= 0 || maxval <= 0 || depth <= 0 || tuple_type[0] == '\0' || av_image_check_size(w, h, 0, avctx))
+        if (w <= 0 || h <= 0 || maxval <= 0 || depth <= 0 || tuple_type[0] == '\0' || av_image_check_size(w, h, 0, avctx) || s->bytestream >= s->bytestream_end)
             return -1;
 
         avctx->width  = w;
         avctx->height = h;
         s->maxval     = maxval;
         if (depth == 1) {
-            if (maxval == 1)
-                avctx->pix_fmt = PIX_FMT_MONOWHITE;
-            else
+            if (maxval == 1) {
+                avctx->pix_fmt = PIX_FMT_MONOBLACK;
+            } else if (maxval == 255) {
                 avctx->pix_fmt = PIX_FMT_GRAY8;
+            } else {
+                avctx->pix_fmt = PIX_FMT_GRAY16BE;
+            }
+        } else if (depth == 2) {
+            if (maxval == 255)
+                avctx->pix_fmt = PIX_FMT_GRAY8A;
         } else if (depth == 3) {
             if (maxval < 256) {
             avctx->pix_fmt = PIX_FMT_RGB24;
             } else {
-                av_log(avctx, AV_LOG_ERROR, "16-bit components are only supported for grayscale\n");
-                avctx->pix_fmt = PIX_FMT_NONE;
-                return -1;
+                avctx->pix_fmt = PIX_FMT_RGB48BE;
             }
         } else if (depth == 4) {
-            avctx->pix_fmt = PIX_FMT_RGB32;
+            if (maxval < 256) {
+                avctx->pix_fmt = PIX_FMT_RGBA;
+            } else {
+                avctx->pix_fmt = PIX_FMT_RGBA64BE;
+            }
         } else {
             return -1;
         }
@@ -131,14 +144,16 @@ int ff_pnm_decode_header(AVCodecContext *avctx, PNMContext * const s)
         return -1;
     }
     pnm_get(s, buf1, sizeof(buf1));
-    avctx->width = atoi(buf1);
-    if (avctx->width <= 0)
-        return -1;
+    w = atoi(buf1);
     pnm_get(s, buf1, sizeof(buf1));
-    avctx->height = atoi(buf1);
-    if(avctx->height <= 0 || av_image_check_size(avctx->width, avctx->height, 0, avctx))
+    h = atoi(buf1);
+    if(w <= 0 || h <= 0 || av_image_check_size(w, h, 0, avctx) || s->bytestream >= s->bytestream_end)
         return -1;
-    if (avctx->pix_fmt != PIX_FMT_MONOWHITE) {
+
+    avctx->width  = w;
+    avctx->height = h;
+
+    if (avctx->pix_fmt != PIX_FMT_MONOWHITE && avctx->pix_fmt != PIX_FMT_MONOBLACK) {
         pnm_get(s, buf1, sizeof(buf1));
         s->maxval = atoi(buf1);
         if (s->maxval <= 0) {
@@ -188,8 +203,8 @@ av_cold int ff_pnm_init(AVCodecContext *avctx)
 {
     PNMContext *s = avctx->priv_data;
 
-    avcodec_get_frame_defaults((AVFrame*)&s->picture);
-    avctx->coded_frame = (AVFrame*)&s->picture;
+    avcodec_get_frame_defaults(&s->picture);
+    avctx->coded_frame = &s->picture;
 
     return 0;
 }

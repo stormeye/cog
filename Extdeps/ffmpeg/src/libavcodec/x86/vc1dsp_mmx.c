@@ -25,10 +25,13 @@
  */
 
 #include "libavutil/cpu.h"
-#include "libavutil/x86_cpu.h"
+#include "libavutil/mem.h"
+#include "libavutil/x86/asm.h"
 #include "libavcodec/dsputil.h"
 #include "dsputil_mmx.h"
 #include "libavcodec/vc1dsp.h"
+
+#if HAVE_INLINE_ASM
 
 #define OP_PUT(S,D)
 #define OP_AVG(S,D) "pavgb " #S ", " #D " \n\t"
@@ -682,6 +685,8 @@ static void vc1_inv_trans_8x8_dc_mmx2(uint8_t *dest, int linesize, DCTELEM *bloc
     );
 }
 
+#endif /* HAVE_INLINE_ASM */
+
 #define LOOP_FILTER(EXT) \
 void ff_vc1_v_loop_filter4_ ## EXT(uint8_t *src, int stride, int pq); \
 void ff_vc1_h_loop_filter4_ ## EXT(uint8_t *src, int stride, int pq); \
@@ -701,7 +706,6 @@ static void vc1_h_loop_filter16_ ## EXT(uint8_t *src, int stride, int pq) \
 }
 
 #if HAVE_YASM
-LOOP_FILTER(mmx)
 LOOP_FILTER(mmx2)
 LOOP_FILTER(sse2)
 LOOP_FILTER(ssse3)
@@ -713,8 +717,7 @@ static void vc1_h_loop_filter16_sse4(uint8_t *src, int stride, int pq)
     ff_vc1_h_loop_filter8_sse4(src,          stride, pq);
     ff_vc1_h_loop_filter8_sse4(src+8*stride, stride, pq);
 }
-
-#endif
+#endif /* HAVE_YASM */
 
 void ff_put_vc1_chroma_mc8_mmx_nornd  (uint8_t *dst, uint8_t *src,
                                        int stride, int h, int x, int y);
@@ -731,6 +734,7 @@ void ff_vc1dsp_init_mmx(VC1DSPContext *dsp)
 {
     int mm_flags = av_get_cpu_flags();
 
+#if HAVE_INLINE_ASM
     if (mm_flags & AV_CPU_FLAG_MMX) {
         dsp->put_vc1_mspel_pixels_tab[ 0] = ff_put_vc1_mspel_mc00_mmx;
         dsp->put_vc1_mspel_pixels_tab[ 4] = put_vc1_mspel_mc01_mmx;
@@ -751,9 +755,12 @@ void ff_vc1dsp_init_mmx(VC1DSPContext *dsp)
         dsp->put_vc1_mspel_pixels_tab[ 7] = put_vc1_mspel_mc31_mmx;
         dsp->put_vc1_mspel_pixels_tab[11] = put_vc1_mspel_mc32_mmx;
         dsp->put_vc1_mspel_pixels_tab[15] = put_vc1_mspel_mc33_mmx;
+
+        if (HAVE_YASM)
+            dsp->put_no_rnd_vc1_chroma_pixels_tab[0]= ff_put_vc1_chroma_mc8_mmx_nornd;
     }
 
-    if (mm_flags & AV_CPU_FLAG_MMX2){
+    if (mm_flags & AV_CPU_FLAG_MMXEXT) {
         dsp->avg_vc1_mspel_pixels_tab[ 0] = ff_avg_vc1_mspel_mc00_mmx2;
         dsp->avg_vc1_mspel_pixels_tab[ 4] = avg_vc1_mspel_mc01_mmx2;
         dsp->avg_vc1_mspel_pixels_tab[ 8] = avg_vc1_mspel_mc02_mmx2;
@@ -778,7 +785,18 @@ void ff_vc1dsp_init_mmx(VC1DSPContext *dsp)
         dsp->vc1_inv_trans_4x8_dc = vc1_inv_trans_4x8_dc_mmx2;
         dsp->vc1_inv_trans_8x4_dc = vc1_inv_trans_8x4_dc_mmx2;
         dsp->vc1_inv_trans_4x4_dc = vc1_inv_trans_4x4_dc_mmx2;
+
+        if (HAVE_YASM)
+            dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_mmx2_nornd;
+    } else if (HAVE_YASM && mm_flags & AV_CPU_FLAG_3DNOW) {
+        dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_3dnow_nornd;
     }
+
+    if (HAVE_YASM && mm_flags & AV_CPU_FLAG_SSSE3) {
+        dsp->put_no_rnd_vc1_chroma_pixels_tab[0]= ff_put_vc1_chroma_mc8_ssse3_nornd;
+        dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_ssse3_nornd;
+    }
+#endif /* HAVE_INLINE_ASM */
 
 #define ASSIGN_LF(EXT) \
         dsp->vc1_v_loop_filter4  = ff_vc1_v_loop_filter4_ ## EXT; \
@@ -790,15 +808,10 @@ void ff_vc1dsp_init_mmx(VC1DSPContext *dsp)
 
 #if HAVE_YASM
     if (mm_flags & AV_CPU_FLAG_MMX) {
-        ASSIGN_LF(mmx);
-        dsp->put_no_rnd_vc1_chroma_pixels_tab[0]= ff_put_vc1_chroma_mc8_mmx_nornd;
     }
-    return;
-    if (mm_flags & AV_CPU_FLAG_MMX2) {
+
+    if (mm_flags & AV_CPU_FLAG_MMXEXT) {
         ASSIGN_LF(mmx2);
-        dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_mmx2_nornd;
-    } else if (mm_flags & AV_CPU_FLAG_3DNOW) {
-        dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_3dnow_nornd;
     }
 
     if (mm_flags & AV_CPU_FLAG_SSE2) {
@@ -809,12 +822,10 @@ void ff_vc1dsp_init_mmx(VC1DSPContext *dsp)
     }
     if (mm_flags & AV_CPU_FLAG_SSSE3) {
         ASSIGN_LF(ssse3);
-        dsp->put_no_rnd_vc1_chroma_pixels_tab[0]= ff_put_vc1_chroma_mc8_ssse3_nornd;
-        dsp->avg_no_rnd_vc1_chroma_pixels_tab[0]= ff_avg_vc1_chroma_mc8_ssse3_nornd;
     }
     if (mm_flags & AV_CPU_FLAG_SSE4) {
         dsp->vc1_h_loop_filter8  = ff_vc1_h_loop_filter8_sse4;
         dsp->vc1_h_loop_filter16 = vc1_h_loop_filter16_sse4;
     }
-#endif
+#endif /* HAVE_YASM */
 }

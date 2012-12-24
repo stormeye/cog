@@ -30,6 +30,7 @@
 #include "get_bits.h"
 #include "dnxhddata.h"
 #include "dsputil.h"
+#include "thread.h"
 
 typedef struct DNXHDContext {
     AVCodecContext *avctx;
@@ -81,11 +82,15 @@ static int dnxhd_init_vlc(DNXHDContext *ctx, int cid)
             av_log(ctx->avctx, AV_LOG_ERROR, "unsupported cid %d\n", cid);
             return -1;
         }
+        if (ff_dnxhd_cid_table[index].bit_depth != ctx->bit_depth) {
+            av_log(ctx->avctx, AV_LOG_ERROR, "bit depth mismatches %d %d\n", ff_dnxhd_cid_table[index].bit_depth, ctx->bit_depth);
+            return AVERROR_INVALIDDATA;
+        }
         ctx->cid_table = &ff_dnxhd_cid_table[index];
 
-        free_vlc(&ctx->ac_vlc);
-        free_vlc(&ctx->dc_vlc);
-        free_vlc(&ctx->run_vlc);
+        ff_free_vlc(&ctx->ac_vlc);
+        ff_free_vlc(&ctx->dc_vlc);
+        ff_free_vlc(&ctx->run_vlc);
 
         init_vlc(&ctx->ac_vlc, DNXHD_VLC_BITS, 257,
                  ctx->cid_table->ac_bits, 1, 1,
@@ -131,7 +136,7 @@ static int dnxhd_decode_header(DNXHDContext *ctx, const uint8_t *buf, int buf_si
         ctx->avctx->pix_fmt = PIX_FMT_YUV422P10;
         ctx->avctx->bits_per_raw_sample = 10;
         if (ctx->bit_depth != 10) {
-            dsputil_init(&ctx->dsp, ctx->avctx);
+            ff_dsputil_init(&ctx->dsp, ctx->avctx);
             ctx->bit_depth = 10;
             ctx->decode_dct_block = dnxhd_decode_dct_block_10;
         }
@@ -139,7 +144,7 @@ static int dnxhd_decode_header(DNXHDContext *ctx, const uint8_t *buf, int buf_si
         ctx->avctx->pix_fmt = PIX_FMT_YUV422P;
         ctx->avctx->bits_per_raw_sample = 8;
         if (ctx->bit_depth != 8) {
-            dsputil_init(&ctx->dsp, ctx->avctx);
+            ff_dsputil_init(&ctx->dsp, ctx->avctx);
             ctx->bit_depth = 8;
             ctx->decode_dct_block = dnxhd_decode_dct_block_8;
         }
@@ -365,6 +370,7 @@ static int dnxhd_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
     DNXHDContext *ctx = avctx->priv_data;
     AVFrame *picture = data;
     int first_field = 1;
+    int ret;
 
     av_dlog(avctx, "frame size %d\n", buf_size);
 
@@ -385,10 +391,10 @@ static int dnxhd_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
 
     if (first_field) {
         if (ctx->picture.data[0])
-            avctx->release_buffer(avctx, &ctx->picture);
-        if (avctx->get_buffer(avctx, &ctx->picture) < 0) {
+            ff_thread_release_buffer(avctx, &ctx->picture);
+        if ((ret = ff_thread_get_buffer(avctx, &ctx->picture)) < 0) {
             av_log(avctx, AV_LOG_ERROR, "get_buffer() failed\n");
-            return -1;
+            return ret;
         }
     }
 
@@ -411,21 +417,21 @@ static av_cold int dnxhd_decode_close(AVCodecContext *avctx)
     DNXHDContext *ctx = avctx->priv_data;
 
     if (ctx->picture.data[0])
-        avctx->release_buffer(avctx, &ctx->picture);
-    free_vlc(&ctx->ac_vlc);
-    free_vlc(&ctx->dc_vlc);
-    free_vlc(&ctx->run_vlc);
+        ff_thread_release_buffer(avctx, &ctx->picture);
+    ff_free_vlc(&ctx->ac_vlc);
+    ff_free_vlc(&ctx->dc_vlc);
+    ff_free_vlc(&ctx->run_vlc);
     return 0;
 }
 
 AVCodec ff_dnxhd_decoder = {
     .name           = "dnxhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_DNXHD,
+    .id             = AV_CODEC_ID_DNXHD,
     .priv_data_size = sizeof(DNXHDContext),
     .init           = dnxhd_decode_init,
     .close          = dnxhd_decode_close,
     .decode         = dnxhd_decode_frame,
-    .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("VC3/DNxHD"),
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_FRAME_THREADS,
+    .long_name      = NULL_IF_CONFIG_SMALL("VC3/DNxHD"),
 };

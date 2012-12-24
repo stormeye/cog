@@ -20,7 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include <string.h>
+
 #include "parser.h"
+#include "libavutil/mem.h"
 
 static AVCodecParser *av_first_parser = NULL;
 
@@ -41,7 +44,7 @@ AVCodecParserContext *av_parser_init(int codec_id)
     AVCodecParser *parser;
     int ret;
 
-    if(codec_id == CODEC_ID_NONE)
+    if(codec_id == AV_CODEC_ID_NONE)
         return NULL;
 
     for(parser = av_first_parser; parser != NULL; parser = parser->next) {
@@ -63,6 +66,8 @@ AVCodecParserContext *av_parser_init(int codec_id)
         av_free(s);
         return NULL;
     }
+    s->fetch_timestamp=1;
+    s->pict_type = AV_PICTURE_TYPE_I;
     if (parser->parser_init) {
         ret = parser->parser_init(s);
         if (ret != 0) {
@@ -71,8 +76,6 @@ AVCodecParserContext *av_parser_init(int codec_id)
             return NULL;
         }
     }
-    s->fetch_timestamp=1;
-    s->pict_type = AV_PICTURE_TYPE_I;
     s->key_frame = -1;
     s->convergence_duration = 0;
     s->dts_sync_point       = INT_MIN;
@@ -91,7 +94,7 @@ void ff_fetch_timestamp(AVCodecParserContext *s, int off, int remove){
         if (   s->cur_offset + off >= s->cur_frame_offset[i]
             && (s->frame_offset < s->cur_frame_offset[i] ||
               (!s->frame_offset && !s->next_frame_offset)) // first field/frame
-            //check is disabled  because mpeg-ts doesnt send complete PES packets
+            //check is disabled because mpeg-ts doesn't send complete PES packets
             && /*s->next_frame_offset + off <*/  s->cur_frame_end[i]){
             s->dts= s->cur_frame_dts[i];
             s->pts= s->cur_frame_pts[i];
@@ -214,15 +217,15 @@ void av_parser_close(AVCodecParserContext *s)
 /*****************************************************/
 
 /**
- * combines the (truncated) bitstream to a complete frame
+ * Combine the (truncated) bitstream to a complete frame.
  * @return -1 if no complete frame could be created, AVERROR(ENOMEM) if there was a memory allocation error
  */
 int ff_combine_frame(ParseContext *pc, int next, const uint8_t **buf, int *buf_size)
 {
     if(pc->overread){
-        av_dlog(pc, "overread %d, state:%X next:%d index:%d o_index:%d\n",
+        av_dlog(NULL, "overread %d, state:%X next:%d index:%d o_index:%d\n",
                 pc->overread, pc->state, next, pc->index, pc->overread_index);
-        av_dlog(pc, "%X %X %X %X\n", (*buf)[0], (*buf)[1], (*buf)[2], (*buf)[3]);
+        av_dlog(NULL, "%X %X %X %X\n", (*buf)[0], (*buf)[1], (*buf)[2], (*buf)[3]);
     }
 
     /* Copy overread bytes from last frame into buffer. */
@@ -272,9 +275,9 @@ int ff_combine_frame(ParseContext *pc, int next, const uint8_t **buf, int *buf_s
     }
 
     if(pc->overread){
-        av_dlog(pc, "overread %d, state:%X next:%d index:%d o_index:%d\n",
+        av_dlog(NULL, "overread %d, state:%X next:%d index:%d o_index:%d\n",
                 pc->overread, pc->state, next, pc->index, pc->overread_index);
-        av_dlog(pc, "%X %X %X %X\n", (*buf)[0], (*buf)[1],(*buf)[2],(*buf)[3]);
+        av_dlog(NULL, "%X %X %X %X\n", (*buf)[0], (*buf)[1],(*buf)[2],(*buf)[3]);
     }
 
     return 0;
@@ -285,14 +288,6 @@ void ff_parse_close(AVCodecParserContext *s)
     ParseContext *pc = s->priv_data;
 
     av_freep(&pc->buffer);
-}
-
-void ff_parse1_close(AVCodecParserContext *s)
-{
-    ParseContext1 *pc1 = s->priv_data;
-
-    av_free(pc1->pc.buffer);
-    av_free(pc1->enc);
 }
 
 /*************************/

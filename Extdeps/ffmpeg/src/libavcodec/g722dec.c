@@ -42,7 +42,7 @@
 #define OFFSET(x) offsetof(G722Context, x)
 #define AD AV_OPT_FLAG_AUDIO_PARAM | AV_OPT_FLAG_DECODING_PARAM
 static const AVOption options[] = {
-    { "bits_per_codeword", "Bits per G722 codeword", OFFSET(bits_per_codeword), AV_OPT_TYPE_FLAGS, { 8 }, 6, 8, AD },
+    { "bits_per_codeword", "Bits per G722 codeword", OFFSET(bits_per_codeword), AV_OPT_TYPE_FLAGS, { .i64 = 8 }, 6, 8, AD },
     { NULL }
 };
 
@@ -126,8 +126,8 @@ static int g722_decode_frame(AVCodecContext *avctx, void *data,
         c->prev_samples[c->prev_samples_pos++] = rlow - rhigh;
         ff_g722_apply_qmf(c->prev_samples + c->prev_samples_pos - 24,
                           &xout1, &xout2);
-        *out_buf++ = av_clip_int16(xout1 >> 12);
-        *out_buf++ = av_clip_int16(xout2 >> 12);
+        *out_buf++ = av_clip_int16(xout1 >> 11);
+        *out_buf++ = av_clip_int16(xout2 >> 11);
         if (c->prev_samples_pos >= PREV_SAMPLES_BUF_SIZE) {
             memmove(c->prev_samples, c->prev_samples + c->prev_samples_pos - 22,
                     22 * sizeof(c->prev_samples[0]));
@@ -144,7 +144,7 @@ static int g722_decode_frame(AVCodecContext *avctx, void *data,
 AVCodec ff_adpcm_g722_decoder = {
     .name           = "g722",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_ADPCM_G722,
+    .id             = AV_CODEC_ID_ADPCM_G722,
     .priv_data_size = sizeof(G722Context),
     .init           = g722_decode_init,
     .decode         = g722_decode_frame,

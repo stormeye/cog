@@ -25,6 +25,7 @@
 #include "internal.h"
 #include "libavutil/random_seed.h"
 #include "libavutil/md5.h"
+#include "urldecode.h"
 #include "avformat.h"
 #include <ctype.h>
 
@@ -57,6 +58,9 @@ static void handle_digest_params(HTTPAuthState *state, const char *key,
     } else if (!strncmp(key, "qop=", key_len)) {
         *dest     =        digest->qop;
         *dest_len = sizeof(digest->qop);
+    } else if (!strncmp(key, "stale=", key_len)) {
+        *dest     =        digest->stale;
+        *dest_len = sizeof(digest->stale);
     }
 }
 
@@ -93,6 +97,7 @@ void ff_http_auth_handle_header(HTTPAuthState *state, const char *key,
             state->auth_type <= HTTP_AUTH_BASIC) {
             state->auth_type = HTTP_AUTH_BASIC;
             state->realm[0] = 0;
+            state->stale = 0;
             ff_parse_key_value(p, (ff_parse_key_val_cb) handle_basic_params,
                                state);
         } else if (av_stristart(value, "Digest ", &p) &&
@@ -100,10 +105,13 @@ void ff_http_auth_handle_header(HTTPAuthState *state, const char *key,
             state->auth_type = HTTP_AUTH_DIGEST;
             memset(&state->digest_params, 0, sizeof(DigestParams));
             state->realm[0] = 0;
+            state->stale = 0;
             ff_parse_key_value(p, (ff_parse_key_val_cb) handle_digest_params,
                                state);
             choose_qop(state->digest_params.qop,
                        sizeof(state->digest_params.qop));
+            if (!av_strcasecmp(state->digest_params.stale, "true"))
+                state->stale = 1;
         }
     } else if (!strcmp(key, "Authentication-Info")) {
         ff_parse_key_value(value, (ff_parse_key_val_cb) handle_digest_update,
@@ -237,22 +245,35 @@ char *ff_http_auth_create_response(HTTPAuthState *state, const char *auth,
 {
     char *authstr = NULL;
 
+    /* Clear the stale flag, we assume the auth is ok now. It is reset
+     * by the server headers if there's a new issue. */
+    state->stale = 0;
     if (!auth || !strchr(auth, ':'))
         return NULL;
 
     if (state->auth_type == HTTP_AUTH_BASIC) {
-        int auth_b64_len = AV_BASE64_SIZE(strlen(auth));
-        int len = auth_b64_len + 30;
-        char *ptr;
-        authstr = av_malloc(len);
-        if (!authstr)
+        int auth_b64_len, len;
+        char *ptr, *decoded_auth = ff_urldecode(auth);
+
+        if (!decoded_auth)
             return NULL;
+
+        auth_b64_len = AV_BASE64_SIZE(strlen(decoded_auth));
+        len = auth_b64_len + 30;
+
+        authstr = av_malloc(len);
+        if (!authstr) {
+            av_free(decoded_auth);
+            return NULL;
+        }
+
         snprintf(authstr, len, "Authorization: Basic ");
         ptr = authstr + strlen(authstr);
-        av_base64_encode(ptr, auth_b64_len, auth, strlen(auth));
+        av_base64_encode(ptr, auth_b64_len, decoded_auth, strlen(decoded_auth));
         av_strlcat(ptr, "\r\n", len - (ptr - authstr));
+        av_free(decoded_auth);
     } else if (state->auth_type == HTTP_AUTH_DIGEST) {
-        char *username = av_strdup(auth), *password;
+        char *username = ff_urldecode(auth), *password;
 
         if (!username)
             return NULL;
@@ -265,4 +286,3 @@ char *ff_http_auth_create_response(HTTPAuthState *state, const char *auth,
     }
     return authstr;
 }
-

@@ -30,7 +30,7 @@ static int apc_probe(AVProbeData *p)
     return 0;
 }
 
-static int apc_read_header(AVFormatContext *s, AVFormatParameters *ap)
+static int apc_read_header(AVFormatContext *s)
 {
     AVIOContext *pb = s->pb;
     AVStream *st;
@@ -44,7 +44,7 @@ static int apc_read_header(AVFormatContext *s, AVFormatParameters *ap)
         return AVERROR(ENOMEM);
 
     st->codec->codec_type = AVMEDIA_TYPE_AUDIO;
-    st->codec->codec_id = CODEC_ID_ADPCM_IMA_WS;
+    st->codec->codec_id = AV_CODEC_ID_ADPCM_IMA_APC;
 
     avio_rl32(pb); /* number of samples */
     st->codec->sample_rate = avio_rl32(pb);
@@ -76,13 +76,14 @@ static int apc_read_packet(AVFormatContext *s, AVPacket *pkt)
 {
     if (av_get_packet(s->pb, pkt, MAX_READ_SIZE) <= 0)
         return AVERROR(EIO);
+    pkt->flags &= ~AV_PKT_FLAG_CORRUPT;
     pkt->stream_index = 0;
     return 0;
 }
 
 AVInputFormat ff_apc_demuxer = {
     .name           = "apc",
-    .long_name      = NULL_IF_CONFIG_SMALL("CRYO APC format"),
+    .long_name      = NULL_IF_CONFIG_SMALL("CRYO APC"),
     .read_probe     = apc_probe,
     .read_header    = apc_read_header,
     .read_packet    = apc_read_packet,

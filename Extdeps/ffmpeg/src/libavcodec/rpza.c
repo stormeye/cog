@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "libavutil/internal.h"
 #include "libavutil/intreadwrite.h"
 #include "avcodec.h"
 
@@ -183,6 +184,8 @@ static void rpza_decode_stream(RpzaContext *s)
             color4[1] |= ((11 * ta + 21 * tb) >> 5);
             color4[2] |= ((21 * ta + 11 * tb) >> 5);
 
+            if (s->size - stream_ptr < n_blocks * 4)
+                return;
             while (n_blocks--) {
                 block_ptr = row_ptr + pixel_ptr;
                 for (pixel_y = 0; pixel_y < 4; pixel_y++) {
@@ -200,6 +203,8 @@ static void rpza_decode_stream(RpzaContext *s)
 
         /* Fill block with 16 colors */
         case 0x00:
+            if (s->size - stream_ptr < 16)
+                return;
             block_ptr = row_ptr + pixel_ptr;
             for (pixel_y = 0; pixel_y < 4; pixel_y++) {
                 for (pixel_x = 0; pixel_x < 4; pixel_x++){
@@ -279,11 +284,11 @@ static av_cold int rpza_decode_end(AVCodecContext *avctx)
 AVCodec ff_rpza_decoder = {
     .name           = "rpza",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_RPZA,
+    .id             = AV_CODEC_ID_RPZA,
     .priv_data_size = sizeof(RpzaContext),
     .init           = rpza_decode_init,
     .close          = rpza_decode_end,
     .decode         = rpza_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("QuickTime video (RPZA)"),
+    .long_name      = NULL_IF_CONFIG_SMALL("QuickTime video (RPZA)"),
 };

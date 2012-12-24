@@ -5,8 +5,10 @@ FFLIBS = avutil
 
 HEADERS = swresample.h
 
-OBJS = swresample.o audioconvert.o resample.o rematrix.o
+OBJS = audioconvert.o                        \
+       dither.o                              \
+       rematrix.o                            \
+       resample.o                            \
+       swresample.o                          \
 
-TESTPROGS = swresample_test
-
-include $(SRC_PATH)/subdir.mak
+TESTPROGS = swresample

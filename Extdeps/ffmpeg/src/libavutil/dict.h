@@ -93,13 +93,21 @@ AVDictionaryEntry *
 av_dict_get(AVDictionary *m, const char *key, const AVDictionaryEntry *prev, int flags);
 
 /**
+ * Get number of entries in dictionary.
+ *
+ * @param m dictionary
+ * @return  number of entries in dictionary
+ */
+int av_dict_count(const AVDictionary *m);
+
+/**
  * Set the given entry in *pm, overwriting an existing entry.
  *
  * @param pm pointer to a pointer to a dictionary struct. If *pm is NULL
  * a dictionary struct is allocated and put in *pm.
  * @param key entry key to add to *pm (will be av_strduped depending on flags)
  * @param value entry value to add to *pm (will be av_strduped depending on flags).
- *        Passing a NULL value will cause an existing tag to be deleted.
+ *        Passing a NULL value will cause an existing entry to be deleted.
  * @return >= 0 on success otherwise an error code <0
  */
 int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
@@ -124,4 +132,4 @@ void av_dict_free(AVDictionary **m);
  * @}
  */
 
-#endif // AVUTIL_DICT_H
+#endif /* AVUTIL_DICT_H */

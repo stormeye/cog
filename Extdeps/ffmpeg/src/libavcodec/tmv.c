@@ -26,21 +26,16 @@
  * @see http://www.oldskool.org/pc/8088_Corruption
  */
 
+#include <string.h>
+
 #include "avcodec.h"
+#include "libavutil/internal.h"
 
 #include "cga_data.h"
 
 typedef struct TMVContext {
     AVFrame pic;
 } TMVContext;
-
-static av_cold int tmv_decode_init(AVCodecContext *avctx)
-{
-    TMVContext *tmv = avctx->priv_data;
-
-    avcodec_get_frame_defaults(&tmv->pic);
-    return 0;
-}
 
 static int tmv_decode_frame(AVCodecContext *avctx, void *data,
                             int *data_size, AVPacket *avpkt)
@@ -90,6 +85,14 @@ static int tmv_decode_frame(AVCodecContext *avctx, void *data,
     return avpkt->size;
 }
 
+static av_cold int tmv_decode_init(AVCodecContext *avctx)
+{
+    TMVContext *tmv = avctx->priv_data;
+    avctx->pix_fmt = PIX_FMT_PAL8;
+    avcodec_get_frame_defaults(&tmv->pic);
+    return 0;
+}
+
 static av_cold int tmv_decode_close(AVCodecContext *avctx)
 {
     TMVContext *tmv = avctx->priv_data;
@@ -103,7 +106,7 @@ static av_cold int tmv_decode_close(AVCodecContext *avctx)
 AVCodec ff_tmv_decoder = {
     .name           = "tmv",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_TMV,
+    .id             = AV_CODEC_ID_TMV,
     .priv_data_size = sizeof(TMVContext),
     .init           = tmv_decode_init,
     .close          = tmv_decode_close,

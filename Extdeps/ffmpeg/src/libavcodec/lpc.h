@@ -1,4 +1,4 @@
-/**
+/*
  * LPC utility code
  * Copyright (c) 2006  Justin Ruggles <justin.ruggles@gmail.com>
  *
@@ -51,6 +51,7 @@ typedef struct LPCContext {
     int blocksize;
     int max_order;
     enum FFLPCType lpc_type;
+    double *windowed_buffer;
     double *windowed_samples;
 
     /**
@@ -67,7 +68,7 @@ typedef struct LPCContext {
      * Perform autocorrelation on input samples with delay of 0 to lag.
      * @param data  input samples.
      *              constraints: no alignment needed, but must have have at
-     *              least lag*sizeof(double) valid bytes preceeding it, and
+     *              least lag*sizeof(double) valid bytes preceding it, and
      *              size must be at least (len+1)*sizeof(double) if data is
      *              16-byte aligned or (len+2)*sizeof(double) if data is
      *              unaligned.

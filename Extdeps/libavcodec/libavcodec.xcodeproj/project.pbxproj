@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3213B1DF1689046C0028AC83 /* old_codec_ids.h in Headers */ = {isa = PBXBuildFile; fileRef = 3213B1DE1689046C0028AC83 /* old_codec_ids.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4110614CB60EC0050563F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D4110414CB60EC0050563F /* InfoPlist.strings */; };
 		32D4111F14CB61A70050563F /* avcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4111D14CB61A70050563F /* avcodec.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32D4112014CB61A70050563F /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D4111E14CB61A70050563F /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3213B1DE1689046C0028AC83 /* old_codec_ids.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = old_codec_ids.h; path = ../ffmpeg/src/libavcodec/old_codec_ids.h; sourceTree = "<group>"; };
 		32D410F814CB60EC0050563F /* libavcodec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libavcodec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32D410FB14CB60EC0050563F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		32D410FE14CB60EC0050563F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				32D4111D14CB61A70050563F /* avcodec.h */,
+				3213B1DE1689046C0028AC83 /* old_codec_ids.h */,
 				32D4111E14CB61A70050563F /* version.h */,
 			);
 			name = Headers;
@@ -135,6 +138,7 @@
 			files = (
 				32D4111F14CB61A70050563F /* avcodec.h in Headers */,
 				32D4112014CB61A70050563F /* version.h in Headers */,
+				3213B1DF1689046C0028AC83 /* old_codec_ids.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +229,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavutil.dylib\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ${PRODUCT_NAME}";
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\nLIBAVUTIL=`otool -L ./Versions/Current/${PRODUCT_NAME} | grep libavutil | awk '{print $1}'`\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"${LIBAVUTIL}\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ${PRODUCT_NAME}";
 		};
 /* End PBXShellScriptBuildPhase section */
 

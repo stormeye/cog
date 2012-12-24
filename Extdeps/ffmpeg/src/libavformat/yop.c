@@ -38,16 +38,21 @@ typedef struct yop_dec_context {
 static int yop_probe(AVProbeData *probe_packet)
 {
     if (AV_RB16(probe_packet->buf) == AV_RB16("YO")  &&
+        probe_packet->buf[2]<10                      &&
+        probe_packet->buf[3]<10                      &&
         probe_packet->buf[6]                         &&
         probe_packet->buf[7]                         &&
         !(probe_packet->buf[8] & 1)                  &&
-        !(probe_packet->buf[10] & 1))
+        !(probe_packet->buf[10] & 1)                 &&
+        AV_RL16(probe_packet->buf + 12 + 6) >= 920    &&
+        AV_RL16(probe_packet->buf + 12 + 6) < probe_packet->buf[12] * 3 + 4 + probe_packet->buf[7] * 2048
+    )
         return AVPROBE_SCORE_MAX * 3 / 4;
 
     return 0;
 }
 
-static int yop_read_header(AVFormatContext *s, AVFormatParameters *ap)
+static int yop_read_header(AVFormatContext *s)
 {
     YopDecContext *yop = s->priv_data;
     AVIOContext *pb  = s->pb;
@@ -72,14 +77,14 @@ static int yop_read_header(AVFormatContext *s, AVFormatParameters *ap)
     // Audio
     audio_dec               = audio_stream->codec;
     audio_dec->codec_type   = AVMEDIA_TYPE_AUDIO;
-    audio_dec->codec_id     = CODEC_ID_ADPCM_IMA_WS;
+    audio_dec->codec_id     = AV_CODEC_ID_ADPCM_IMA_APC;
     audio_dec->channels     = 1;
     audio_dec->sample_rate  = 22050;
 
     // Video
     video_dec               = video_stream->codec;
     video_dec->codec_type   = AVMEDIA_TYPE_VIDEO;
-    video_dec->codec_id     = CODEC_ID_YOP;
+    video_dec->codec_id     = AV_CODEC_ID_YOP;
 
     avio_skip(pb, 6);
 
@@ -206,13 +211,13 @@ static int yop_read_seek(AVFormatContext *s, int stream_index,
 
 AVInputFormat ff_yop_demuxer = {
     .name           = "yop",
-    .long_name      = NULL_IF_CONFIG_SMALL("Psygnosis YOP Format"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Psygnosis YOP"),
     .priv_data_size = sizeof(YopDecContext),
     .read_probe     = yop_probe,
     .read_header    = yop_read_header,
     .read_packet    = yop_read_packet,
     .read_close     = yop_read_close,
     .read_seek      = yop_read_seek,
-    .extensions = "yop",
-    .flags = AVFMT_GENERIC_INDEX,
+    .extensions     = "yop",
+    .flags          = AVFMT_GENERIC_INDEX,
 };

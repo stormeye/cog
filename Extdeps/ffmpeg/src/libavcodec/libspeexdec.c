@@ -23,6 +23,7 @@
 #include <speex/speex_stereo.h>
 #include <speex/speex_callbacks.h>
 #include "avcodec.h"
+#include "libavutil/common.h"
 
 typedef struct {
     AVFrame frame;
@@ -54,13 +55,11 @@ static av_cold int libspeex_decode_init(AVCodecContext *avctx)
     if (s->header) {
         avctx->sample_rate = s->header->rate;
         avctx->channels    = s->header->nb_channels;
-        avctx->frame_size  = s->frame_size = s->header->frame_size;
-        if (s->header->frames_per_packet)
-            avctx->frame_size *= s->header->frames_per_packet;
+        s->frame_size      = s->header->frame_size;
 
         mode = speex_lib_get_mode(s->header->mode);
         if (!mode) {
-            av_log(avctx, AV_LOG_ERROR, "Unknown Speex mode %d", s->header->mode);
+            av_log(avctx, AV_LOG_ERROR, "Unknown Speex mode %d\n", s->header->mode);
             return AVERROR_INVALIDDATA;
         }
     } else
@@ -163,12 +162,12 @@ static av_cold void libspeex_decode_flush(AVCodecContext *avctx)
 AVCodec ff_libspeex_decoder = {
     .name           = "libspeex",
     .type           = AVMEDIA_TYPE_AUDIO,
-    .id             = CODEC_ID_SPEEX,
+    .id             = AV_CODEC_ID_SPEEX,
     .priv_data_size = sizeof(LibSpeexContext),
     .init           = libspeex_decode_init,
     .close          = libspeex_decode_close,
     .decode         = libspeex_decode_frame,
     .flush          = libspeex_decode_flush,
     .capabilities   = CODEC_CAP_SUBFRAMES | CODEC_CAP_DELAY | CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("libspeex Speex"),
+    .long_name      = NULL_IF_CONFIG_SMALL("libspeex Speex"),
 };

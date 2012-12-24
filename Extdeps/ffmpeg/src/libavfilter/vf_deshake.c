@@ -50,6 +50,8 @@
  */
 
 #include "avfilter.h"
+#include "formats.h"
+#include "video.h"
 #include "libavutil/common.h"
 #include "libavutil/mem.h"
 #include "libavutil/pixdesc.h"
@@ -65,6 +67,11 @@ enum SearchMethod {
     SMART_EXHAUSTIVE,  ///< Search most possible positions (faster)
     SEARCH_COUNT
 };
+
+typedef struct {
+    int x;             ///< Horizontal shift
+    int y;             ///< Vertical shift
+} IntMotionVector;
 
 typedef struct {
     double x;             ///< Horizontal shift
@@ -129,7 +136,7 @@ static double clean_mean(double *values, int count)
  */
 static void find_block_motion(DeshakeContext *deshake, uint8_t *src1,
                               uint8_t *src2, int cx, int cy, int stride,
-                              MotionVector *mv)
+                              IntMotionVector *mv)
 {
     int x, y;
     int diff;
@@ -222,7 +229,7 @@ static int block_contrast(uint8_t *src, int x, int y, int stride, int blocksize)
 /**
  * Find the rotation for a given block.
  */
-static double block_angle(int x, int y, int cx, int cy, MotionVector *shift)
+static double block_angle(int x, int y, int cx, int cy, IntMotionVector *shift)
 {
     double a1, a2, diff;
 
@@ -247,15 +254,13 @@ static void find_motion(DeshakeContext *deshake, uint8_t *src1, uint8_t *src2,
                         int width, int height, int stride, Transform *t)
 {
     int x, y;
-    MotionVector mv = {0, 0};
+    IntMotionVector mv = {0, 0};
     int counts[128][128];
     int count_max_value = 0;
     int contrast;
 
     int pos;
     double *angles = av_malloc(sizeof(*angles) * width * height / (16 * deshake->blocksize));
-    double totalangles = 0;
-
     int center_x = 0, center_y = 0;
     double p_x, p_y;
 
@@ -278,7 +283,7 @@ static void find_motion(DeshakeContext *deshake, uint8_t *src1, uint8_t *src2,
                 //av_log(NULL, AV_LOG_ERROR, "%d\n", contrast);
                 find_block_motion(deshake, src1, src2, x, y, stride, &mv);
                 if (mv.x != -1 && mv.y != -1) {
-                    counts[(int)(mv.x + deshake->rx)][(int)(mv.y + deshake->ry)] += 1;
+                    counts[mv.x + deshake->rx][mv.y + deshake->ry] += 1;
                     if (x > deshake->rx && y > deshake->ry)
                         angles[pos++] = block_angle(x, y, 0, 0, &mv);
 
@@ -289,21 +294,15 @@ static void find_motion(DeshakeContext *deshake, uint8_t *src1, uint8_t *src2,
         }
     }
 
-    pos = FFMAX(1, pos);
-
-    center_x /= pos;
-    center_y /= pos;
-
-    for (x = 0; x < pos; x++) {
-        totalangles += angles[x];
+    if (pos) {
+         center_x /= pos;
+         center_y /= pos;
+         t->angle = clean_mean(angles, pos);
+         if (t->angle < 0.001)
+              t->angle = 0;
+    } else {
+         t->angle = 0;
     }
-
-    //av_log(NULL, AV_LOG_ERROR, "Angle: %lf\n", totalangles / (pos - 1));
-    t->angle = totalangles / (pos - 1);
-
-    t->angle = clean_mean(angles, pos);
-    if (t->angle < 0.001)
-        t->angle = 0;
 
     // Find the most common motion vector in the frame and use it as the gmv
     for (y = deshake->ry * 2; y >= 0; y--) {
@@ -332,7 +331,7 @@ static void find_motion(DeshakeContext *deshake, uint8_t *src1, uint8_t *src2,
     av_free(angles);
 }
 
-static av_cold int init(AVFilterContext *ctx, const char *args, void *opaque)
+static av_cold int init(AVFilterContext *ctx, const char *args)
 {
     DeshakeContext *deshake = ctx->priv;
     char filename[256] = {0};
@@ -378,7 +377,7 @@ static av_cold int init(AVFilterContext *ctx, const char *args, void *opaque)
         deshake->cx &= ~15;
     }
 
-    av_log(ctx, AV_LOG_INFO, "cx: %d, cy: %d, cw: %d, ch: %d, rx: %d, ry: %d, edge: %d blocksize: %d contrast: %d search: %d\n",
+    av_log(ctx, AV_LOG_VERBOSE, "cx: %d, cy: %d, cw: %d, ch: %d, rx: %d, ry: %d, edge: %d blocksize: %d contrast: %d search: %d\n",
            deshake->cx, deshake->cy, deshake->cw, deshake->ch,
            deshake->rx, deshake->ry, deshake->edge, deshake->blocksize * 2, deshake->contrast, deshake->search);
 
@@ -393,7 +392,7 @@ static int query_formats(AVFilterContext *ctx)
         PIX_FMT_YUVJ444P, PIX_FMT_YUVJ440P, PIX_FMT_NONE
     };
 
-    avfilter_set_common_pixel_formats(ctx, avfilter_make_format_list(pix_fmts));
+    ff_set_common_formats(ctx, ff_make_format_list(pix_fmts));
 
     return 0;
 }
@@ -421,19 +420,22 @@ static av_cold void uninit(AVFilterContext *ctx)
     avfilter_unref_buffer(deshake->ref);
     if (deshake->fp)
         fclose(deshake->fp);
+    if (deshake->avctx)
+        avcodec_close(deshake->avctx);
+    av_freep(&deshake->avctx);
 }
 
-static void end_frame(AVFilterLink *link)
+static int end_frame(AVFilterLink *link)
 {
     DeshakeContext *deshake = link->dst->priv;
     AVFilterBufferRef *in  = link->cur_buf;
     AVFilterBufferRef *out = link->dst->outputs[0]->out_buf;
-    Transform t;
+    Transform t = {{0},0}, orig = {{0},0};
     float matrix[9];
     float alpha = 2.0 / deshake->refcount;
     char tmp[256];
-    Transform orig;
 
+    link->cur_buf = NULL; /* it is in 'in' now */
     if (deshake->cx < 0 || deshake->cy < 0 || deshake->cw < 0 || deshake->ch < 0) {
         // Find the most likely global motion for the current frame
         find_motion(deshake, (deshake->ref == NULL) ? in->data[0] : deshake->ref->data[0], in->data[0], link->w, link->h, in->linesize[0], &t);
@@ -527,13 +529,13 @@ static void end_frame(AVFilterLink *link)
     deshake->ref = in;
 
     // Draw the transformed frame information
-    avfilter_draw_slice(link->dst->outputs[0], 0, link->h, 1);
-    avfilter_end_frame(link->dst->outputs[0]);
-    avfilter_unref_buffer(out);
+    ff_draw_slice(link->dst->outputs[0], 0, link->h, 1);
+    return ff_end_frame(link->dst->outputs[0]);
 }
 
-static void draw_slice(AVFilterLink *link, int y, int h, int slice_dir)
+static int draw_slice(AVFilterLink *link, int y, int h, int slice_dir)
 {
+    return 0;
 }
 
 AVFilter avfilter_vf_deshake = {
@@ -551,7 +553,7 @@ AVFilter avfilter_vf_deshake = {
                                     .draw_slice       = draw_slice,
                                     .end_frame        = end_frame,
                                     .config_props     = config_props,
-                                    .min_perms        = AV_PERM_READ, },
+                                    .min_perms        = AV_PERM_READ | AV_PERM_PRESERVE, },
                                   { .name = NULL}},
 
     .outputs   = (const AVFilterPad[]) {{ .name       = "default",

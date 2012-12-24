@@ -27,6 +27,7 @@
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "avcodec.h"
 #include "dsputil.h"
@@ -48,7 +49,7 @@ static const float qmf_48tap_half[24] = {
  * Generate common tables
  */
 
-void atrac_generate_tables(void)
+void ff_atrac_generate_tables(void)
 {
     int i;
     float s;
@@ -79,7 +80,7 @@ void atrac_generate_tables(void)
  */
 
 
-void atrac_iqmf (float *inlo, float *inhi, unsigned int nIn, float *pOut, float *delayBuf, float *temp)
+void ff_atrac_iqmf (float *inlo, float *inhi, unsigned int nIn, float *pOut, float *delayBuf, float *temp)
 {
     int   i, j;
     float   *p1, *p3;
@@ -117,4 +118,3 @@ void atrac_iqmf (float *inlo, float *inhi, unsigned int nIn, float *pOut, float 
     /* Update the delay buffer. */
     memcpy(delayBuf, temp + nIn*2, 46*sizeof(float));
 }
-

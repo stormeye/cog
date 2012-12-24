@@ -25,8 +25,10 @@
  * @author Michael Niedermayer <michaelni@gmx.at>
  */
 
+#include "libavutil/avassert.h"
 #include "avcodec.h"
 #include "dsputil.h"
+#include "libavutil/common.h"
 
 #ifndef CONFIG_RESAMPLE_HP
 #define FILTER_SHIFT 15
@@ -90,7 +92,7 @@ static double bessel(double x){
 }
 
 /**
- * builds a polyphase filterbank.
+ * Build a polyphase filterbank.
  * @param factor resampling factor
  * @param scale wanted sum of coefficients for each filter
  * @param type 0->cubic, 1->blackman nuttall windowed sinc, 2..16->kaiser windowed sinc beta=2..16
@@ -301,7 +303,7 @@ int av_resample(AVResampleContext *c, short *dst, short *src, int *consumed, int
 
     if(compensation_distance){
         compensation_distance -= dst_index;
-        assert(compensation_distance > 0);
+        av_assert2(compensation_distance > 0);
     }
     if(update_ctx){
         c->frac= frac;

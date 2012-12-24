@@ -35,10 +35,11 @@
 #include "internal.h"
 #include "imgconvert.h"
 #include "libavutil/colorspace.h"
+#include "libavutil/common.h"
 #include "libavutil/pixdesc.h"
 #include "libavutil/imgutils.h"
 
-#if HAVE_MMX && HAVE_YASM
+#if HAVE_MMX_EXTERNAL
 #include "x86/dsputil_mmx.h"
 #endif
 
@@ -47,7 +48,7 @@
 #define FF_COLOR_YUV      2 /**< YUV color space. 16 <= Y <= 235, 16 <= U, V <= 240 */
 #define FF_COLOR_YUV_JPEG 3 /**< YUV color space. 0 <= Y <= 255, 0 <= U, V <= 255 */
 
-#if HAVE_MMX && HAVE_YASM
+#if HAVE_MMX_EXTERNAL
 #define deinterlace_line_inplace ff_deinterlace_line_inplace_mmx
 #define deinterlace_line         ff_deinterlace_line_mmx
 #else
@@ -55,9 +56,11 @@
 #define deinterlace_line         deinterlace_line_c
 #endif
 
+#define pixdesc_has_alpha(pixdesc) \
+    ((pixdesc)->nb_components == 2 || (pixdesc)->nb_components == 4 || (pixdesc)->flags & PIX_FMT_PAL)
+
 typedef struct PixFmtInfo {
     uint8_t color_type;      /**< color type (see FF_COLOR_xxx constants) */
-    uint8_t is_alpha : 1;    /**< true if alpha can be specified */
     uint8_t padded_size;     /**< padded size in bits if different from the non-padded size */
 } PixFmtInfo;
 
@@ -88,6 +91,78 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
     [PIX_FMT_YUV440P] = {
         .color_type = FF_COLOR_YUV,
     },
+    [PIX_FMT_YUV420P9LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P9LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P9LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P9BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P9BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P9BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P10LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P10LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P10LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P10BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P10BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P10BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P12LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P12LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P12LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P12BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P12BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P12BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P14LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P14LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P14LE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV420P14BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV422P14BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
+    [PIX_FMT_YUV444P14BE] = {
+        .color_type = FF_COLOR_YUV,
+    },
     [PIX_FMT_YUV420P16LE] = {
         .color_type = FF_COLOR_YUV,
     },
@@ -109,6 +184,14 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
 
     /* YUV formats with alpha plane */
     [PIX_FMT_YUVA420P] = {
+        .color_type = FF_COLOR_YUV,
+    },
+
+    [PIX_FMT_YUVA422P] = {
+        .color_type = FF_COLOR_YUV,
+    },
+
+    [PIX_FMT_YUVA444P] = {
         .color_type = FF_COLOR_YUV,
     },
 
@@ -134,7 +217,6 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_ARGB] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_RGB48BE] = {
@@ -144,11 +226,9 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_RGBA64BE] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_RGBA64LE] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_RGB565BE] = {
@@ -184,6 +264,9 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
     [PIX_FMT_GRAY8] = {
         .color_type = FF_COLOR_GRAY,
     },
+    [PIX_FMT_GRAY8A] = {
+        .color_type = FF_COLOR_GRAY,
+    },
     [PIX_FMT_MONOWHITE] = {
         .color_type = FF_COLOR_GRAY,
     },
@@ -193,14 +276,12 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
 
     /* paletted formats */
     [PIX_FMT_PAL8] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_UYYVYY411] = {
         .color_type = FF_COLOR_YUV,
     },
     [PIX_FMT_ABGR] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_BGR48BE] = {
@@ -210,11 +291,9 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_BGRA64BE] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_BGRA64LE] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_BGR565BE] = {
@@ -269,11 +348,43 @@ static const PixFmtInfo pix_fmt_info[PIX_FMT_NB] = {
     },
 
     [PIX_FMT_BGRA] = {
-        .is_alpha = 1,
         .color_type = FF_COLOR_RGB,
     },
     [PIX_FMT_RGBA] = {
-        .is_alpha = 1,
+        .color_type = FF_COLOR_RGB,
+    },
+
+    [PIX_FMT_GBRP] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP9BE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP9LE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP10BE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP10LE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP12BE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP12LE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP14BE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP14LE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP16BE] = {
+        .color_type = FF_COLOR_RGB,
+    },
+    [PIX_FMT_GBRP16LE] = {
         .color_type = FF_COLOR_RGB,
     },
 };
@@ -284,13 +395,6 @@ void avcodec_get_chroma_sub_sample(enum PixelFormat pix_fmt, int *h_shift, int *
     *v_shift = av_pix_fmt_descriptors[pix_fmt].log2_chroma_h;
 }
 
-#if FF_API_GET_PIX_FMT_NAME
-const char *avcodec_get_pix_fmt_name(enum PixelFormat pix_fmt)
-{
-    return av_get_pix_fmt_name(pix_fmt);
-}
-#endif
-
 int ff_is_hwaccel_pix_fmt(enum PixelFormat pix_fmt)
 {
     return av_pix_fmt_descriptors[pix_fmt].flags & PIX_FMT_HWACCEL;
@@ -299,75 +403,21 @@ int ff_is_hwaccel_pix_fmt(enum PixelFormat pix_fmt)
 int avpicture_fill(AVPicture *picture, uint8_t *ptr,
                    enum PixelFormat pix_fmt, int width, int height)
 {
-    int ret;
-
-    if ((ret = av_image_check_size(width, height, 0, NULL)) < 0)
-        return ret;
-
-    if ((ret = av_image_fill_linesizes(picture->linesize, pix_fmt, width)) < 0)
-        return ret;
-
-    return av_image_fill_pointers(picture->data, pix_fmt, height, ptr, picture->linesize);
+    return av_image_fill_arrays(picture->data, picture->linesize,
+                                ptr, pix_fmt, width, height, 1);
 }
 
 int avpicture_layout(const AVPicture* src, enum PixelFormat pix_fmt, int width, int height,
                      unsigned char *dest, int dest_size)
 {
-    int i, j, nb_planes = 0, linesizes[4];
-    const AVPixFmtDescriptor *desc = &av_pix_fmt_descriptors[pix_fmt];
-    int size = avpicture_get_size(pix_fmt, width, height);
-
-    if (size > dest_size || size < 0)
-        return AVERROR(EINVAL);
-
-    for (i = 0; i < desc->nb_components; i++)
-        nb_planes = FFMAX(desc->comp[i].plane, nb_planes);
-    nb_planes++;
-
-    av_image_fill_linesizes(linesizes, pix_fmt, width);
-    for (i = 0; i < nb_planes; i++) {
-        int h, shift = (i == 1 || i == 2) ? desc->log2_chroma_h : 0;
-        const unsigned char *s = src->data[i];
-        h = (height + (1 << shift) - 1) >> shift;
-
-        for (j = 0; j < h; j++) {
-            memcpy(dest, s, linesizes[i]);
-            dest += linesizes[i];
-            s += src->linesize[i];
-        }
-    }
-
-    switch (pix_fmt) {
-    case PIX_FMT_RGB8:
-    case PIX_FMT_BGR8:
-    case PIX_FMT_RGB4_BYTE:
-    case PIX_FMT_BGR4_BYTE:
-    case PIX_FMT_GRAY8:
-        // do not include palette for these pseudo-paletted formats
-        return size;
-    }
-
-    if (desc->flags & PIX_FMT_PAL)
-        memcpy((unsigned char *)(((size_t)dest + 3) & ~3), src->data[1], 256 * 4);
-
-    return size;
+    return av_image_copy_to_buffer(dest, dest_size,
+                                   (const uint8_t * const*)src->data, src->linesize,
+                                   pix_fmt, width, height, 1);
 }
 
 int avpicture_get_size(enum PixelFormat pix_fmt, int width, int height)
 {
-    AVPicture dummy_pict;
-    if(av_image_check_size(width, height, 0, NULL))
-        return -1;
-    switch (pix_fmt) {
-    case PIX_FMT_RGB8:
-    case PIX_FMT_BGR8:
-    case PIX_FMT_RGB4_BYTE:
-    case PIX_FMT_BGR4_BYTE:
-    case PIX_FMT_GRAY8:
-        // do not include palette for these pseudo-paletted formats
-        return width * height;
-    }
-    return avpicture_fill(&dummy_pict, NULL, pix_fmt, width, height);
+    return av_image_get_buffer_size(pix_fmt, width, height, 1);
 }
 
 static int get_pix_fmt_depth(int *min, int *max, enum PixelFormat pix_fmt)
@@ -448,11 +498,12 @@ int avcodec_get_pix_fmt_loss(enum PixelFormat dst_pix_fmt, enum PixelFormat src_
     if (pf->color_type == FF_COLOR_GRAY &&
         ps->color_type != FF_COLOR_GRAY)
         loss |= FF_LOSS_CHROMA;
-    if (!pf->is_alpha && (ps->is_alpha && has_alpha))
+    if (!pixdesc_has_alpha(dst_desc) && (pixdesc_has_alpha(src_desc) && has_alpha))
         loss |= FF_LOSS_ALPHA;
     if (dst_pix_fmt == PIX_FMT_PAL8 &&
-        (src_pix_fmt != PIX_FMT_PAL8 && ps->color_type != FF_COLOR_GRAY))
+        (src_pix_fmt != PIX_FMT_PAL8 && (ps->color_type != FF_COLOR_GRAY || (pixdesc_has_alpha(src_desc) && has_alpha))))
         loss |= FF_LOSS_COLORQUANT;
+
     return loss;
 }
 
@@ -465,6 +516,7 @@ static int avg_bits_per_pixel(enum PixelFormat pix_fmt)
         info->padded_size : av_get_bits_per_pixel(desc);
 }
 
+#if FF_API_FIND_BEST_PIX_FMT
 enum PixelFormat avcodec_find_best_pix_fmt(int64_t pix_fmt_mask, enum PixelFormat src_pix_fmt,
                                             int has_alpha, int *loss_ptr)
 {
@@ -477,12 +529,13 @@ enum PixelFormat avcodec_find_best_pix_fmt(int64_t pix_fmt_mask, enum PixelForma
     dst_pix_fmt = PIX_FMT_NONE; /* so first iteration doesn't have to be treated special */
     for(i = 0; i< FFMIN(PIX_FMT_NB, 64); i++){
         if (pix_fmt_mask & (1ULL << i))
-            dst_pix_fmt = avcodec_find_best_pix_fmt2(dst_pix_fmt, i, src_pix_fmt, has_alpha, loss_ptr);
+            dst_pix_fmt = avcodec_find_best_pix_fmt_of_2(dst_pix_fmt, i, src_pix_fmt, has_alpha, loss_ptr);
     }
     return dst_pix_fmt;
 }
+#endif /* FF_API_FIND_BEST_PIX_FMT */
 
-enum PixelFormat avcodec_find_best_pix_fmt2(enum PixelFormat dst_pix_fmt1, enum PixelFormat dst_pix_fmt2,
+enum PixelFormat avcodec_find_best_pix_fmt_of_2(enum PixelFormat dst_pix_fmt1, enum PixelFormat dst_pix_fmt2,
                                             enum PixelFormat src_pix_fmt, int has_alpha, int *loss_ptr)
 {
     enum PixelFormat dst_pix_fmt;
@@ -491,9 +544,11 @@ enum PixelFormat avcodec_find_best_pix_fmt2(enum PixelFormat dst_pix_fmt1, enum 
         ~0, /* no loss first */
         ~FF_LOSS_ALPHA,
         ~FF_LOSS_RESOLUTION,
+        ~FF_LOSS_COLORSPACE,
         ~(FF_LOSS_COLORSPACE | FF_LOSS_RESOLUTION),
         ~FF_LOSS_COLORQUANT,
         ~FF_LOSS_DEPTH,
+        ~(FF_LOSS_DEPTH|FF_LOSS_COLORSPACE),
         ~(FF_LOSS_RESOLUTION | FF_LOSS_DEPTH | FF_LOSS_COLORSPACE | FF_LOSS_ALPHA |
           FF_LOSS_COLORQUANT | FF_LOSS_CHROMA),
         0x80000, //non zero entry that combines all loss variants including future additions
@@ -522,10 +577,37 @@ enum PixelFormat avcodec_find_best_pix_fmt2(enum PixelFormat dst_pix_fmt1, enum 
     return dst_pix_fmt;
 }
 
+#if AV_HAVE_INCOMPATIBLE_FORK_ABI
+enum PixelFormat avcodec_find_best_pix_fmt2(enum PixelFormat *pix_fmt_list,
+                                            enum PixelFormat src_pix_fmt,
+                                            int has_alpha, int *loss_ptr){
+    return avcodec_find_best_pix_fmt_of_list(pix_fmt_list, src_pix_fmt, has_alpha, loss_ptr);
+}
+#else
+enum PixelFormat avcodec_find_best_pix_fmt2(enum PixelFormat dst_pix_fmt1, enum PixelFormat dst_pix_fmt2,
+                                            enum PixelFormat src_pix_fmt, int has_alpha, int *loss_ptr)
+{
+    return avcodec_find_best_pix_fmt_of_2(dst_pix_fmt1, dst_pix_fmt2, src_pix_fmt, has_alpha, loss_ptr);
+}
+#endif
+
+enum PixelFormat avcodec_find_best_pix_fmt_of_list(enum PixelFormat *pix_fmt_list,
+                                            enum PixelFormat src_pix_fmt,
+                                            int has_alpha, int *loss_ptr){
+    int i;
+
+    enum PixelFormat best = PIX_FMT_NONE;
+
+    for(i=0; pix_fmt_list[i] != PIX_FMT_NONE; i++)
+        best = avcodec_find_best_pix_fmt_of_2(best, pix_fmt_list[i], src_pix_fmt, has_alpha, loss_ptr);
+
+    return best;
+}
+
 void av_picture_copy(AVPicture *dst, const AVPicture *src,
                      enum PixelFormat pix_fmt, int width, int height)
 {
-    av_image_copy(dst->data, dst->linesize, src->data,
+    av_image_copy(dst->data, dst->linesize, (const uint8_t **)src->data,
                   src->linesize, pix_fmt, width, height);
 }
 
@@ -747,56 +829,7 @@ int av_picture_pad(AVPicture *dst, const AVPicture *src, int height, int width,
     return 0;
 }
 
-#if FF_API_GET_ALPHA_INFO
-/* NOTE: we scan all the pixels to have an exact information */
-static int get_alpha_info_pal8(const AVPicture *src, int width, int height)
-{
-    const unsigned char *p;
-    int src_wrap, ret, x, y;
-    unsigned int a;
-    uint32_t *palette = (uint32_t *)src->data[1];
-
-    p = src->data[0];
-    src_wrap = src->linesize[0] - width;
-    ret = 0;
-    for(y=0;y<height;y++) {
-        for(x=0;x<width;x++) {
-            a = palette[p[0]] >> 24;
-            if (a == 0x00) {
-                ret |= FF_ALPHA_TRANSP;
-            } else if (a != 0xff) {
-                ret |= FF_ALPHA_SEMI_TRANSP;
-            }
-            p++;
-        }
-        p += src_wrap;
-    }
-    return ret;
-}
-
-int img_get_alpha_info(const AVPicture *src,
-                       enum PixelFormat pix_fmt, int width, int height)
-{
-    const PixFmtInfo *pf = &pix_fmt_info[pix_fmt];
-    int ret;
-
-    /* no alpha can be represented in format */
-    if (!pf->is_alpha)
-        return 0;
-    switch(pix_fmt) {
-    case PIX_FMT_PAL8:
-        ret = get_alpha_info_pal8(src, width, height);
-        break;
-    default:
-        /* we do not know, so everything is indicated */
-        ret = FF_ALPHA_TRANSP | FF_ALPHA_SEMI_TRANSP;
-        break;
-    }
-    return ret;
-}
-#endif
-
-#if !(HAVE_MMX && HAVE_YASM)
+#if !HAVE_MMX_EXTERNAL
 /* filter parameters: [-1 4 2 4 -1] // 8 */
 static void deinterlace_line_c(uint8_t *dst,
                              const uint8_t *lum_m4, const uint8_t *lum_m3,
@@ -845,7 +878,7 @@ static void deinterlace_line_inplace_c(uint8_t *lum_m4, uint8_t *lum_m3,
         lum++;
     }
 }
-#endif
+#endif /* !HAVE_MMX_EXTERNAL */
 
 /* deinterlacing : 2 temporal taps, 3 spatial taps linear filter. The
    top field is copied as is, but the bottom field is deinterlaced
@@ -885,7 +918,7 @@ static void deinterlace_bottom_field_inplace(uint8_t *src1, int src_wrap,
     uint8_t *src_m1, *src_0, *src_p1, *src_p2;
     int y;
     uint8_t *buf;
-    buf = (uint8_t*)av_malloc(width);
+    buf = av_malloc(width);
 
     src_m1 = src1;
     memcpy(buf,src_m1,width);
@@ -954,4 +987,3 @@ int avpicture_deinterlace(AVPicture *dst, const AVPicture *src,
     emms_c();
     return 0;
 }
-

@@ -265,7 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavutil.dylib\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"/usr/local/lib/libavcodec.dylib\" \"@rpath/libavcodec.framework/libavcodec\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ./${PRODUCT_NAME}";
+			shellScript = "cd ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\nln -s ./Versions/Current/${PRODUCT_NAME} ./${PRODUCT_NAME}\nLIBAVUTIL=`otool -L ./Versions/Current/${PRODUCT_NAME} | grep libavutil | awk '{print $1}'`\nLIBAVCODEC=`otool -L ./Versions/Current/${PRODUCT_NAME} | grep libavcodec | awk '{print $1}'`\ninstall_name_tool -id \"@rpath/${FULL_PRODUCT_NAME}/${PRODUCT_NAME}\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"${LIBAVUTIL}\" \"@rpath/libavutil.framework/libavutil\" ./${PRODUCT_NAME}\ninstall_name_tool -change \"${LIBAVCODEC}\" \"@rpath/libavcodec.framework/libavcodec\" ./${PRODUCT_NAME}\ninstall_name_tool -add_rpath \"@loader_path/../\" ./${PRODUCT_NAME}";
 		};
 /* End PBXShellScriptBuildPhase section */
 

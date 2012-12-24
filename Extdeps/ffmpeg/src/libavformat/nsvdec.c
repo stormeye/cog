@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include "libavutil/attributes.h"
 #include "libavutil/mathematics.h"
 #include "avformat.h"
 #include "internal.h"
@@ -99,8 +100,8 @@ struct NSVs_header {
     uint32_t chunk_tag; /* 'NSVs' */
     uint32_t v4cc;      /* or 'NONE' */
     uint32_t a4cc;      /* or 'NONE' */
-    uint16_t vwidth;    /* assert(vwidth%16==0) */
-    uint16_t vheight;   /* assert(vheight%16==0) */
+    uint16_t vwidth;    /* av_assert(vwidth%16==0) */
+    uint16_t vheight;   /* av_assert(vheight%16==0) */
     uint8_t framerate;  /* value = (framerate&0x80)?frtable[frameratex0x7f]:framerate */
     uint16_t unknown;
 };
@@ -183,33 +184,33 @@ typedef struct {
 } NSVContext;
 
 static const AVCodecTag nsv_codec_video_tags[] = {
-    { CODEC_ID_VP3, MKTAG('V', 'P', '3', ' ') },
-    { CODEC_ID_VP3, MKTAG('V', 'P', '3', '0') },
-    { CODEC_ID_VP3, MKTAG('V', 'P', '3', '1') },
-    { CODEC_ID_VP5, MKTAG('V', 'P', '5', ' ') },
-    { CODEC_ID_VP5, MKTAG('V', 'P', '5', '0') },
-    { CODEC_ID_VP6, MKTAG('V', 'P', '6', ' ') },
-    { CODEC_ID_VP6, MKTAG('V', 'P', '6', '0') },
-    { CODEC_ID_VP6, MKTAG('V', 'P', '6', '1') },
-    { CODEC_ID_VP6, MKTAG('V', 'P', '6', '2') },
-    { CODEC_ID_VP8, MKTAG('V', 'P', '8', '0') },
+    { AV_CODEC_ID_VP3, MKTAG('V', 'P', '3', ' ') },
+    { AV_CODEC_ID_VP3, MKTAG('V', 'P', '3', '0') },
+    { AV_CODEC_ID_VP3, MKTAG('V', 'P', '3', '1') },
+    { AV_CODEC_ID_VP5, MKTAG('V', 'P', '5', ' ') },
+    { AV_CODEC_ID_VP5, MKTAG('V', 'P', '5', '0') },
+    { AV_CODEC_ID_VP6, MKTAG('V', 'P', '6', ' ') },
+    { AV_CODEC_ID_VP6, MKTAG('V', 'P', '6', '0') },
+    { AV_CODEC_ID_VP6, MKTAG('V', 'P', '6', '1') },
+    { AV_CODEC_ID_VP6, MKTAG('V', 'P', '6', '2') },
+    { AV_CODEC_ID_VP8, MKTAG('V', 'P', '8', '0') },
 /*
-    { CODEC_ID_VP4, MKTAG('V', 'P', '4', ' ') },
-    { CODEC_ID_VP4, MKTAG('V', 'P', '4', '0') },
+    { AV_CODEC_ID_VP4, MKTAG('V', 'P', '4', ' ') },
+    { AV_CODEC_ID_VP4, MKTAG('V', 'P', '4', '0') },
 */
-    { CODEC_ID_MPEG4, MKTAG('X', 'V', 'I', 'D') }, /* cf sample xvid decoder from nsv_codec_sdk.zip */
-    { CODEC_ID_RAWVIDEO, MKTAG('R', 'G', 'B', '3') },
-    { CODEC_ID_NONE, 0 },
+    { AV_CODEC_ID_MPEG4, MKTAG('X', 'V', 'I', 'D') }, /* cf sample xvid decoder from nsv_codec_sdk.zip */
+    { AV_CODEC_ID_RAWVIDEO, MKTAG('R', 'G', 'B', '3') },
+    { AV_CODEC_ID_NONE, 0 },
 };
 
 static const AVCodecTag nsv_codec_audio_tags[] = {
-    { CODEC_ID_MP3,       MKTAG('M', 'P', '3', ' ') },
-    { CODEC_ID_AAC,       MKTAG('A', 'A', 'C', ' ') },
-    { CODEC_ID_AAC,       MKTAG('A', 'A', 'C', 'P') },
-    { CODEC_ID_AAC,       MKTAG('V', 'L', 'B', ' ') },
-    { CODEC_ID_SPEEX,     MKTAG('S', 'P', 'X', ' ') },
-    { CODEC_ID_PCM_U16LE, MKTAG('P', 'C', 'M', ' ') },
-    { CODEC_ID_NONE,      0 },
+    { AV_CODEC_ID_MP3,       MKTAG('M', 'P', '3', ' ') },
+    { AV_CODEC_ID_AAC,       MKTAG('A', 'A', 'C', ' ') },
+    { AV_CODEC_ID_AAC,       MKTAG('A', 'A', 'C', 'P') },
+    { AV_CODEC_ID_AAC,       MKTAG('V', 'L', 'B', ' ') },
+    { AV_CODEC_ID_SPEEX,     MKTAG('S', 'P', 'X', ' ') },
+    { AV_CODEC_ID_PCM_U16LE, MKTAG('P', 'C', 'M', ' ') },
+    { AV_CODEC_ID_NONE,      0 },
 };
 
 //static int nsv_load_index(AVFormatContext *s);
@@ -268,7 +269,7 @@ static int nsv_resync(AVFormatContext *s)
     return -1;
 }
 
-static int nsv_parse_NSVf_header(AVFormatContext *s, AVFormatParameters *ap)
+static int nsv_parse_NSVf_header(AVFormatContext *s)
 {
     NSVContext *nsv = s->priv_data;
     AVIOContext *pb = s->pb;
@@ -313,7 +314,7 @@ static int nsv_parse_NSVf_header(AVFormatContext *s, AVFormatParameters *ap)
         char *token, *value;
         char quote;
 
-        p = strings = av_mallocz(strings_size + 1);
+        p = strings = av_mallocz((size_t)strings_size + 1);
         if (!p)
             return AVERROR(ENOMEM);
         endp = strings + strings_size;
@@ -350,6 +351,8 @@ static int nsv_parse_NSVf_header(AVFormatContext *s, AVFormatParameters *ap)
         if((unsigned)table_entries_used >= UINT_MAX / sizeof(uint32_t))
             return -1;
         nsv->nsvs_file_offset = av_malloc((unsigned)table_entries_used * sizeof(uint32_t));
+        if (!nsv->nsvs_file_offset)
+            return AVERROR(ENOMEM);
 
         for(i=0;i<table_entries_used;i++)
             nsv->nsvs_file_offset[i] = avio_rl32(pb) + size;
@@ -357,6 +360,8 @@ static int nsv_parse_NSVf_header(AVFormatContext *s, AVFormatParameters *ap)
         if(table_entries > table_entries_used &&
            avio_rl32(pb) == MKTAG('T','O','C','2')) {
             nsv->nsvs_timestamps = av_malloc((unsigned)table_entries_used*sizeof(uint32_t));
+            if (!nsv->nsvs_timestamps)
+                return AVERROR(ENOMEM);
             for(i=0;i<table_entries_used;i++) {
                 nsv->nsvs_timestamps[i] = avio_rl32(pb);
             }
@@ -392,7 +397,7 @@ static int nsv_parse_NSVf_header(AVFormatContext *s, AVFormatParameters *ap)
     return 0;
 }
 
-static int nsv_parse_NSVs_header(AVFormatContext *s, AVFormatParameters *ap)
+static int nsv_parse_NSVs_header(AVFormatContext *s)
 {
     NSVContext *nsv = s->priv_data;
     AVIOContext *pb = s->pb;
@@ -513,7 +518,7 @@ fail:
     return -1;
 }
 
-static int nsv_read_header(AVFormatContext *s, AVFormatParameters *ap)
+static int nsv_read_header(AVFormatContext *s)
 {
     NSVContext *nsv = s->priv_data;
     int i, err;
@@ -527,11 +532,16 @@ static int nsv_read_header(AVFormatContext *s, AVFormatParameters *ap)
     for (i = 0; i < NSV_MAX_RESYNC_TRIES; i++) {
         if (nsv_resync(s) < 0)
             return -1;
-        if (nsv->state == NSV_FOUND_NSVF)
-            err = nsv_parse_NSVf_header(s, ap);
+        if (nsv->state == NSV_FOUND_NSVF) {
+            err = nsv_parse_NSVf_header(s);
+            if (err < 0)
+                return err;
+        }
             /* we need the first NSVs also... */
         if (nsv->state == NSV_FOUND_NSVS) {
-            err = nsv_parse_NSVs_header(s, ap);
+            err = nsv_parse_NSVs_header(s);
+            if (err < 0)
+                return err;
             break; /* we just want the first one */
         }
     }
@@ -556,7 +566,6 @@ static int nsv_read_chunk(AVFormatContext *s, int fill_header)
     uint32_t vsize;
     uint16_t asize;
     uint16_t auxsize;
-    uint32_t av_unused auxtag;
 
     av_dlog(s, "%s(%d)\n", __FUNCTION__, fill_header);
 
@@ -572,7 +581,7 @@ null_chunk_retry:
     if (err < 0)
         return err;
     if (nsv->state == NSV_FOUND_NSVS)
-        err = nsv_parse_NSVs_header(s, NULL);
+        err = nsv_parse_NSVs_header(s);
     if (err < 0)
         return err;
     if (nsv->state != NSV_HAS_READ_NSVS && nsv->state != NSV_FOUND_BEEF)
@@ -586,6 +595,7 @@ null_chunk_retry:
     av_dlog(s, "NSV CHUNK %d aux, %u bytes video, %d bytes audio\n", auxcount, vsize, asize);
     /* skip aux stuff */
     for (i = 0; i < auxcount; i++) {
+        uint32_t av_unused auxtag;
         auxsize = avio_rl16(pb);
         auxtag = avio_rl32(pb);
         av_dlog(s, "NSV aux data: '%c%c%c%c', %d bytes\n",
@@ -606,12 +616,12 @@ null_chunk_retry:
     }
 
     /* map back streams to v,a */
-    if (s->streams[0])
+    if (s->nb_streams > 0)
         st[s->streams[0]->id] = s->streams[0];
-    if (s->streams[1])
+    if (s->nb_streams > 1)
         st[s->streams[1]->id] = s->streams[1];
 
-    if (vsize/* && st[NSV_ST_VIDEO]*/) {
+    if (vsize && st[NSV_ST_VIDEO]) {
         nst = st[NSV_ST_VIDEO]->priv_data;
         pkt = &nsv->ahead[NSV_ST_VIDEO];
         av_get_packet(pb, pkt, vsize);
@@ -624,7 +634,7 @@ null_chunk_retry:
     if(st[NSV_ST_VIDEO])
         ((NSVStream*)st[NSV_ST_VIDEO]->priv_data)->frame_offset++;
 
-    if (asize/*st[NSV_ST_AUDIO]*/) {
+    if (asize && st[NSV_ST_AUDIO]) {
         nst = st[NSV_ST_AUDIO]->priv_data;
         pkt = &nsv->ahead[NSV_ST_AUDIO];
         /* read raw audio specific header on the first audio chunk... */
@@ -645,7 +655,7 @@ null_chunk_retry:
                 }
                 bps /= channels; // ???
                 if (bps == 8)
-                    st[NSV_ST_AUDIO]->codec->codec_id = CODEC_ID_PCM_U8;
+                    st[NSV_ST_AUDIO]->codec->codec_id = AV_CODEC_ID_PCM_U8;
                 samplerate /= 4;/* UGH ??? XXX */
                 channels = 1;
                 st[NSV_ST_AUDIO]->codec->channels = channels;

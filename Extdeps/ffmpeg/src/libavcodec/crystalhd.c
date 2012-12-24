@@ -43,7 +43,7 @@
  * on testing, the code will wait until 3 pictures are ready before starting
  * to copy out - and this has the effect of extending the pipeline.
  *
- * Finally, while it is tempting to say that once the decoder starts outputing
+ * Finally, while it is tempting to say that once the decoder starts outputting
  * frames, the software should never fail to return a frame from a decode(),
  * this is a hard assertion to make, because the stream may switch between
  * differently encoded content (number of b-frames, interlacing, etc) which
@@ -124,6 +124,9 @@ typedef struct {
     AVFrame pic;
     HANDLE dev;
 
+    uint8_t *orig_extradata;
+    uint32_t orig_extradata_size;
+
     AVBitStreamFilterContext *bsfc;
     AVCodecParserContext *parser;
 
@@ -160,20 +163,20 @@ static const AVOption options[] = {
  * Helper functions
  ****************************************************************************/
 
-static inline BC_MEDIA_SUBTYPE id2subtype(CHDContext *priv, enum CodecID id)
+static inline BC_MEDIA_SUBTYPE id2subtype(CHDContext *priv, enum AVCodecID id)
 {
     switch (id) {
-    case CODEC_ID_MPEG4:
+    case AV_CODEC_ID_MPEG4:
         return BC_MSUBTYPE_DIVX;
-    case CODEC_ID_MSMPEG4V3:
+    case AV_CODEC_ID_MSMPEG4V3:
         return BC_MSUBTYPE_DIVX311;
-    case CODEC_ID_MPEG2VIDEO:
+    case AV_CODEC_ID_MPEG2VIDEO:
         return BC_MSUBTYPE_MPEG2VIDEO;
-    case CODEC_ID_VC1:
+    case AV_CODEC_ID_VC1:
         return BC_MSUBTYPE_VC1;
-    case CODEC_ID_WMV3:
+    case AV_CODEC_ID_WMV3:
         return BC_MSUBTYPE_WMV3;
-    case CODEC_ID_H264:
+    case AV_CODEC_ID_H264:
         return priv->is_nal ? BC_MSUBTYPE_AVC1 : BC_MSUBTYPE_H264;
     default:
         return BC_MSUBTYPE_INVALID;
@@ -338,6 +341,19 @@ static av_cold int uninit(AVCodecContext *avctx)
     DtsCloseDecoder(device);
     DtsDeviceClose(device);
 
+    /*
+     * Restore original extradata, so that if the decoder is
+     * reinitialised, the bitstream detection and filtering
+     * will work as expected.
+     */
+    if (priv->orig_extradata) {
+        av_free(avctx->extradata);
+        avctx->extradata = priv->orig_extradata;
+        avctx->extradata_size = priv->orig_extradata_size;
+        priv->orig_extradata = NULL;
+        priv->orig_extradata_size = 0;
+    }
+
     av_parser_close(priv->parser);
     if (priv->bsfc) {
         av_bitstream_filter_close(priv->bsfc);
@@ -401,6 +417,16 @@ static av_cold int init(AVCodecContext *avctx)
         {
             uint8_t *dummy_p;
             int dummy_int;
+
+            /* Back up the extradata so it can be restored at close time. */
+            priv->orig_extradata = av_malloc(avctx->extradata_size);
+            if (!priv->orig_extradata) {
+                av_log(avctx, AV_LOG_ERROR,
+                       "Failed to allocate copy of extradata\n");
+                return AVERROR(ENOMEM);
+            }
+            priv->orig_extradata_size = avctx->extradata_size;
+            memcpy(priv->orig_extradata, avctx->extradata, avctx->extradata_size);
 
             priv->bsfc = av_bitstream_filter_init("h264_mp4toannexb");
             if (!priv->bsfc) {
@@ -489,7 +515,7 @@ static av_cold int init(AVCodecContext *avctx)
         goto fail;
     }
 
-    if (avctx->codec->id == CODEC_ID_H264) {
+    if (avctx->codec->id == AV_CODEC_ID_H264) {
         priv->parser = av_parser_init(avctx->codec->id);
         if (!priv->parser)
             av_log(avctx, AV_LOG_WARNING,
@@ -512,7 +538,7 @@ static inline CopyRet copy_frame(AVCodecContext *avctx,
                                  void *data, int *data_size)
 {
     BC_STATUS ret;
-    BC_DTS_STATUS decoder_status;
+    BC_DTS_STATUS decoder_status = { 0, };
     uint8_t trust_interlaced;
     uint8_t interlaced;
 
@@ -578,7 +604,7 @@ static inline CopyRet copy_frame(AVCodecContext *avctx,
      * picture or if there is a corruption in the stream. (In either
      * case a 0 will be returned for the next picture number)
      */
-    trust_interlaced = avctx->codec->id != CODEC_ID_H264 ||
+    trust_interlaced = avctx->codec->id != AV_CODEC_ID_H264 ||
                        !(output->PicInfo.flags & VDEC_FLAG_UNKNOWN_SRC) ||
                        priv->need_second_field ||
                        (decoder_status.picNumFlags & ~0x40000000) ==
@@ -630,8 +656,7 @@ static inline CopyRet copy_frame(AVCodecContext *avctx,
             pStride = 720;
         else if (width <= 1280)
             pStride = 1280;
-        else if (width <= 1080)
-            pStride = 1080;
+        else pStride = 1920;
         sStride = av_image_get_linesize(avctx->pix_fmt, pStride, 0);
     } else {
         sStride = bwidth;
@@ -688,11 +713,20 @@ static inline CopyRet copy_frame(AVCodecContext *avctx,
     }
 
     /*
-     * Testing has shown that in all cases where we don't want to return the
-     * full frame immediately, VDEC_FLAG_UNKNOWN_SRC is set.
+     * The logic here is purely based on empirical testing with samples.
+     * If we need a second field, it could come from a second input packet,
+     * or it could come from the same field-pair input packet at the current
+     * field. In the first case, we should return and wait for the next time
+     * round to get the second field, while in the second case, we should
+     * ask the decoder for it immediately.
+     *
+     * Testing has shown that we are dealing with the fieldpair -> two fields
+     * case if the VDEC_FLAG_UNKNOWN_SRC is not set or if the input picture
+     * type was PICT_FRAME (in this second case, the flag might still be set)
      */
     return priv->need_second_field &&
-           !(output->PicInfo.flags & VDEC_FLAG_UNKNOWN_SRC) ?
+           (!(output->PicInfo.flags & VDEC_FLAG_UNKNOWN_SRC) ||
+            pic_type == PICT_FRAME) ?
            RET_COPY_NEXT_FIELD : RET_OK;
 }
 
@@ -716,6 +750,56 @@ static inline CopyRet receive_frame(AVCodecContext *avctx,
         av_log(avctx, AV_LOG_VERBOSE, "CrystalHD: Initial format change\n");
         avctx->width  = output.PicInfo.width;
         avctx->height = output.PicInfo.height;
+        switch ( output.PicInfo.aspect_ratio ) {
+        case vdecAspectRatioSquare:
+            avctx->sample_aspect_ratio = (AVRational) {  1,  1};
+            break;
+        case vdecAspectRatio12_11:
+            avctx->sample_aspect_ratio = (AVRational) { 12, 11};
+            break;
+        case vdecAspectRatio10_11:
+            avctx->sample_aspect_ratio = (AVRational) { 10, 11};
+            break;
+        case vdecAspectRatio16_11:
+            avctx->sample_aspect_ratio = (AVRational) { 16, 11};
+            break;
+        case vdecAspectRatio40_33:
+            avctx->sample_aspect_ratio = (AVRational) { 40, 33};
+            break;
+        case vdecAspectRatio24_11:
+            avctx->sample_aspect_ratio = (AVRational) { 24, 11};
+            break;
+        case vdecAspectRatio20_11:
+            avctx->sample_aspect_ratio = (AVRational) { 20, 11};
+            break;
+        case vdecAspectRatio32_11:
+            avctx->sample_aspect_ratio = (AVRational) { 32, 11};
+            break;
+        case vdecAspectRatio80_33:
+            avctx->sample_aspect_ratio = (AVRational) { 80, 33};
+            break;
+        case vdecAspectRatio18_11:
+            avctx->sample_aspect_ratio = (AVRational) { 18, 11};
+            break;
+        case vdecAspectRatio15_11:
+            avctx->sample_aspect_ratio = (AVRational) { 15, 11};
+            break;
+        case vdecAspectRatio64_33:
+            avctx->sample_aspect_ratio = (AVRational) { 64, 33};
+            break;
+        case vdecAspectRatio160_99:
+            avctx->sample_aspect_ratio = (AVRational) {160, 99};
+            break;
+        case vdecAspectRatio4_3:
+            avctx->sample_aspect_ratio = (AVRational) {  4,  3};
+            break;
+        case vdecAspectRatio16_9:
+            avctx->sample_aspect_ratio = (AVRational) { 16,  9};
+            break;
+        case vdecAspectRatio221_1:
+            avctx->sample_aspect_ratio = (AVRational) {221,  1};
+            break;
+        }
         return RET_COPY_AGAIN;
     } else if (ret == BC_STS_SUCCESS) {
         int copy_ret = -1;
@@ -728,7 +812,7 @@ static inline CopyRet receive_frame(AVCodecContext *avctx,
                 priv->last_picture = output.PicInfo.picture_number - 1;
             }
 
-            if (avctx->codec->id == CODEC_ID_MPEG4 &&
+            if (avctx->codec->id == AV_CODEC_ID_MPEG4 &&
                 output.PicInfo.timeStamp == 0 && priv->bframe_bug) {
                 av_log(avctx, AV_LOG_VERBOSE,
                        "CrystalHD: Not returning packed frame twice.\n");
@@ -786,7 +870,7 @@ static inline CopyRet receive_frame(AVCodecContext *avctx,
 static int decode(AVCodecContext *avctx, void *data, int *data_size, AVPacket *avpkt)
 {
     BC_STATUS ret;
-    BC_DTS_STATUS decoder_status;
+    BC_DTS_STATUS decoder_status = { 0, };
     CopyRet rec_ret;
     CHDContext *priv   = avctx->priv_data;
     HANDLE dev         = priv->dev;
@@ -843,7 +927,7 @@ static int decode(AVCodecContext *avctx, void *data, int *data_size, AVPacket *a
                     av_log(avctx, AV_LOG_WARNING,
                            "CrystalHD: Failed to parse h.264 packet "
                            "completely. Interlaced frames may be "
-                           "incorrectly detected\n.");
+                           "incorrectly detected.\n");
                 } else {
                     av_log(avctx, AV_LOG_VERBOSE,
                            "CrystalHD: parser picture type %d\n",
@@ -1007,12 +1091,12 @@ static AVClass h264_class = {
 AVCodec ff_h264_crystalhd_decoder = {
     .name           = "h264_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_H264,
+    .id             = AV_CODEC_ID_H264,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
     .decode         = decode,
-    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY | CODEC_CAP_EXPERIMENTAL,
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY,
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (CrystalHD acceleration)"),
     .pix_fmts       = (const enum PixelFormat[]){PIX_FMT_YUYV422, PIX_FMT_NONE},
@@ -1031,12 +1115,12 @@ static AVClass mpeg2_class = {
 AVCodec ff_mpeg2_crystalhd_decoder = {
     .name           = "mpeg2_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MPEG2VIDEO,
+    .id             = AV_CODEC_ID_MPEG2VIDEO,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
     .decode         = decode,
-    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY | CODEC_CAP_EXPERIMENTAL,
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY,
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("MPEG-2 Video (CrystalHD acceleration)"),
     .pix_fmts       = (const enum PixelFormat[]){PIX_FMT_YUYV422, PIX_FMT_NONE},
@@ -1055,12 +1139,12 @@ static AVClass mpeg4_class = {
 AVCodec ff_mpeg4_crystalhd_decoder = {
     .name           = "mpeg4_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MPEG4,
+    .id             = AV_CODEC_ID_MPEG4,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
     .decode         = decode,
-    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY | CODEC_CAP_EXPERIMENTAL,
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY,
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("MPEG-4 Part 2 (CrystalHD acceleration)"),
     .pix_fmts       = (const enum PixelFormat[]){PIX_FMT_YUYV422, PIX_FMT_NONE},
@@ -1079,7 +1163,7 @@ static AVClass msmpeg4_class = {
 AVCodec ff_msmpeg4_crystalhd_decoder = {
     .name           = "msmpeg4_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MSMPEG4V3,
+    .id             = AV_CODEC_ID_MSMPEG4V3,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
@@ -1103,12 +1187,12 @@ static AVClass vc1_class = {
 AVCodec ff_vc1_crystalhd_decoder = {
     .name           = "vc1_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_VC1,
+    .id             = AV_CODEC_ID_VC1,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
     .decode         = decode,
-    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY | CODEC_CAP_EXPERIMENTAL,
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY,
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("SMPTE VC-1 (CrystalHD acceleration)"),
     .pix_fmts       = (const enum PixelFormat[]){PIX_FMT_YUYV422, PIX_FMT_NONE},
@@ -1127,12 +1211,12 @@ static AVClass wmv3_class = {
 AVCodec ff_wmv3_crystalhd_decoder = {
     .name           = "wmv3_crystalhd",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_WMV3,
+    .id             = AV_CODEC_ID_WMV3,
     .priv_data_size = sizeof(CHDContext),
     .init           = init,
     .close          = uninit,
     .decode         = decode,
-    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY | CODEC_CAP_EXPERIMENTAL,
+    .capabilities   = CODEC_CAP_DR1 | CODEC_CAP_DELAY,
     .flush          = flush,
     .long_name      = NULL_IF_CONFIG_SMALL("Windows Media Video 9 (CrystalHD acceleration)"),
     .pix_fmts       = (const enum PixelFormat[]){PIX_FMT_YUYV422, PIX_FMT_NONE},

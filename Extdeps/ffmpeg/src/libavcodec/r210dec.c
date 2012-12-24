@@ -22,6 +22,7 @@
 
 #include "avcodec.h"
 #include "libavutil/bswap.h"
+#include "libavutil/common.h"
 
 static av_cold int decode_init(AVCodecContext *avctx)
 {
@@ -29,6 +30,8 @@ static av_cold int decode_init(AVCodecContext *avctx)
     avctx->bits_per_raw_sample = 10;
 
     avctx->coded_frame         = avcodec_alloc_frame();
+    if (!avctx->coded_frame)
+        return AVERROR(ENOMEM);
 
     return 0;
 }
@@ -39,7 +42,8 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size,
     int h, w;
     AVFrame *pic = avctx->coded_frame;
     const uint32_t *src = (const uint32_t *)avpkt->data;
-    int aligned_width = FFALIGN(avctx->width, 64);
+    int aligned_width = FFALIGN(avctx->width,
+                                avctx->codec_id == AV_CODEC_ID_R10K ? 1 : 64);
     uint8_t *dst_line;
 
     if (pic->data[0])
@@ -61,9 +65,14 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size,
     for (h = 0; h < avctx->height; h++) {
         uint16_t *dst = (uint16_t *)dst_line;
         for (w = 0; w < avctx->width; w++) {
-            uint32_t pixel = av_be2ne32(*src++);
+            uint32_t pixel;
             uint16_t r, g, b;
-            if (avctx->codec_id==CODEC_ID_R210) {
+            if (avctx->codec_id==AV_CODEC_ID_AVRP) {
+                pixel = av_le2ne32(*src++);
+            } else {
+                pixel = av_be2ne32(*src++);
+            }
+            if (avctx->codec_id==AV_CODEC_ID_R210) {
                 b =  pixel <<  6;
                 g = (pixel >>  4) & 0xffc0;
                 r = (pixel >> 14) & 0xffc0;
@@ -100,23 +109,35 @@ static av_cold int decode_close(AVCodecContext *avctx)
 AVCodec ff_r210_decoder = {
     .name           = "r210",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_R210,
+    .id             = AV_CODEC_ID_R210,
     .init           = decode_init,
     .close          = decode_close,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Uncompressed RGB 10-bit"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Uncompressed RGB 10-bit"),
 };
 #endif
 #if CONFIG_R10K_DECODER
 AVCodec ff_r10k_decoder = {
     .name           = "r10k",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_R10K,
+    .id             = AV_CODEC_ID_R10K,
     .init           = decode_init,
     .close          = decode_close,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("AJA Kona 10-bit RGB Codec"),
+    .long_name      = NULL_IF_CONFIG_SMALL("AJA Kona 10-bit RGB Codec"),
+};
+#endif
+#if CONFIG_AVRP_DECODER
+AVCodec ff_avrp_decoder = {
+    .name           = "avrp",
+    .type           = AVMEDIA_TYPE_VIDEO,
+    .id             = AV_CODEC_ID_AVRP,
+    .init           = decode_init,
+    .close          = decode_close,
+    .decode         = decode_frame,
+    .capabilities   = CODEC_CAP_DR1,
+    .long_name = NULL_IF_CONFIG_SMALL("Avid 1:1 10-bit RGB Packer"),
 };
 #endif

@@ -29,6 +29,7 @@
  */
 
 #include "libavcodec/bytestream.h"
+#include "libavutil/avassert.h"
 #include "libavutil/intreadwrite.h"
 #include "libavutil/dict.h"
 #include "avformat.h"
@@ -42,9 +43,11 @@
 #define ID_PBM        MKTAG('P','B','M',' ')
 #define ID_ILBM       MKTAG('I','L','B','M')
 #define ID_BMHD       MKTAG('B','M','H','D')
+#define ID_DGBL       MKTAG('D','G','B','L')
 #define ID_CAMG       MKTAG('C','A','M','G')
 #define ID_CMAP       MKTAG('C','M','A','P')
 #define ID_ACBM       MKTAG('A','C','B','M')
+#define ID_DEEP       MKTAG('D','E','E','P')
 
 #define ID_FORM       MKTAG('F','O','R','M')
 #define ID_ANNO       MKTAG('A','N','N','O')
@@ -57,7 +60,8 @@
 #define ID_TEXT       MKTAG('T','E','X','T')
 #define ID_ABIT       MKTAG('A','B','I','T')
 #define ID_BODY       MKTAG('B','O','D','Y')
-#define ID_ANNO       MKTAG('A','N','N','O')
+#define ID_DBOD       MKTAG('D','B','O','D')
+#define ID_DPEL       MKTAG('D','P','E','L')
 
 #define LEFT    2
 #define RIGHT   4
@@ -120,14 +124,20 @@ static int iff_probe(AVProbeData *p)
 {
     const uint8_t *d = p->buf;
 
-    if ( AV_RL32(d)   == ID_FORM &&
-         (AV_RL32(d+8) == ID_8SVX || AV_RL32(d+8) == ID_PBM || AV_RL32(d+8) == ID_ILBM || AV_RL32(d+8) == ID_ACBM) )
+    if (  AV_RL32(d)   == ID_FORM &&
+         (AV_RL32(d+8) == ID_8SVX ||
+          AV_RL32(d+8) == ID_PBM  ||
+          AV_RL32(d+8) == ID_ACBM ||
+          AV_RL32(d+8) == ID_DEEP ||
+          AV_RL32(d+8) == ID_ILBM) )
         return AVPROBE_SCORE_MAX;
     return 0;
 }
 
-static int iff_read_header(AVFormatContext *s,
-                           AVFormatParameters *ap)
+static const uint8_t deep_rgb24[] = {0, 0, 0, 3, 0, 1, 0, 8, 0, 2, 0, 8, 0, 3, 0, 8};
+static const uint8_t deep_rgba[]  = {0, 0, 0, 4, 0, 1, 0, 8, 0, 2, 0, 8, 0, 3, 0, 8};
+
+static int iff_read_header(AVFormatContext *s)
 {
     IffDemuxContext *iff = s->priv_data;
     AVIOContext *pb = s->pb;
@@ -137,6 +147,8 @@ static int iff_read_header(AVFormatContext *s,
     uint32_t screenmode = 0;
     unsigned transparency = 0;
     unsigned masking = 0; // no mask
+    uint8_t fmt[16];
+    int fmt_size;
 
     st = avformat_new_stream(s, NULL);
     if (!st)
@@ -171,6 +183,7 @@ static int iff_read_header(AVFormatContext *s,
 
         case ID_ABIT:
         case ID_BODY:
+        case ID_DBOD:
             iff->body_pos = avio_tell(pb);
             iff->body_size = data_size;
             break;
@@ -219,6 +232,38 @@ static int iff_read_header(AVFormatContext *s,
             }
             break;
 
+        case ID_DPEL:
+            if (data_size < 4 || (data_size & 3))
+                return AVERROR_INVALIDDATA;
+            if ((fmt_size = avio_read(pb, fmt, sizeof(fmt))) < 0)
+                return fmt_size;
+            if (fmt_size == sizeof(deep_rgb24) && !memcmp(fmt, deep_rgb24, sizeof(deep_rgb24)))
+                st->codec->pix_fmt = PIX_FMT_RGB24;
+            else if (fmt_size == sizeof(deep_rgba) && !memcmp(fmt, deep_rgba, sizeof(deep_rgba)))
+                st->codec->pix_fmt = PIX_FMT_RGBA;
+            else {
+                av_log_ask_for_sample(s, "unsupported color format\n");
+                return AVERROR_PATCHWELCOME;
+            }
+            break;
+
+        case ID_DGBL:
+            st->codec->codec_type            = AVMEDIA_TYPE_VIDEO;
+            if (data_size < 8)
+                return AVERROR_INVALIDDATA;
+            st->codec->width                 = avio_rb16(pb);
+            st->codec->height                = avio_rb16(pb);
+            iff->bitmap_compression          = avio_rb16(pb);
+            if (iff->bitmap_compression != 0) {
+                av_log(s, AV_LOG_ERROR,
+                       "compression %i not supported\n", iff->bitmap_compression);
+                return AVERROR_PATCHWELCOME;
+            }
+            st->sample_aspect_ratio.num      = avio_r8(pb);
+            st->sample_aspect_ratio.den      = avio_r8(pb);
+            st->codec->bits_per_coded_sample = 24;
+            break;
+
         case ID_ANNO:
         case ID_TEXT:      metadata_tag = "comment";   break;
         case ID_AUTH:      metadata_tag = "artist";    break;
@@ -228,7 +273,7 @@ static int iff_read_header(AVFormatContext *s,
 
         if (metadata_tag) {
             if ((res = get_metadata(s, metadata_tag, data_size)) < 0) {
-                av_log(s, AV_LOG_ERROR, "cannot allocate metadata tag %s!", metadata_tag);
+                av_log(s, AV_LOG_ERROR, "cannot allocate metadata tag %s!\n", metadata_tag);
                 return res;
             }
         }
@@ -243,13 +288,13 @@ static int iff_read_header(AVFormatContext *s,
 
         switch (iff->svx8_compression) {
         case COMP_NONE:
-            st->codec->codec_id = CODEC_ID_PCM_S8_PLANAR;
+            st->codec->codec_id = AV_CODEC_ID_PCM_S8_PLANAR;
             break;
         case COMP_FIB:
-            st->codec->codec_id = CODEC_ID_8SVX_FIB;
+            st->codec->codec_id = AV_CODEC_ID_8SVX_FIB;
             break;
         case COMP_EXP:
-            st->codec->codec_id = CODEC_ID_8SVX_EXP;
+            st->codec->codec_id = AV_CODEC_ID_8SVX_EXP;
             break;
         default:
             av_log(s, AV_LOG_ERROR,
@@ -289,10 +334,10 @@ static int iff_read_header(AVFormatContext *s,
 
         switch (iff->bitmap_compression) {
         case BITMAP_RAW:
-            st->codec->codec_id = CODEC_ID_IFF_ILBM;
+            st->codec->codec_id = AV_CODEC_ID_IFF_ILBM;
             break;
         case BITMAP_BYTERUN1:
-            st->codec->codec_id = CODEC_ID_IFF_BYTERUN1;
+            st->codec->codec_id = AV_CODEC_ID_IFF_BYTERUN1;
             break;
         default:
             av_log(s, AV_LOG_ERROR,
@@ -331,7 +376,7 @@ static int iff_read_packet(AVFormatContext *s,
         bytestream_put_be16(&buf, 2);
         ret = avio_read(pb, buf, iff->body_size);
     } else {
-        av_abort();
+        av_assert0(0);
     }
 
     if(iff->sent_bytes == 0)
@@ -343,8 +388,8 @@ static int iff_read_packet(AVFormatContext *s,
 }
 
 AVInputFormat ff_iff_demuxer = {
-    .name           = "IFF",
-    .long_name      = NULL_IF_CONFIG_SMALL("IFF format"),
+    .name           = "iff",
+    .long_name      = NULL_IF_CONFIG_SMALL("IFF (Interchange File Format)"),
     .priv_data_size = sizeof(IffDemuxContext),
     .read_probe     = iff_probe,
     .read_header    = iff_read_header,

@@ -26,8 +26,8 @@
 /** Reconstruct bitstream f_code */
 static inline int mpeg2_get_f_code(MpegEncContext *s)
 {
-    return ((s->mpeg_f_code[0][0] << 12) | (s->mpeg_f_code[0][1] << 8) |
-            (s->mpeg_f_code[1][0] <<  4) |  s->mpeg_f_code[1][1]);
+    return (s->mpeg_f_code[0][0] << 12) | (s->mpeg_f_code[0][1] << 8) |
+           (s->mpeg_f_code[1][0] <<  4) |  s->mpeg_f_code[1][1];
 }
 
 /** Determine frame start: first field for field picture or frame picture */
@@ -132,7 +132,7 @@ static int vaapi_mpeg2_decode_slice(AVCodecContext *avctx, const uint8_t *buffer
         return -1;
     slice_param->macroblock_offset              = macroblock_offset;
     slice_param->slice_horizontal_position      = s->mb_x;
-    slice_param->slice_vertical_position        = s->mb_y;
+    slice_param->slice_vertical_position        = s->mb_y >> (s->picture_structure != PICT_FRAME);
     slice_param->quantiser_scale_code           = quantiser_scale_code;
     slice_param->intra_slice_flag               = intra_slice_flag;
     return 0;
@@ -141,7 +141,7 @@ static int vaapi_mpeg2_decode_slice(AVCodecContext *avctx, const uint8_t *buffer
 AVHWAccel ff_mpeg2_vaapi_hwaccel = {
     .name           = "mpeg2_vaapi",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_MPEG2VIDEO,
+    .id             = AV_CODEC_ID_MPEG2VIDEO,
     .pix_fmt        = PIX_FMT_VAAPI_VLD,
     .start_frame    = vaapi_mpeg2_start_frame,
     .end_frame      = vaapi_mpeg2_end_frame,

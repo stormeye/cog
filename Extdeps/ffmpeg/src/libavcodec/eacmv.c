@@ -28,6 +28,7 @@
  * http://wiki.multimedia.cx/index.php?title=Electronic_Arts_CMV
  */
 
+#include "libavutil/common.h"
 #include "libavutil/intreadwrite.h"
 #include "libavutil/imgutils.h"
 #include "avcodec.h"
@@ -162,8 +163,11 @@ static int cmv_decode_frame(AVCodecContext *avctx,
         return AVERROR_INVALIDDATA;
 
     if (AV_RL32(buf)==MVIh_TAG||AV_RB32(buf)==MVIh_TAG) {
+        unsigned size = AV_RL32(buf + 4);
         cmv_process_header(s, buf+EA_PREAMBLE_SIZE, buf_end);
-        return buf_size;
+        if (size > buf_end - buf - EA_PREAMBLE_SIZE)
+            return -1;
+        buf += size;
     }
 
     if (av_image_check_size(s->width, s->height, 0, s->avctx))
@@ -218,11 +222,11 @@ static av_cold int cmv_decode_end(AVCodecContext *avctx){
 AVCodec ff_eacmv_decoder = {
     .name           = "eacmv",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_CMV,
+    .id             = AV_CODEC_ID_CMV,
     .priv_data_size = sizeof(CmvContext),
     .init           = cmv_decode_init,
     .close          = cmv_decode_end,
     .decode         = cmv_decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Electronic Arts CMV video"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Electronic Arts CMV video"),
 };

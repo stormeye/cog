@@ -202,7 +202,7 @@ static int wav_write_trailer(AVFormatContext *s)
 #define OFFSET(x) offsetof(WAVContext, x)
 #define ENC AV_OPT_FLAG_ENCODING_PARAM
 static const AVOption options[] = {
-    { "write_bext", "Write BEXT chunk.", OFFSET(write_bext), AV_OPT_TYPE_INT, { 0 }, 0, 1, ENC },
+    { "write_bext", "Write BEXT chunk.", OFFSET(write_bext), AV_OPT_TYPE_INT, { .i64 = 0 }, 0, 1, ENC },
     { NULL },
 };
 
@@ -215,17 +215,18 @@ static const AVClass wav_muxer_class = {
 
 AVOutputFormat ff_wav_muxer = {
     .name              = "wav",
-    .long_name         = NULL_IF_CONFIG_SMALL("WAV format"),
+    .long_name         = NULL_IF_CONFIG_SMALL("WAV / WAVE (Waveform Audio)"),
     .mime_type         = "audio/x-wav",
     .extensions        = "wav",
     .priv_data_size    = sizeof(WAVContext),
-    .audio_codec       = CODEC_ID_PCM_S16LE,
-    .video_codec       = CODEC_ID_NONE,
+    .audio_codec       = AV_CODEC_ID_PCM_S16LE,
+    .video_codec       = AV_CODEC_ID_NONE,
     .write_header      = wav_write_header,
     .write_packet      = wav_write_packet,
     .write_trailer     = wav_write_trailer,
-    .codec_tag= (const AVCodecTag* const []){ff_codec_wav_tags, 0},
-    .priv_class = &wav_muxer_class,
+    .flags             = AVFMT_TS_NONSTRICT,
+    .codec_tag         = (const AVCodecTag* const []){ ff_codec_wav_tags, 0 },
+    .priv_class        = &wav_muxer_class,
 };
 #endif /* CONFIG_WAV_MUXER */
 
@@ -275,6 +276,14 @@ static int wav_probe(AVProbeData *p)
     return 0;
 }
 
+static void handle_stream_probing(AVStream *st)
+{
+    if (st->codec->codec_id == AV_CODEC_ID_PCM_S16LE) {
+        st->request_probe = AVPROBE_SCORE_MAX/2;
+        st->probe_packets = FFMIN(st->probe_packets, 4);
+    }
+}
+
 static int wav_parse_fmt_tag(AVFormatContext *s, int64_t size, AVStream **st)
 {
     AVIOContext *pb = s->pb;
@@ -288,7 +297,9 @@ static int wav_parse_fmt_tag(AVFormatContext *s, int64_t size, AVStream **st)
     ret = ff_get_wav_header(pb, (*st)->codec, size);
     if (ret < 0)
         return ret;
-    (*st)->need_parsing = AVSTREAM_PARSE_FULL;
+    handle_stream_probing(*st);
+
+    (*st)->need_parsing = AVSTREAM_PARSE_FULL_RAW;
 
     avpriv_set_pts_info(*st, 64, 1, (*st)->codec->sample_rate);
 
@@ -387,8 +398,7 @@ static const AVMetadataConv wav_metadata_conv[] = {
 };
 
 /* wav input */
-static int wav_read_header(AVFormatContext *s,
-                           AVFormatParameters *ap)
+static int wav_read_header(AVFormatContext *s)
 {
     int64_t size, av_uninit(data_size);
     int64_t sample_count=0;
@@ -480,6 +490,10 @@ static int wav_read_header(AVFormatContext *s,
                 return ret;
             break;
         case MKTAG('S','M','V','0'):
+            if (!got_fmt) {
+                av_log(s, AV_LOG_ERROR, "found no 'fmt ' tag before the 'SMV0' tag\n");
+                return AVERROR_INVALIDDATA;
+            }
             // SMV file, a wav file with video appended.
             if (size != MKTAG('0','2','0','0')) {
                 av_log(s, AV_LOG_ERROR, "Unknown SMV version found\n");
@@ -492,7 +506,7 @@ static int wav_read_header(AVFormatContext *s,
             avio_r8(pb);
             vst->id = 1;
             vst->codec->codec_type = AVMEDIA_TYPE_VIDEO;
-            vst->codec->codec_id = CODEC_ID_MJPEG;
+            vst->codec->codec_id = AV_CODEC_ID_MJPEG;
             vst->codec->width  = avio_rl24(pb);
             vst->codec->height = avio_rl24(pb);
             size = avio_rl24(pb);
@@ -508,7 +522,7 @@ static int wav_read_header(AVFormatContext *s,
         case MKTAG('L', 'I', 'S', 'T'):
             list_type = avio_rl32(pb);
             if (size < 4) {
-                av_log(s, AV_LOG_ERROR, "too short LIST");
+                av_log(s, AV_LOG_ERROR, "too short LIST tag\n");
                 return AVERROR_INVALIDDATA;
             }
             switch (list_type) {
@@ -668,22 +682,22 @@ static int wav_read_seek(AVFormatContext *s,
 
     st = s->streams[0];
     switch (st->codec->codec_id) {
-    case CODEC_ID_MP2:
-    case CODEC_ID_MP3:
-    case CODEC_ID_AC3:
-    case CODEC_ID_DTS:
+    case AV_CODEC_ID_MP2:
+    case AV_CODEC_ID_MP3:
+    case AV_CODEC_ID_AC3:
+    case AV_CODEC_ID_DTS:
         /* use generic seeking with dynamically generated indexes */
         return -1;
     default:
         break;
     }
-    return pcm_read_seek(s, stream_index, timestamp, flags);
+    return ff_pcm_read_seek(s, stream_index, timestamp, flags);
 }
 
 #define OFFSET(x) offsetof(WAVContext, x)
 #define DEC AV_OPT_FLAG_DECODING_PARAM
 static const AVOption demux_options[] = {
-    { "ignore_length", "Ignore length", OFFSET(ignore_length), AV_OPT_TYPE_INT, { 0 }, 0, 1, DEC },
+    { "ignore_length", "Ignore length", OFFSET(ignore_length), AV_OPT_TYPE_INT, { .i64 = 0 }, 0, 1, DEC },
     { NULL },
 };
 
@@ -695,14 +709,14 @@ static const AVClass wav_demuxer_class = {
 };
 AVInputFormat ff_wav_demuxer = {
     .name           = "wav",
-    .long_name      = NULL_IF_CONFIG_SMALL("WAV format"),
+    .long_name      = NULL_IF_CONFIG_SMALL("WAV / WAVE (Waveform Audio)"),
     .priv_data_size = sizeof(WAVContext),
     .read_probe     = wav_probe,
     .read_header    = wav_read_header,
     .read_packet    = wav_read_packet,
     .read_seek      = wav_read_seek,
-    .flags= AVFMT_GENERIC_INDEX,
-    .codec_tag= (const AVCodecTag* const []){ff_codec_wav_tags, 0},
+    .flags          = AVFMT_GENERIC_INDEX,
+    .codec_tag      = (const AVCodecTag* const []){ ff_codec_wav_tags, 0 },
     .priv_class     = &wav_demuxer_class,
 };
 #endif /* CONFIG_WAV_DEMUXER */
@@ -729,7 +743,7 @@ static int w64_probe(AVProbeData *p)
         return 0;
 }
 
-static int w64_read_header(AVFormatContext *s, AVFormatParameters *ap)
+static int w64_read_header(AVFormatContext *s)
 {
     int64_t size;
     AVIOContext *pb  = s->pb;
@@ -767,7 +781,8 @@ static int w64_read_header(AVFormatContext *s, AVFormatParameters *ap)
         return ret;
     avio_skip(pb, FFALIGN(size, INT64_C(8)) - size);
 
-    st->need_parsing = AVSTREAM_PARSE_FULL;
+    handle_stream_probing(st);
+    st->need_parsing = AVSTREAM_PARSE_FULL_RAW;
 
     avpriv_set_pts_info(st, 64, 1, st->codec->sample_rate);
 
@@ -784,13 +799,13 @@ static int w64_read_header(AVFormatContext *s, AVFormatParameters *ap)
 
 AVInputFormat ff_w64_demuxer = {
     .name           = "w64",
-    .long_name      = NULL_IF_CONFIG_SMALL("Sony Wave64 format"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Sony Wave64"),
     .priv_data_size = sizeof(WAVContext),
     .read_probe     = w64_probe,
     .read_header    = w64_read_header,
     .read_packet    = wav_read_packet,
     .read_seek      = wav_read_seek,
-    .flags = AVFMT_GENERIC_INDEX,
-    .codec_tag = (const AVCodecTag* const []){ff_codec_wav_tags, 0},
+    .flags          = AVFMT_GENERIC_INDEX,
+    .codec_tag      = (const AVCodecTag* const []){ ff_codec_wav_tags, 0 },
 };
 #endif /* CONFIG_W64_DEMUXER */

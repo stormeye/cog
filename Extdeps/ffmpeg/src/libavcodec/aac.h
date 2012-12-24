@@ -30,6 +30,7 @@
 #ifndef AVCODEC_AAC_H
 #define AVCODEC_AAC_H
 
+#include "libavutil/float_dsp.h"
 #include "avcodec.h"
 #include "dsputil.h"
 #include "fft.h"
@@ -84,6 +85,7 @@ enum BandType {
 #define IS_CODEBOOK_UNSIGNED(x) ((x - 1) & 10)
 
 enum ChannelPosition {
+    AAC_CHANNEL_OFF   = 0,
     AAC_CHANNEL_FRONT = 1,
     AAC_CHANNEL_SIDE  = 2,
     AAC_CHANNEL_BACK  = 3,
@@ -110,6 +112,15 @@ enum OCStatus {
     OC_GLOBAL_HDR,  ///< Output configuration set in a global header but not yet locked
     OC_LOCKED,      ///< Output configuration locked in place
 };
+
+typedef struct {
+    MPEG4AudioConfig m4ac;
+    uint8_t layout_map[MAX_ELEM_ID*4][3];
+    int layout_map_tags;
+    int channels;
+    uint64_t channel_layout;
+    enum OCStatus status;
+} OutputConfiguration;
 
 /**
  * Predictor State
@@ -253,8 +264,6 @@ typedef struct {
     AVCodecContext *avctx;
     AVFrame frame;
 
-    MPEG4AudioConfig m4ac;
-
     int is_saved;                 ///< Set if elements have stored overlap from previous frame.
     DynamicRangeControl che_drc;
 
@@ -262,9 +271,6 @@ typedef struct {
      * @name Channel element related data
      * @{
      */
-    enum ChannelPosition che_pos[4][MAX_ELEM_ID]; /**< channel element channel mapping with the
-                                                   *   first index as the first 4 raw data block types
-                                                   */
     ChannelElement          *che[4][MAX_ELEM_ID];
     ChannelElement  *tag_che_map[4][MAX_ELEM_ID];
     int tags_mapped;
@@ -287,6 +293,7 @@ typedef struct {
     FFTContext mdct_ltp;
     DSPContext dsp;
     FmtConvertContext fmt_conv;
+    AVFloatDSPContext fdsp;
     int random_state;
     /** @} */
 
@@ -297,9 +304,18 @@ typedef struct {
     float *output_data[MAX_CHANNELS];                 ///< Points to each element's 'ret' buffer (PCM output).
     /** @} */
 
+
+    /**
+     * @name Japanese DTV specific extension
+     * @{
+     */
+    int enable_jp_dmono; ///< enable japanese DTV specific 'dual mono'
+    int dmono_mode;      ///< select the channel to decode in dual mono.
+    /** @} */
+
     DECLARE_ALIGNED(32, float, temp)[128];
 
-    enum OCStatus output_configured;
+    OutputConfiguration oc[2];
     int warned_num_aac_frames;
 } AACContext;
 

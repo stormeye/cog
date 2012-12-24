@@ -42,10 +42,10 @@ static inline int vc1_has_MVTYPEMB_bitplane(VC1Context *v)
 {
     if (v->mv_type_is_raw)
         return 0;
-    return (v->s.pict_type == AV_PICTURE_TYPE_P &&
-            (v->mv_mode == MV_PMODE_MIXED_MV ||
-             (v->mv_mode == MV_PMODE_INTENSITY_COMP &&
-              v->mv_mode2 == MV_PMODE_MIXED_MV)));
+    return v->s.pict_type == AV_PICTURE_TYPE_P &&
+           (v->mv_mode == MV_PMODE_MIXED_MV ||
+            (v->mv_mode == MV_PMODE_INTENSITY_COMP &&
+             v->mv_mode2 == MV_PMODE_MIXED_MV));
 }
 
 /** Check whether the SKIPMB bitplane is present */
@@ -53,8 +53,8 @@ static inline int vc1_has_SKIPMB_bitplane(VC1Context *v)
 {
     if (v->skip_is_raw)
         return 0;
-    return (v->s.pict_type == AV_PICTURE_TYPE_P ||
-            (v->s.pict_type == AV_PICTURE_TYPE_B && !v->bi_type));
+    return v->s.pict_type == AV_PICTURE_TYPE_P ||
+           (v->s.pict_type == AV_PICTURE_TYPE_B && !v->bi_type);
 }
 
 /** Check whether the DIRECTMB bitplane is present */
@@ -70,9 +70,9 @@ static inline int vc1_has_ACPRED_bitplane(VC1Context *v)
 {
     if (v->acpred_is_raw)
         return 0;
-    return (v->profile == PROFILE_ADVANCED &&
-            (v->s.pict_type == AV_PICTURE_TYPE_I ||
-             (v->s.pict_type == AV_PICTURE_TYPE_B && v->bi_type)));
+    return v->profile == PROFILE_ADVANCED &&
+           (v->s.pict_type == AV_PICTURE_TYPE_I ||
+            (v->s.pict_type == AV_PICTURE_TYPE_B && v->bi_type));
 }
 
 /** Check whether the OVERFLAGS bitplane is present */
@@ -80,11 +80,11 @@ static inline int vc1_has_OVERFLAGS_bitplane(VC1Context *v)
 {
     if (v->overflg_is_raw)
         return 0;
-    return (v->profile == PROFILE_ADVANCED &&
-            (v->s.pict_type == AV_PICTURE_TYPE_I ||
-             (v->s.pict_type == AV_PICTURE_TYPE_B && v->bi_type)) &&
-            (v->overlap && v->pq <= 8) &&
-            v->condover == CONDOVER_SELECT);
+    return v->profile == PROFILE_ADVANCED &&
+           (v->s.pict_type == AV_PICTURE_TYPE_I ||
+            (v->s.pict_type == AV_PICTURE_TYPE_B && v->bi_type)) &&
+           (v->overlap && v->pq <= 8) &&
+           v->condover == CONDOVER_SELECT;
 }
 
 /** Reconstruct bitstream PTYPE (7.1.1.4, index into Table-35) */
@@ -326,7 +326,7 @@ static int vaapi_vc1_decode_slice(AVCodecContext *avctx, const uint8_t *buffer, 
     av_dlog(avctx, "vaapi_vc1_decode_slice(): buffer %p, size %d\n", buffer, size);
 
     /* Current bit buffer is beyond any marker for VC-1, so skip it */
-    if (avctx->codec_id == CODEC_ID_VC1 && IS_MARKER(AV_RB32(buffer))) {
+    if (avctx->codec_id == AV_CODEC_ID_VC1 && IS_MARKER(AV_RB32(buffer))) {
         buffer += 4;
         size -= 4;
     }
@@ -344,7 +344,7 @@ static int vaapi_vc1_decode_slice(AVCodecContext *avctx, const uint8_t *buffer, 
 AVHWAccel ff_wmv3_vaapi_hwaccel = {
     .name           = "wmv3_vaapi",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_WMV3,
+    .id             = AV_CODEC_ID_WMV3,
     .pix_fmt        = PIX_FMT_VAAPI_VLD,
     .start_frame    = vaapi_vc1_start_frame,
     .end_frame      = vaapi_vc1_end_frame,
@@ -355,7 +355,7 @@ AVHWAccel ff_wmv3_vaapi_hwaccel = {
 AVHWAccel ff_vc1_vaapi_hwaccel = {
     .name           = "vc1_vaapi",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_VC1,
+    .id             = AV_CODEC_ID_VC1,
     .pix_fmt        = PIX_FMT_VAAPI_VLD,
     .start_frame    = vaapi_vc1_start_frame,
     .end_frame      = vaapi_vc1_end_frame,

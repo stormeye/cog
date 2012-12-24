@@ -24,6 +24,7 @@
  * Apple QuickDraw codec.
  */
 
+#include "libavutil/common.h"
 #include "libavutil/intreadwrite.h"
 #include "avcodec.h"
 
@@ -40,7 +41,7 @@ static int decode_frame(AVCodecContext *avctx,
     const uint8_t *buf_end = avpkt->data + avpkt->size;
     int buf_size = avpkt->size;
     QdrawContext * const a = avctx->priv_data;
-    AVFrame * const p= (AVFrame*)&a->pic;
+    AVFrame * const p = &a->pic;
     uint8_t* outdata;
     int colors;
     int i;
@@ -166,11 +167,11 @@ static av_cold int decode_end(AVCodecContext *avctx){
 AVCodec ff_qdraw_decoder = {
     .name           = "qdraw",
     .type           = AVMEDIA_TYPE_VIDEO,
-    .id             = CODEC_ID_QDRAW,
+    .id             = AV_CODEC_ID_QDRAW,
     .priv_data_size = sizeof(QdrawContext),
     .init           = decode_init,
     .close          = decode_end,
     .decode         = decode_frame,
     .capabilities   = CODEC_CAP_DR1,
-    .long_name = NULL_IF_CONFIG_SMALL("Apple QuickDraw"),
+    .long_name      = NULL_IF_CONFIG_SMALL("Apple QuickDraw"),
 };

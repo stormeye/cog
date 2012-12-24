@@ -20,7 +20,7 @@
  */
 
 #include "libavutil/intreadwrite.h"
-#include "libavutil/intfloat_readwrite.h"
+#include "libavutil/intfloat.h"
 #include "avformat.h"
 #include "internal.h"
 #include "riff.h"
@@ -90,7 +90,7 @@ static int get_codec_data(AVIOContext *pb, AVStream *vst,
                     vst->codec->codec_id =
                         ff_codec_get_id(ff_codec_bmp_tags, vst->codec->codec_tag);
                     if (vst->codec->codec_tag == MKTAG('R', 'J', 'P', 'G'))
-                        vst->codec->codec_id = CODEC_ID_NUV;
+                        vst->codec->codec_id = AV_CODEC_ID_NUV;
                 } else
                     avio_skip(pb, 4);
 
@@ -122,7 +122,7 @@ static int get_codec_data(AVIOContext *pb, AVStream *vst,
     return 0;
 }
 
-static int nuv_header(AVFormatContext *s, AVFormatParameters *ap) {
+static int nuv_header(AVFormatContext *s) {
     NUVContext *ctx = s->priv_data;
     AVIOContext *pb = s->pb;
     char id_string[12];
@@ -140,10 +140,10 @@ static int nuv_header(AVFormatContext *s, AVFormatParameters *ap) {
     avio_rl32(pb); // unused, "desiredheight"
     avio_r8(pb); // 'P' == progressive, 'I' == interlaced
     avio_skip(pb, 3); // padding
-    aspect = av_int2dbl(avio_rl64(pb));
+    aspect = av_int2double(avio_rl64(pb));
     if (aspect > 0.9999 && aspect < 1.0001)
         aspect = 4.0 / 3.0;
-    fps = av_int2dbl(avio_rl64(pb));
+    fps = av_int2double(avio_rl64(pb));
 
     // number of packets per stream type, -1 means unknown, e.g. streaming
     v_packs = avio_rl32(pb);
@@ -158,12 +158,15 @@ static int nuv_header(AVFormatContext *s, AVFormatParameters *ap) {
         if (!vst)
             return AVERROR(ENOMEM);
         vst->codec->codec_type = AVMEDIA_TYPE_VIDEO;
-        vst->codec->codec_id = CODEC_ID_NUV;
+        vst->codec->codec_id = AV_CODEC_ID_NUV;
         vst->codec->width = width;
         vst->codec->height = height;
         vst->codec->bits_per_coded_sample = 10;
         vst->sample_aspect_ratio = av_d2q(aspect * height / width, 10000);
-        vst->r_frame_rate = av_d2q(fps, 60000);
+#if FF_API_R_FRAME_RATE
+        vst->r_frame_rate =
+#endif
+        vst->avg_frame_rate = av_d2q(fps, 60000);
         avpriv_set_pts_info(vst, 32, 1, 1000);
     } else
         ctx->v_id = -1;
@@ -174,7 +177,7 @@ static int nuv_header(AVFormatContext *s, AVFormatParameters *ap) {
         if (!ast)
             return AVERROR(ENOMEM);
         ast->codec->codec_type = AVMEDIA_TYPE_AUDIO;
-        ast->codec->codec_id = CODEC_ID_PCM_S16LE;
+        ast->codec->codec_id = AV_CODEC_ID_PCM_S16LE;
         ast->codec->channels = 2;
         ast->codec->sample_rate = 44100;
         ast->codec->bit_rate = 2 * 2 * 44100 * 8;
@@ -185,7 +188,7 @@ static int nuv_header(AVFormatContext *s, AVFormatParameters *ap) {
         ctx->a_id = -1;
 
     get_codec_data(pb, vst, ast, is_mythtv);
-    ctx->rtjpg_video = vst && vst->codec->codec_id == CODEC_ID_NUV;
+    ctx->rtjpg_video = vst && vst->codec->codec_id == AV_CODEC_ID_NUV;
     return 0;
 }
 
@@ -277,7 +280,7 @@ static int nuv_resync(AVFormatContext *s, int64_t pos_limit) {
 
 /**
  * \brief attempts to read a timestamp from stream at the given stream position
- * \return timestamp if successfull and AV_NOPTS_VALUE if failure
+ * \return timestamp if successful and AV_NOPTS_VALUE if failure
  */
 static int64_t nuv_read_dts(AVFormatContext *s, int stream_index,
                             int64_t *ppos, int64_t pos_limit)
@@ -335,11 +338,11 @@ static int64_t nuv_read_dts(AVFormatContext *s, int stream_index,
 
 AVInputFormat ff_nuv_demuxer = {
     .name           = "nuv",
-    .long_name      = NULL_IF_CONFIG_SMALL("NuppelVideo format"),
+    .long_name      = NULL_IF_CONFIG_SMALL("NuppelVideo"),
     .priv_data_size = sizeof(NUVContext),
     .read_probe     = nuv_probe,
     .read_header    = nuv_header,
     .read_packet    = nuv_packet,
     .read_timestamp = nuv_read_dts,
-    .flags = AVFMT_GENERIC_INDEX,
+    .flags          = AVFMT_GENERIC_INDEX,
 };

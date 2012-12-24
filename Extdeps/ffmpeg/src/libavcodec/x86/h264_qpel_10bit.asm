@@ -111,7 +111,7 @@ INIT_XMM
 %endmacro
 
 %macro MCAxA 8
-%ifdef ARCH_X86_64
+%if ARCH_X86_64
 %ifnidn %1,mmxext
 MCAxA_OP %1,%2,%3,%4,%5,%6,%7,%8
 %endif
@@ -121,8 +121,8 @@ MCAxA_OP %1,%2,%3,%4,%5,%6,%7,%8
 %endmacro
 
 %macro MCAxA_OP 8
+%if ARCH_X86_32
 cglobal %2_h264_qpel%5_%3_10_%1, %6,%7,%8
-%ifdef ARCH_X86_32
     call stub_%2_h264_qpel%4_%3_10_%1
     mov  r0, r0m
     mov  r1, r1m
@@ -141,18 +141,20 @@ cglobal %2_h264_qpel%5_%3_10_%1, %6,%7,%8
     call stub_%2_h264_qpel%4_%3_10_%1
     RET
 %else ; ARCH_X86_64
-    mov r10, r0
-    mov r11, r1
+cglobal %2_h264_qpel%5_%3_10_%1, %6,%7 + 2,%8
+    mov r%7, r0
+%assign p1 %7+1
+    mov r %+ p1, r1
     call stub_%2_h264_qpel%4_%3_10_%1
-    lea  r0, [r10+%4*2]
-    lea  r1, [r11+%4*2]
+    lea  r0, [r%7+%4*2]
+    lea  r1, [r %+ p1+%4*2]
     call stub_%2_h264_qpel%4_%3_10_%1
-    lea  r0, [r10+r2*%4]
-    lea  r1, [r11+r2*%4]
+    lea  r0, [r%7+r2*%4]
+    lea  r1, [r %+ p1+r2*%4]
     call stub_%2_h264_qpel%4_%3_10_%1
-    lea  r0, [r10+r2*%4+%4*2]
-    lea  r1, [r11+r2*%4+%4*2]
-%ifndef UNIX64 ; fall through to function
+    lea  r0, [r%7+r2*%4+%4*2]
+    lea  r1, [r %+ p1+r2*%4+%4*2]
+%if UNIX64 == 0 ; fall through to function
     call stub_%2_h264_qpel%4_%3_10_%1
     RET
 %endif
@@ -165,7 +167,7 @@ cglobal %2_h264_qpel%5_%3_10_%1, %6,%7,%8
 MCAxA %1, %2, %3, %4, i, %5,%6,%7
 
 cglobal %2_h264_qpel%4_%3_10_%1, %5,%6,%7
-%ifndef UNIX64 ; no prologue or epilogue for UNIX64
+%if UNIX64 == 0 ; no prologue or epilogue for UNIX64
     call stub_%2_h264_qpel%4_%3_10_%1
     RET
 %endif
@@ -262,7 +264,7 @@ cglobal_mc %1, %2, mc20, %3, 3,4,9
 %else
     %define p16 [pw_16]
 %endif
-.nextrow
+.nextrow:
 %if %0 == 4
     movu     m2, [r1-4]
     movu     m3, [r1-2]
@@ -328,7 +330,7 @@ MC_CACHE MC30
 %macro MC10 3-4
 cglobal_mc %1, %2, mc10, %3, 3,5,9
     mov      r4, r1
-.body
+.body:
     mov     r3d, %3
     mova     m1, [pw_pixel_max]
 %if num_mmregs > 8
@@ -337,7 +339,7 @@ cglobal_mc %1, %2, mc10, %3, 3,5,9
 %else
     %define p16 [pw_16]
 %endif
-.nextrow
+.nextrow:
 %if %0 == 4
     movu     m2, [r1-4]
     movu     m3, [r1-2]
@@ -444,7 +446,7 @@ MC MC02
 %macro MC01 3
 cglobal_mc %1, %2, mc01, %3, 3,5,8
     mov      r4, r1
-.body
+.body:
     PRELOAD_V
 
     sub      r4, r2
@@ -533,7 +535,7 @@ SWAP 0,1,2,3,4,5
 ; this REALLY needs x86_64
 cglobal_mc %1, %2, mc11, %3, 3,6,8
     mov      r4, r1
-.body
+.body:
     PRELOAD_V
 
     sub      r0, r2
@@ -619,7 +621,7 @@ MC MC33
 %define PAD 12
 %define COUNT 2
 %else
-%define PAD 0
+%define PAD 4
 %define COUNT 3
 %endif
 put_hv%2_10_%1:
@@ -776,7 +778,7 @@ cglobal_mc %1, %2, mc12, %3, 3,7,12
     call put_hv%3_10_%1
 
     xor       r4d, r4d
-.body
+.body:
     mov       r3d, %3
     pxor       m0, m0
     mova       m7, [pw_pixel_max]
@@ -835,7 +837,7 @@ put_h%2_10_%1:
     mov       r3d, %2
     xor       r4d, r4d
     mova       m6, [pad20]
-.nextrow
+.nextrow:
     movu       m2, [r5-4]
     movu       m3, [r5-2]
     movu       m4, [r5+0]
@@ -862,7 +864,7 @@ H_NRD sse2  , 8
 %macro MC21 3
 cglobal_mc %1, %2, mc21, %3, 3,7,12
     mov   r5, r1
-.body
+.body:
 %define PAD mmsize*8*3*2   ; SIZE*16*4*sizeof(pixel)
     mov   r6, rsp          ; backup stack pointer
     and  rsp, ~(mmsize-1)  ; align stack
