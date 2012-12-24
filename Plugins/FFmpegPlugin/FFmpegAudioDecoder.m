@@ -145,31 +145,31 @@ static int min(int a, int b)
         {
             // consumed all decoded samples - decode more
             avcodec_get_frame_defaults(lastDecodedFrame);
+            bytesConsumedFromDecodedFrame = 0;
             int len = avcodec_decode_audio4(codecCtx, lastDecodedFrame, &gotFrame, lastReadPacket);
             if (len < 0 || (!gotFrame)) 
             {
                 char errbuf[4096];
                 av_strerror(len, errbuf, 4096);
                 DLog(@"Error decoding: len = %d, gotFrame = %d, strerr = %s", len, gotFrame, errbuf);
-            } 
-            else if (len >= lastReadPacket->size) 
+
+                dataSize = 0;
+                readNextPacket = YES;
+            }
+            else
+            {
+                // Something has been successfully decoded
+                dataSize = av_samples_get_buffer_size(NULL, codecCtx->channels,
+                                                            lastDecodedFrame->nb_samples,
+                                                            codecCtx->sample_fmt, 1);
+            }
+
+            if (len >= lastReadPacket->size)
             {
                 // decoding consumed all the read packet - read another next time
                 readNextPacket = YES;
             }
-         
-            bytesConsumedFromDecodedFrame = 0;
-            if (len >= 0)
-            {
-                // Something has been successfully decoded
-                dataSize = av_samples_get_buffer_size(NULL, codecCtx->channels,
-                                                  lastDecodedFrame->nb_samples,
-                                                  codecCtx->sample_fmt, 1);
-            } else {
-                // Decode error, discard packet and try again
-                dataSize = 0;
-                readNextPacket = YES;
-            }
+
         }
         
         // copy decoded samples to Cog's buffer
