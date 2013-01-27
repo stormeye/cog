@@ -132,8 +132,9 @@ static int min(int a, int b)
                 DLog(@"End of stream");
                 break; // end of stream;
             }
-            readNextPacket = NO; // we probably won't need to consume another chunk
-                                 // until this one is fully decoded
+
+            readNextPacket = NO;     // we probably won't need to consume another chunk
+            bytesReadFromPacket = 0; // until this one is fully decoded
         }
         
         // buffer size needed to hold decoded samples, in bytes
@@ -162,9 +163,10 @@ static int min(int a, int b)
                 dataSize = av_samples_get_buffer_size(NULL, codecCtx->channels,
                                                             lastDecodedFrame->nb_samples,
                                                             codecCtx->sample_fmt, 1);
+                bytesReadFromPacket += len;
             }
 
-            if (len >= lastReadPacket->size)
+            if (bytesReadFromPacket >= lastReadPacket->size)
             {
                 // decoding consumed all the read packet - read another next time
                 readNextPacket = YES;

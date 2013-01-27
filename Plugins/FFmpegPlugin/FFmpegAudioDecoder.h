@@ -28,6 +28,7 @@
     AVFrame *lastDecodedFrame;
     AVPacket *lastReadPacket;
     int bytesConsumedFromDecodedFrame;
+    int bytesReadFromPacket;
     BOOL readNextPacket;
 }
 
