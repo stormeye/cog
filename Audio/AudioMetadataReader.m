@@ -38,6 +38,8 @@
                 }
             }
         }
+    } else {
+        [AudioMetadataReader cacheAlbumArtFor:result];
     }
 
     return [NSDictionary dictionaryWithDictionary:result];

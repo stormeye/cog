@@ -126,6 +126,7 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
 {
     switch( buttonIdentifier )
     {
+        case k2009RemoteButtonPlay:
         case kRemoteButtonPlay:
 			[self clickPlay];
 
@@ -156,6 +157,9 @@ increase/decrease as long as the user holds the left/right, plus/minus button */
             }
 				break;
         case kRemoteButtonMenu:
+            break;
+        case k2009RemoteButtonFullscreen:
+            [mainWindow toggleFullScreen:nil];
             break;
         default:
             /* Add here whatever you want other buttons to do */
