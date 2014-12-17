@@ -10,7 +10,7 @@
 		177FCFC20B90C9960011C3B5 /* Plugin.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 177FCFC10B90C9960011C3B5 /* Plugin.h */; };
 		17C93F080B8FF67A008627D6 /* FlacDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C93F040B8FF67A008627D6 /* FlacDecoder.m */; };
 		17F5643C0C3BDC820019975C /* FLAC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F564220C3BDC460019975C /* FLAC.framework */; };
-		17F5643F0C3BDC840019975C /* FLAC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17F564220C3BDC460019975C /* FLAC.framework */; };
+		17F5643F0C3BDC840019975C /* FLAC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 17F564220C3BDC460019975C /* FLAC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -185,7 +185,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Flac" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -252,6 +252,7 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -274,6 +275,7 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -293,9 +295,9 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG";
 				SDKROOT = macosx;
 				SYMROOT = ../../build;
@@ -305,7 +307,6 @@
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = macosx;

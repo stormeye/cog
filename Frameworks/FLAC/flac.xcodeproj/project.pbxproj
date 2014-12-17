@@ -213,7 +213,7 @@
 				17B5E14F0CC074D3004E2AF4 /* share */,
 			);
 			name = include;
-			path = "flac-1.3.0/include";
+			path = "flac-1.3.1/include";
 			sourceTree = "<group>";
 		};
 		17B5E1450CC074D3004E2AF4 /* FLAC */ = {
@@ -264,7 +264,7 @@
 				17B5E15D0CC074D3004E2AF4 /* libFLAC */,
 			);
 			name = src;
-			path = "flac-1.3.0/src";
+			path = "flac-1.3.1/src";
 			sourceTree = "<group>";
 		};
 		17B5E15D0CC074D3004E2AF4 /* libFLAC */ = {
@@ -492,8 +492,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
-					"flac-1.3.0/include",
-					"flac-1.3.0/src/libFLAC/include",
+					"flac-1.3.1/include",
+					"flac-1.3.1/src/libFLAC/include",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
@@ -529,8 +529,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
-					"flac-1.3.0/include",
-					"flac-1.3.0/src/libFLAC/include",
+					"flac-1.3.1/include",
+					"flac-1.3.1/src/libFLAC/include",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
